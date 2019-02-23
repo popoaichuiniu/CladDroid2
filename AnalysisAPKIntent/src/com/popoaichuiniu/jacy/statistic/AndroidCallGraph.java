@@ -41,7 +41,7 @@ public class AndroidCallGraph {//日志处理ok
 
 
         appLogger = org.apache.log4j.Logger.getLogger(appPath);
-        String logfilePath = Config.androidCallGraphLogDir+"/" + appPath.replaceAll("/|\\.", "_") + "_callgraph.log";
+        String logfilePath = Config.androidCallGraphLogDir+"/exception/" + appPath.replaceAll("/|\\.", "_") + "_callgraph.log";
 
         File temp = new File(logfilePath);
         if (temp.exists()) {
@@ -457,7 +457,7 @@ public class AndroidCallGraph {//日志处理ok
 
         try {
 
-            cgOutputWriter = new BufferedWriter(new FileWriter(new File("./AnalysisAPKIntent/CallGraphOutput/" + appPath.replaceAll("/|\\.", "_") + "_cfg" + ".txt")));
+            cgOutputWriter = new BufferedWriter(new FileWriter(new File(Config.androidCallGraphLogDir+"/CallGraphOutput/" + appPath.replaceAll("/|\\.", "_") + "_cfg" + ".txt")));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

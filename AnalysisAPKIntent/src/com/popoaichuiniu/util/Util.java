@@ -602,7 +602,7 @@ public class Util {
     }
 
     public static void testInitial(List<SootMethod> ea_entryPoints, List<SootMethod> roMethods, Chain<SootClass> applicationClasses, String appPath,Logger logger) {
-        WriteFile writeFile = new WriteFile("AnalysisAPKIntent/testInitial/" + new File(appPath).getName() + ".txt", false, logger);
+        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults+"/testInitial/" + new File(appPath).getName() + ".txt", false, logger);
 
         writeFile.writeStr("all application class:" + "\n\n\n\n");
         for (SootClass sootClass : applicationClasses) {

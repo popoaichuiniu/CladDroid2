@@ -104,7 +104,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
     private static BufferedWriter bufferedWriter_instrument_content = null;
     private static BufferedWriter bufferedWriter_app_has_Instrumented = null;
 
-    private static WriteFile writeFileAppInstrumentException = null;
+    private static WriteFile writeFileAppInstrumentException = null;//记录出现插桩失败的app
 
     private static volatile int inStrumentCount = 0;
 
@@ -168,37 +168,37 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
         File appDirFile = new File(appDir);
 
-        if (appDirFile.isDirectory()) {
-            File logFileDir = new File("InstrumentAPK/instrument_log/" + appDirFile.getName());
-            if (!logFileDir.exists()) {
-                logFileDir.mkdir();
-
-            }
-            if (logFileDir.exists()) {
-                writeFileAppInstrumentException = new WriteFile("InstrumentAPK/instrument_log/" + appDirFile.getName() + "/" + "appInstrumentException.log", true,exceptionLogger);
-
-            } else {
-                throw new RuntimeException("创建logFileDir失败！");
-            }
-        } else {
-            writeFileAppInstrumentException = new WriteFile("InstrumentAPK/instrument_log/" + appDirFile.getName() + "_instrumentException.log", true,exceptionLogger);
-        }
-
-
-        Set<String> hasInstrumentAPP = new ReadFileOrInputStream("InstrumentAPK/instrument_log/app_has_Instrumented.txt",exceptionLogger).getAllContentLinSet();
-
-        if (hasInstrumentAPP == null) {
-            throw new RuntimeException("读取app_has_Instrumented.txt失败！");
-        }
-
-        try {
-            bufferedWriter_app_has_Instrumented = new BufferedWriter(new FileWriter("InstrumentAPK/instrument_log/app_has_Instrumented.txt", true));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        writeFileAppInstrumentException = new WriteFile(Config.instrument_logDir+"/" + appDirFile.getName() + "_instrumentException.log", true,exceptionLogger);
 
         if (appDirFile.isDirectory()) {
+
+            File hasInstrumentedFile=new File(Config.instrument_logDir+"/"+appDirFile.getName()+"_has_Instrumented.txt");
+
+            if(!hasInstrumentedFile.exists())
+            {
+                try {
+                    hasInstrumentedFile.createNewFile();
+                }
+                catch (IOException e)
+                {
+                    throw new RuntimeException("创建hasInstrumentedFile失败！");
+                }
+
+            }
+
+            Set<String> hasInstrumentAPP = new ReadFileOrInputStream(hasInstrumentedFile.getAbsolutePath(),exceptionLogger).getAllContentLinSet();
+
+            if (hasInstrumentAPP == null) {
+                throw new RuntimeException("读取app_has_Instrumented.txt失败！");
+            }
+
+            try {
+                bufferedWriter_app_has_Instrumented = new BufferedWriter(new FileWriter(Config.instrument_logDir+"/"+"app_has_Instrumented.txt", true));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
             for (File file : appDirFile.listFiles()) {
                 if (file.getName().endsWith(".apk")) {
                     if (hasInstrumentAPP.contains(file.getAbsolutePath())) {
@@ -219,12 +219,12 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
                                 instrumentArgs[2] = unitedAnalysis.getAbsolutePath();
 
                                 soot.G.reset();
-                                try {
+                                //try {
                                     singleAPPAnalysis(instrumentArgs);
-                                } catch (RuntimeException e) {
-                                    writeFileAppInstrumentException.writeStr(e.getMessage() + " " + instrumentArgs[0] + "\n");
-                                    writeFileAppInstrumentException.flush();
-                                }
+//                                } catch (RuntimeException e) {
+//                                    writeFileAppInstrumentException.writeStr(e.getMessage() + " " + instrumentArgs[0] + "\n");
+//                                    writeFileAppInstrumentException.flush();
+//                                }
 
                                 try {
                                     bufferedWriter_app_has_Instrumented.write(instrumentArgs[0] + "\n");
@@ -337,7 +337,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         if (targetCount != inStrumentCount) {
 
             exceptionLogger.error(args[0]+"##"+"插桩数量和需要插桩的数量不匹配！");
-            //throw new RuntimeException("插桩数量和需要插桩的数量不匹配！");
+
         }
 
         infoLogger.info(args[0]+" instrument over!");

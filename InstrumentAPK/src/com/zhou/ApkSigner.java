@@ -33,9 +33,18 @@ public class ApkSigner {
         File appDirFile = new File(appDir);
         if (appDirFile.isDirectory()) {
 
-            Set<String> hasSignedApps = new ReadFileOrInputStream("InstrumentAPK/apkSignerLog/hasSignedApps.txt", exceptionLogger).getAllContentLinSet();
-            WriteFile writeFile = new WriteFile("InstrumentAPK/apkSignerLog/hasSignedApps.txt", true, exceptionLogger);
-            WriteFile writeFileException = new WriteFile("InstrumentAPK/apkSignerLog/exceptionSignedApps.txt", true, exceptionLogger);
+            File hasSignedAppsFile = new File(Config.apkSignerLog + "/" + appDirFile.getName() + "_hasSignedApps.txt");
+            if (!hasSignedAppsFile.exists()) {
+                try {
+                    hasSignedAppsFile.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException("无法创建hasSignedAppsFile！");
+                }
+
+            }
+            Set<String> hasSignedApps = new ReadFileOrInputStream(hasSignedAppsFile.getAbsolutePath(), exceptionLogger).getAllContentLinSet();
+            WriteFile writeFile = new WriteFile(hasSignedAppsFile.getAbsolutePath(), true, exceptionLogger);
+            WriteFile writeFileException = new WriteFile(Config.apkSignerLog + "/exceptionSignedApps.txt", true, exceptionLogger);
             for (File apkFile : appDirFile.listFiles()) {
                 if ((apkFile.getName().endsWith(".apk")) && (!apkFile.getName().endsWith("_signed_zipalign.apk"))) {
                     if (hasSignedApps.contains(apkFile.getAbsolutePath())) {
@@ -113,6 +122,6 @@ public class ApkSigner {
             throw new RuntimeException("sign apk failed!\n");
         }
 
-        infoLogger.info("apk sign over:"+appDirFile.getAbsolutePath());
+        infoLogger.info("apk sign over:" + appDirFile.getAbsolutePath());
     }
 }

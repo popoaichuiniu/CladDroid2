@@ -35,7 +35,7 @@ public class UseIPCCheckPermssion extends SceneTransformer {
 
     private static Logger logger = new MyLogger("AnalysisAPKIntent/UseIPCCheckPermission", "exceptionLogger").getLogger();
 
-    private static WriteFile writeFile = new WriteFile("AnalysisAPKIntent/checkPermissionCount/permissionCheckSituation.txt", false, logger);
+    private static WriteFile writeFile = new WriteFile(Config.logDir+"/checkPermissionCount/permissionCheckSituation.txt", false, logger);
 
     public UseIPCCheckPermssion
             (String apkFilePath, String platforms) {

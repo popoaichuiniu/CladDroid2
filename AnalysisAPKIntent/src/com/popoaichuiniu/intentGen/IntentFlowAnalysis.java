@@ -1,5 +1,6 @@
 package com.popoaichuiniu.intentGen;
 
+import com.popoaichuiniu.util.Config;
 import com.popoaichuiniu.util.WriteFile;
 import org.apache.log4j.Logger;
 import soot.Unit;
@@ -33,9 +34,9 @@ public class IntentFlowAnalysis extends ForwardFlowAnalysis<Unit, FlowSet<Value>
     public IntentFlowAnalysis(DirectedGraph<Unit> graph, Logger logger) {
 
         super(graph);
-        writeFileIntentAttr=new WriteFile("AnalysisAPKIntent/intentPass/"+"intentAttr.txt",true,logger);
-        writeFileIntentGetIntent=new WriteFile("AnalysisAPKIntent/intentPass/"+"intentGetIntent.txt",true,logger);
-        writeFileIntentFromParameter=new WriteFile("AnalysisAPKIntent/intentPass/"+"intentFromParameter.txt",true,logger);
+        writeFileIntentAttr=new WriteFile(Config.intentFlowAnalysisResult +"/intentPass/"+"intentAttr.txt",true,logger);
+        writeFileIntentGetIntent=new WriteFile(Config.intentFlowAnalysisResult+"/intentPass/"+"intentGetIntent.txt",true,logger);
+        writeFileIntentFromParameter=new WriteFile(Config.intentFlowAnalysisResult+"/intentPass/"+"intentFromParameter.txt",true,logger);
 
         doAnalysis();
         writeFileIntentAttr.close();

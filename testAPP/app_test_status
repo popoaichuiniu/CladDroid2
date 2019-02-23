@@ -3233,3 +3233,15 @@ Error: Activity class {jacy.popoaichuiniu.com.testpermissionleakge/jacy.popoaich
 /home/lab418/Desktop/instrumented/videoDemo_signed_zipalign.apk11111111111111111111111111111111111
 0:oneIntent启动成功!
 /home/lab418/Desktop/instrumented/videoDemo_signed_zipalign.apk222222222222222222222222222222222222222
+/home/lab418/instrumented/videoDemo_signed_zipalign.apk11111111111111111111111111111111111
+0启动APP失败WARNING: linker: libdvm.so has text relocations. This is wasting memory and is a security risk. Please fix.
+Error type 2
+android.util.AndroidException: Can't connect to activity manager; is the system running?
+	at com.android.commands.am.Am.onRun(Am.java:264)
+	at com.android.internal.os.BaseCommand.run(BaseCommand.java:47)
+	at com.android.commands.am.Am.main(Am.java:76)
+	at com.android.internal.os.RuntimeInit.nativeFinishInit(Native Method)
+	at com.android.internal.os.RuntimeInit.main(RuntimeInit.java:243)
+	at dalvik.system.NativeStart.main(Native Method)
+##eeeeeeeeeeee
+/home/lab418/instrumented/videoDemo_signed_zipalign.apk222222222222222222222222222222222222222

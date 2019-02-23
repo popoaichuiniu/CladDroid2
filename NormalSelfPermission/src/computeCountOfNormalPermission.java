@@ -26,9 +26,9 @@ public class computeCountOfNormalPermission {
 
         Set<String> hasAppsProcess = readFileOrInputStream.getAllContentLinSet();
 
-        WriteFile writeFileSuccess = new WriteFile("NormalSelfPermission/computeCountOfNormalPermission/hasAppsProcess.txt", true, logger);
+        WriteFile writeFileSuccess = new WriteFile(Config.normalSelfPermission+"/hasAppsProcess.txt", true, logger);
 
-        WriteFile writeFileResult = new WriteFile("NormalSelfPermission/computeCountOfNormalPermission/" + "result.txt", true, logger);
+        WriteFile writeFileResult = new WriteFile(Config.normalSelfPermission+"/result.txt", true, logger);
 
 
         HashSet<String> allProblemApps = new HashSet<>();

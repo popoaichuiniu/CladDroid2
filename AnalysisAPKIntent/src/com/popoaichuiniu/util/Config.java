@@ -81,6 +81,12 @@ public class Config {
     public static String androidCallGraphLogDir=logDir +"/androidCallgraph";
 
 
+    public static String intentFlowAnalysisResult=logDir+"/intentFlowAnalysis";
+
+
+    public static  String normalSelfPermission=logDir+"/"+"NormalSelfPermission/computeCountOfNormalPermission";
+
+
 
     public static boolean isTest =false;
 

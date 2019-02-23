@@ -13,3 +13,4 @@ testAPP/venv*/
 **/out/
 experiment_data_paper/
 platforms/
+Z3_RUNTIME_SPECS_DIR/

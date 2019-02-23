@@ -216,3 +216,8 @@ android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk,4,
 /media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/手机铃声.apk,9214,52,0.005643585847623182
 /media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/CLauncher.apk,1,0,0.0
 /media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/春秋旅游.apk,165,0,0.0
+/home/lab418/videoDemo.apk,4,0,0.0
+/media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/星巴克.apk,3350,1194,0.3564179104477612
+/media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/搜狗壁纸.apk,775,16,0.02064516129032258
+/media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/91锁屏.apk,1046,0,0.0
+/media/mobile/myExperiment/idea_ApkIntentAnalysis/repeat_experiment/手机百度.apk,6012,280,0.046573519627411845
