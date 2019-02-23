@@ -1,0 +1,771 @@
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小学英语100分.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/今日头条.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷我听书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/每日瑜伽.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WhatsApp .apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/蜻蜓FM.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Prisma艺术相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/丁香医生.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/屏幕亮度调节.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/90后小清新动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Blur壁纸工具.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/安卓手电筒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/大众点评.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美食杰.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LT来电闪光.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GPS 测试仪​​​​​​.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CNTV奥运直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Sit-Ups PRO仰卧起坐软件专业版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/少儿趣配音.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/OSU.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/腾讯新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AA小说下载阅读器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/优酷.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷划锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/玩吧.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝学蔬菜.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 地球.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/企鹅FM.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/纳米盒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/乐动力.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/正点闹钟.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Running.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虾米音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/最美壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/秀壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/系统程序安全卸载器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/模拟农场.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/古诗词典.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Play Services.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/95美女秀.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FT中文网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百词斩.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/结缘.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/同城夜约会.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/imo 免费视频通话和聊天.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/沪江开心词场.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/儿歌多多.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/豆果美食.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷音铃声.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度输入法.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/腾讯手机管家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/作家助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/城市旅游指南Guides.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小蓝单车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝巴士大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D视差背景.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/网易彩票.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美团众包.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快读免费小说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/极速清理.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/优酷大屏幕for Pad.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/得到.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HD Landscape Walls.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/多看阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/一键锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/APUS.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/网易公开课.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CCTV微视.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟锻炼 Seven.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Elun主题.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/葫芦侠我的世界.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/拍大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/风行视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/丁香园.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/哔哩哔哩动画.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝懂礼貌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/号簿助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Uber优步.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/RE文件管理器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/91老人桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SNOW相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DynEd.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/即刻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快牙.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/运满满司机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百姓网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE Camera.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/i练-场馆版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/触手直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/科学计算器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/悦跑圈运动计步器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/铃声大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/极速安全VPN.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/咪咕视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虚拟按键大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/超级指南针.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小米计算器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FBI指纹.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/京东金融.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/链家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/狼人杀.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/多玩我的世界盒子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/cc来电炫图.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度文库.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/沪江网校.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟的锻炼 7 Minute Workout.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/iFANCL CN.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GG泰拉瑞亚盒子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/三星主题商店.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/龙卷风收音机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/导航犬.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/芒果TV.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/有道翻译官.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/超级抢红包助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/穷游.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Boss直聘.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HIGO.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ANT桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/KakaoTalk.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/8868手游交易.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/探探.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MIX滤镜大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/驾校一点通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/咕咚.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/今日头条极速版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BBC双语新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nova Launcher.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Training Club.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/有缘网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO天气EX.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/亲宝宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TP-LINK.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Heart Rate PRO心率软件.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度贴吧.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/免费wifi电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/纹字锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/扫一扫.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DIY 动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/锤子桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/58同城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SHOPBOP.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/上海地铁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fotor.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度一键root.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Moves.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/挖财宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/500 Firepaper动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CoCo桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/来电拦截专家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi万能密码.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/照顾小宝宝-宝宝巴士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/车主无忧.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MyFitnessPal减肥宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HiddenTag C.O.P..apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快贷.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟的锻炼.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/平安金管家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/扇贝听力.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cortana 微软小娜.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Acrobat DC.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/空气锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Hola桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/二手车之家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/鲜柚桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360安全通讯录.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Forest.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TED演讲.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天气预报.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/书旗小说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/懒人周末.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/12306官方版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Push-Ups俯卧撑应用程序.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/100tv聚好看.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/4G电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/腾讯游戏助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/1号店.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝学数字.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CNN在线新闻 v1.4.1.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D 三星Note5 桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱奇艺动画屋.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/糗事百科.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/同花顺炒股票.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/E宠商城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度贴吧极速版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/老板锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微会.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱吾游戏宝盒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ginger 键盘.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GPS测试.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美柚.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微微电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/智能感应计步器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Buzz小部件.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Movnow.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/英语流利说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/懂球帝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/春雨医生.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/星巴克.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/com.aldiko.android.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/安兔兔评测.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Steam.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D动态金鱼.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/34金币管理.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/狼人杀Online.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/世纪佳缘.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小月历.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BESTKEEP.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Finger学吉他钢琴曲谱.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/点心桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/声控锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TST庭秘密（正式版）.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/iNoty苹果通知栏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/中华万年历.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9块9包邮购.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CIBN全球购.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/浦发手机银行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/动动.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lifesum - The Health Movement.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/瓜子二手车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fox News 福克斯新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ音乐HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Gofun出行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/通通免费电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度外卖.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/和我信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狗输入法.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝幼儿园.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/6周完美健身.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/唱吧.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ安全中心.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/0013网咖.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手机电视.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/用钱宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝行为认知.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/斗鱼.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/转移到 iOS.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HM官方客户端.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Messenger.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/大姨吗.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360手机桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/换字体管家大师版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/网易云音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/应用锁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Blued.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/淘票票.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/驴妈妈旅游.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/新华字典.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/EMS.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/省电宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Funtouch桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度翻译.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小睡眠.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FIFA.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AcFun.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/魔秀桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apex Launcher.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/掌上如家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Next桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/豆瓣FM.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CC直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/毒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/点心拨号.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GuitarTuna - 吉他调音器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HIIT间歇训练.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CBox网络电视客户端HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/189邮箱.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微信炫字体.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/汽车报价大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷我K歌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/约爱同城交友.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Foodie美食相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/艺龙旅行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/乐视体育.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/崔玉涛育学园.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player 解码包 (ARMv7 NEON).apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/面包猎人.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FIFA Online 3D.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/2017驾考宝典科目一.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/咪咕音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Catty GPS.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/二维码扫描.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/过日子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lazada - Shopping & Deals.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D变形金刚手机解锁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Unova智能体温计.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷狗手机铃声.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/暴风影音.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/奇思壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/内涵段子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GAOVISON.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/91桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DigitalClock数码时钟.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/铃声剪辑.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/D客商城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Buzz桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/分身大师 .apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/陌陌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/布卡漫画.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天天动听HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虎扑体育.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/电鼓垫24Electro Drum Pads 24.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/懒人听书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LOL动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱字体.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9.9限时包邮.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WEAR.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google街景.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Gmarket Global 中文.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360影视大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/喵播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/更美.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FIT瘦身学院.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/2345浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/1919快喝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360天气.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/薄荷.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/same.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/房天下.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/链家-上海苏州.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度网盘.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/娃娃家长版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Facebook Messenger.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/多米音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/健身宝典.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/千牛.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快约爱.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/相册.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/途牛旅游.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝美食街.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/一直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ZOL中关村在线.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/指南针.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/她社区.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/起点读书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HeHa.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/达达.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FRESH.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/智慧树.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Angelababy主题锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/EXO朴灿烈主题锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/最右.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/护眼宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狗号码通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/兜兜公交.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ同步助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/悦动圈.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/+HOME 免费美化主题桌面壁纸图标.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/飞猪（原阿里旅行）.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/行者.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Faceu激萌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天气通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狐新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/聚力视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/懒财网理财.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/69书吧.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/好豆.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/路路通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Agoda安可达.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/eBay.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DJ多多.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Baby Kick Count Card.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝医院.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Aviary.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/饥饿鲨进化破解(来电秀).apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/YY.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DD373游戏交易平台.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/课程格子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/有看头.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/1元云购.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/音乐播放器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bong Classic.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Backdrops壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷我音乐HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/滴滴司机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Anyview阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi 连网神器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/最美天气.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/轻加减肥.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狗壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/香哈菜谱.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/猫眼电影.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/糖豆广场舞.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美团外卖.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/啪啪啪.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/腾讯视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Blur模糊壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/叮咚免费电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/旅图.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AVI播放器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/A直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/蚂蜂窝自由行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/电视家2.0.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝爱整理.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flipkart 在线商城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/刷机精灵.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE whoscall- 來電辨識與封鎖.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DS video.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Now Launcher.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fabulous 美妙激励.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/B612.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/开眼 Eyepetizer.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/暴走漫画.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/转转.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/JU53.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LBE安全大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/家长帮.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/91锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/考研帮.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/金山词霸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷狗音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Twitter.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Flash Player.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/火辣健身.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手机百度.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DicePlayer播放器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝爱吃饭.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小猿搜题.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/信用钱包.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/UC浏览器HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cheetah Launcher（主题桌面）.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AR涂涂乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/终极指南针.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Car Wallpapers!.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/fooView.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱听4G.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/周末去哪儿.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虚拟来电.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Tin'secret.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/猎豹浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/凤凰视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/nice.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝知道.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/iHerb.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/８分音符.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi万能钥匙.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/掌上生活.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/漫画岛.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nova启动器升级器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Six Pack 六块腹肌私人教练.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D蓝桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手机营业厅.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/贝聊.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/KingRoot.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fit.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/熊猫看书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小伴龙魔法世界.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱壁纸HD.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/eSpace UC.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flow桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微家园-家长版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/安居客.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/触宝电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手电筒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/网信理财.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝巴士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Feedly.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/现金巴士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/华住酒店.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D宝软桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/flippr.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/skype网络电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Yahoo Weather.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/114社区.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微博.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/趣头条.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D旋转星球动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手机号定位.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/导学号.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/铃声多多.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/超级课程表.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/星座城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Keep.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/学霸君.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/迅雷.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小伴龙.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/passport.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/最美锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/一键ROOT大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Maps.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/万年历.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/完美钢琴.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/万花筒之旅一宝宝巴士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/免费小说书城.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小妖精美化.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/猫咪.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/1905电影网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/我的世界联机盒子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/地图指南针.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Canon Camera Connect.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/免费电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/定位跟踪.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱阅读小说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/牵手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/孕育管家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/36氪.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Facebook.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小伴龙儿歌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/新氧美容.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快看漫画.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/土豆视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Arrow 桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9.9特价包邮.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天行加速器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/王者荣耀掌游宝.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/YouTube.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360儿童卫士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/5sing原创音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FitTime.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/前程无忧51Job.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Autodesk Pixlr.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/字体管家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Airbnb.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flash播放.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BeFunky图片编辑器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狗阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/adidas NEO.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百度手机卫士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/米聊交友.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ空间.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/广州地铁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/风水罗盘指南针.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ANT+ Plugins Service.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/114挂号.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/11选5专业版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flipboard新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ输入法.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/柚宝宝孕育.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/钱站.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天天快报.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/学生赚.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/爱音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/17K小说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apple Music.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/联系人.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/旺信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/邮储银行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Hello Kitty 手电筒.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/知乎日报.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微信读书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Q拍乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/名为梦梦奈的Servant.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/17搜车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO短信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/学习通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Launcher Lab.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ Instagram.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/骑呗单车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/彩云小译.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/安徽移动手机营业厅.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/江苏移动掌上营业厅.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/IKEA宜家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bong.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/豆瓣.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Coach.me - Achieve Any Goal.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Feel.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/顺风车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/手机铃声.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/装扮小公主.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DOTA视频站.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/头条视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/有道词典.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CLauncher.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ ES经典主题.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/荣耀王者开黑组队.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CAD快速看图.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/王者荣耀助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9.9包邮货到付款.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cover锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/网易新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/今日十大新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/速算盒子学生端.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SLine.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ezPDF Reader.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ASOS中国.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/阿里小号.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/怪物闹钟.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ 360清理大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小蚁摄像机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/2345影视大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/dotdotexpress.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SimpleMind Free mind mapping.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/蓝墨云班课.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/人人视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美妆相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/K歌达人.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/迷你世界-我的方块世界动态壁纸.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/考拉FM电台.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/广东移动手机营业厅.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/同程旅游.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虚拟架子鼓.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bodivis.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/和通讯录.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AfreecaTV在线视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/讯飞输入法.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/夸克浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/派派.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/好大夫智慧互联网医院.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Hi运动.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TripAdvisor猫途鹰.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝甜品店.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Angelababy壁纸主题锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/优拜单车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝学习涂颜色.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO锁屏主题Changeful.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/卡牛信用卡管家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic公路自行车 专业版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 翻译.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/墨迹天气.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/UC浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MyCity.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CCTV手机电视.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝游乐园.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/乐视视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/双开助手(多开分身).apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/C-Life睡眠.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/追书神器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GPS工具箱.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝学分类.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Retrica 复古相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/指纹解锁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Mori手帐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Eye Care Plus 护眼卫士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/家长通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝巴士乐园.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/老黄历日历万年历农历.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/有信电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/春雨计步器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/一起作业学生端.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/贷款王.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小米运动.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MoboPlayer.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/映客直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Durgon图标包.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/随手记.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/EXO吴世勋主题锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/hello短信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝生日派对.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/猿题库.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/怕怕.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/北京实时公交.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DU Launcher - 提升手机性能.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/亚马逊Kindle阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/21健康.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/落网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/finalCam.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小米锁屏画报.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/PicsArt Photo Studio.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/华为穿戴.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MimikkoUI开发版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝认知大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/随身乐队.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/智力岛一宝宝巴士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Snapseed.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝超市.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9158美女直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/春秋旅游.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ehshig.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/扇贝单词.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美团.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/37度手环.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/掌上TGP.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/乐教乐学.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/粉笔公考.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/360手机卫士.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/掌上英雄联盟.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Now正念冥想.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Angelababy高清壁纸桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/天天练.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/2345天气王.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Gmax.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/来电通.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/虎牙直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/快看免费小说.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/呼应电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CAJ云阅读.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/壁纸多多.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/闲鱼.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/凌步海风羽速.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝贝听听.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Viber.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/全民K歌.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/微信电话本.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/56视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BBC News.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝树孕育.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/阿里通电话.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/东方财富网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/黄历天气.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/酷我音乐.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/1元乐购.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/熊猫直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/dulife.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/用药助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AcDisplay 锁屏信息.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE（连我）.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/荔枝FM直播.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/中国银行手机银行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝服装秀.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/8684地铁.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/绿色守护 (Greenify).apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/安卓动态壁纸锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/瘦瘦.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/斗图神器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Photoshop手机版.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/搜狐视频.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/蚂蚁短租.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/肯德基.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/脉脉.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/电话手表.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/凤凰新闻.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/赶集网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ浏览器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/北斗导航.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/腾讯动漫.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cuto.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ENJOY.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/迷你飞信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/易信.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/影音先锋.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/莱秤.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/字体大师.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FC2 Live.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/红包锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/POCO相机.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CCTV5.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ofo共享单车.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Sleep Better优质睡眠应用程序.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宝宝小厨房.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bilibili直播姬.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HTC Sense Home.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CHINA DAILY.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/多听FM.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/招商银行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/镜子.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/4G信号增强器.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fuji Xerox Print Utility.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/免费电子书.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/美丽修行.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ami桌面.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/儿歌点点.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/EXO动态壁纸主题锁屏.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ali Safdar.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/知乎.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/影视大全.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/e乐活.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/9块9包邮.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/糖果工厂.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TSF Launcher.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/小豆苗疫苗助手.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/途家.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/宜人贷借款.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO 开关+.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/91通讯录.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/百分网.apk
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/EXO边伯贤主题锁屏.apk
+/home/zms/test_cl/instrumented/app-debug.apk

@@ -1,0 +1,16 @@
+#!/bin/sh
+git add readme.txt
+git add AnalysisAPKIntent/src
+git add soot-infoflow-android/src/soot/jimple/infoflow/android/SetupApplication.java
+git add InstrumentAPK/src
+git add soot/src/soot/Kind.java
+git add soot/src/soot/jimple/JimpleBody.java
+git add testAPP/*
+git add android_project/Camera/TestPermissionleakge/*
+git add android_project/Camera/ExamplePermissionLeakge/*
+git add android_project/Camera/TestWebView2/*
+git add soot/src/soot/Main.java
+git add some_results/*
+git add NormalSelfPermission/*
+git add EANotProper/*
+git add CladdroidGUI/*

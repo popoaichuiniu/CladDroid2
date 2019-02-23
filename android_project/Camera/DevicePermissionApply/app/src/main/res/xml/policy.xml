@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 申请的设备管理员权限 -->
+    <uses-policies>
+
+        <!-- 锁定屏幕 -->
+        <force-lock />
+
+        <!-- limit-password  设置密码的规则 -->
+        <limit-password />
+
+        <!-- watch-login 监控屏幕解锁尝试次数 -->
+        <watch-login />
+
+        <!-- 更改屏幕解锁密码 -->
+        <reset-password />
+
+        <!-- wipe-data 删除全部的数据 -->
+        <wipe-data />
+    </uses-policies>
+
+</device-admin>

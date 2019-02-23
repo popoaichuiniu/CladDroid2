@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.coder.camerademo.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginBottom="30dp"
+        />
+
+    <Button
+        android:id="@+id/startCameraThumb"
+        android:layout_above="@+id/startCameraFull"
+        android:layout_centerHorizontal="true"
+        android:text="启动相机(获得缩略图)"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:background="#8FC77E"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/startCameraFull"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="启动相机(获得大尺寸图)"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:background="#E5AC64"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

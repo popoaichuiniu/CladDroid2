@@ -1,0 +1,1050 @@
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WhatsApp .apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GPS 测试仪​​​​​​.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Sit-Ups PRO仰卧起坐软件专业版.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 地球.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Running.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Play Services.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/imo 免费视频通话和聊天.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/优酷大屏幕for Pad.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HD Landscape Walls.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟锻炼 Seven.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ HD.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE Camera.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟的锻炼 7 Minute Workout.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/iFANCL CN.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nova Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Training Club.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Heart Rate PRO心率软件.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DIY 动态壁纸.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/500 Firepaper动态壁纸.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HiddenTag C.O.P..apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cortana 微软小娜.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Acrobat DC.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Push-Ups俯卧撑应用程序.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CNN在线新闻 v1.4.1.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D 三星Note5 桌面.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ginger 键盘.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lifesum - The Health Movement.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fox News 福克斯新闻.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ 科学计算器​​​​​.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/转移到 iOS.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apex Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GuitarTuna - 吉他调音器.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player 解码包 (ARMv7 NEON).apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FIFA Online 3D.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Catty GPS.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lazada - Shopping & Deals.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/分身大师 .apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/电鼓垫24Electro Drum Pads 24.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Gmarket Global 中文.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Facebook Messenger.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/+HOME 免费美化主题桌面壁纸图标.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Baby Kick Count Card.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bong Classic.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi 连网神器.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flipkart 在线商城.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE whoscall- 來電辨識與封鎖.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DS video.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Now Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fabulous 美妙激励.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/开眼 Eyepetizer.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Flash Player.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cheetah Launcher（主题桌面）.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Car Wallpapers!.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Six Pack 六块腹肌私人教练.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/eSpace UC.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Yahoo Weather.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Maps.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Canon Camera Connect.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Arrow 桌面.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Autodesk Pixlr.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/adidas NEO.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ANT+ Plugins Service.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apple Music.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Hello Kitty 手电筒.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Launcher Lab.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ Instagram.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Coach.me - Achieve Any Goal.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ ES经典主题.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ezPDF Reader.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SimpleMind Free mind mapping.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic公路自行车 专业版.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 翻译.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Retrica 复古相机.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Eye Care Plus 护眼卫士.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DU Launcher - 提升手机性能.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/PicsArt Photo Studio.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BBC News.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AcDisplay 锁屏信息.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/绿色守护 (Greenify).apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FC2 Live.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Sleep Better优质睡眠应用程序.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HTC Sense Home.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CHINA DAILY.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fuji Xerox Print Utility.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ali Safdar.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TSF Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO 开关+.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WhatsApp .apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GPS 测试仪​​​​​​.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Sit-Ups PRO仰卧起坐软件专业版.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 地球.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Running.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Play Services.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/imo 免费视频通话和聊天.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/优酷大屏幕for Pad.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HD Landscape Walls.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟锻炼 Seven.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/QQ HD.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE Camera.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/7分钟的锻炼 7 Minute Workout.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/iFANCL CN.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nova Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Nike+ Training Club.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Heart Rate PRO心率软件.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DIY 动态壁纸.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/500 Firepaper动态壁纸.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HiddenTag C.O.P..apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cortana 微软小娜.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Acrobat DC.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Push-Ups俯卧撑应用程序.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CNN在线新闻 v1.4.1.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/3D 三星Note5 桌面.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ginger 键盘.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lifesum - The Health Movement.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fox News 福克斯新闻.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/转移到 iOS.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apex Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GuitarTuna - 吉他调音器.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player 解码包 (ARMv7 NEON).apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FIFA Online 3D.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Catty GPS.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Lazada - Shopping & Deals.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/分身大师 .apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/电鼓垫24Electro Drum Pads 24.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Gmarket Global 中文.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Facebook Messenger.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/+HOME 免费美化主题桌面壁纸图标.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Baby Kick Count Card.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/bong Classic.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/WiFi 连网神器.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Flipkart 在线商城.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/LINE whoscall- 來電辨識與封鎖.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DS video.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Now Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fabulous 美妙激励.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/开眼 Eyepetizer.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Adobe Flash Player.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Cheetah Launcher（主题桌面）.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Car Wallpapers!.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic Six Pack 六块腹肌私人教练.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/eSpace UC.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Yahoo Weather.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google Maps.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Canon Camera Connect.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Arrow 桌面.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Autodesk Pixlr.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/adidas NEO.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/MX Player.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ANT+ Plugins Service.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Apple Music.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Hello Kitty 手电筒.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Launcher Lab.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ Instagram.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Coach.me - Achieve Any Goal.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ ES经典主题.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/ezPDF Reader.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/SimpleMind Free mind mapping.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Runtastic公路自行车 专业版.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Google 翻译.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Retrica 复古相机.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Eye Care Plus 护眼卫士.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/DU Launcher - 提升手机性能.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/PicsArt Photo Studio.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/BBC News.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/AcDisplay 锁屏信息.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/绿色守护 (Greenify).apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/FC2 Live.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Sleep Better优质睡眠应用程序.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/HTC Sense Home.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/CHINA DAILY.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Fuji Xerox Print Utility.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/Ali Safdar.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/TSF Launcher.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+
+/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented/GO 开关+.apk##sign apk failed!
+##java.lang.RuntimeException: sign apk failed!
+
+	at com.zhou.ApkSigner.singleAppAnalysis(ApkSigner.java:103)
+	at com.zhou.ApkSigner.main(ApkSigner.java:40)
+

@@ -1,0 +1,15 @@
+**/.*/
+**/bin/
+**/lib/
+**/libs/
+sootOutput/
+soot-infoflow-android/testAPKs/
+repeat_experiment/
+testAPP/venv*/
+**/buid/
+**/gradle/
+**/*.iml
+**/*.log
+**/out/
+experiment_data_paper/
+platforms/
