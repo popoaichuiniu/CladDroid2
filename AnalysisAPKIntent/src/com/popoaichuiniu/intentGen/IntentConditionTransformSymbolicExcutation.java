@@ -233,7 +233,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList,exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessSatistic.saveData();
 

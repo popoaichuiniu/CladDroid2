@@ -40,10 +40,12 @@ public class GenerateUnitNeedInstrumentLog {
         System.out.println(Util.getPrintCollectionStr(roMethods));
 
 
-        BufferedWriter bufferedWriterUnitsNeedInstrument = null;
 
 
-        bufferedWriterUnitsNeedInstrument = new BufferedWriter(new FileWriter(appPath + "_" + "UnitsNeedInstrument.txt"));
+        WriteFile writeFileUnitsNeedInstrument=null;
+
+
+        writeFileUnitsNeedInstrument=new WriteFile(appPath + "_" + "UnitsNeedInstrument.txt",false,exceptionLogger);
 
 
         for (SootMethod sootMethod : roMethods) {
@@ -75,7 +77,7 @@ public class GenerateUnitNeedInstrumentLog {
                     if (invokeExpr == null) {
                         throw new RuntimeException("illegal unitNeedInstrument" + unit.toString());
                     } else {
-                        bufferedWriterUnitsNeedInstrument.write(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
+                        writeFileUnitsNeedInstrument.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
                     }
 
 
@@ -84,7 +86,7 @@ public class GenerateUnitNeedInstrumentLog {
             }
         }
 
-        bufferedWriterUnitsNeedInstrument.close();
+        writeFileUnitsNeedInstrument.close();
 
 
     }

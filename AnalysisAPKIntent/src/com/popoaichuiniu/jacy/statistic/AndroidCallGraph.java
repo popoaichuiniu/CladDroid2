@@ -9,6 +9,7 @@ import java.util.*;
 import com.popoaichuiniu.intentGen.ICCEntryPointCreator;
 import com.popoaichuiniu.util.Config;
 import com.popoaichuiniu.util.Util;
+import com.popoaichuiniu.util.WriteFile;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 import org.xmlpull.v1.XmlPullParserException;
@@ -41,7 +42,7 @@ public class AndroidCallGraph {//日志处理ok
 
 
         appLogger = org.apache.log4j.Logger.getLogger(appPath);
-        String logfilePath = Config.androidCallGraphLogDir+"/exception/" + appPath.replaceAll("/|\\.", "_") + "_callgraph.log";
+        String logfilePath = Config.androidCallGraphLogDir + "/exception/" + appPath.replaceAll("/|\\.", "_") + "_callgraph.log";
 
         File temp = new File(logfilePath);
         if (temp.exists()) {
@@ -56,8 +57,6 @@ public class AndroidCallGraph {//日志处理ok
         }
 
 
-
-
     }
 
     public CallGraph getCg() {
@@ -67,7 +66,6 @@ public class AndroidCallGraph {//日志处理ok
     public SetupApplication getApp() {
         return app;
     }
-
 
 
     public SootMethod getEntryPoint() {
@@ -191,9 +189,9 @@ public class AndroidCallGraph {//日志处理ok
 
 
         IntentImplicitUse intentImplicitUse = new IntentImplicitUse(appPath, true);
-        Map<SootMethod,String> sootMethodColor = new HashMap<>();//存储节点颜色
+        Map<SootMethod, String> sootMethodColor = new HashMap<>();//存储节点颜色
         Queue<SootMethod> sootMethodQueue = new LinkedList<>();
-        sootMethodColor.put(entryPoint,"gray");//节点颜色为null的表示还未发现，为gray表示在队列里，节点为黑色，表示所有孩子都被发现了
+        sootMethodColor.put(entryPoint, "gray");//节点颜色为null的表示还未发现，为gray表示在队列里，节点为黑色，表示所有孩子都被发现了
         sootMethodQueue.offer(entryPoint);
         int count = 0;
         //不需要使用isChanged, dummymain可以到达所有组件，这些组件包含了app的所有代码
@@ -250,21 +248,20 @@ public class AndroidCallGraph {//日志处理ok
                 for (Iterator<Edge> edgeIterator = cg.edgesOutOf(firstSootMethod); edgeIterator.hasNext(); ) {
                     Edge outEdge = edgeIterator.next();
                     SootMethod outSootMethod = outEdge.tgt();
-                    if (sootMethodColor.get(outSootMethod)==null) {
+                    if (sootMethodColor.get(outSootMethod) == null) {
 
-                        sootMethodColor.put(outSootMethod,"gray");
+                        sootMethodColor.put(outSootMethod, "gray");
 
                         sootMethodQueue.offer(outSootMethod);
                     }
 
                 }
 
-                sootMethodColor.put(firstSootMethod,"black");
+                sootMethodColor.put(firstSootMethod, "black");
             }
 
 
         }
-
 
 
         PackManager.v().getPack("wjpp").apply();//预处理，参考setupApplication
@@ -453,16 +450,11 @@ public class AndroidCallGraph {//日志处理ok
     private void visit() {
 
         HashSet<String> visited = new HashSet<String>();
-        BufferedWriter cgOutputWriter = null;//cg
+        WriteFile cgOutputWriteFile = null;//cg
 
-        try {
 
-            cgOutputWriter = new BufferedWriter(new FileWriter(new File(Config.androidCallGraphLogDir+"/CallGraphOutput/" + appPath.replaceAll("/|\\.", "_") + "_cfg" + ".txt")));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            appLogger.error(appPath, e);
-        }
+        cgOutputWriteFile = new WriteFile(Config.androidCallGraphLogDir + "/CallGraphOutput/" + appPath.replaceAll("/|\\.", "_") + "_cfg" + ".txt", false, appLogger);
+
 
         // *******************************************************//
         System.out.println("*******CallGraph*******" + cg.size());
@@ -470,13 +462,9 @@ public class AndroidCallGraph {//日志处理ok
             soot.jimple.toolkits.callgraph.Edge edge = iterator.next();
             System.out.println(
                     edge.getSrc().method().getBytecodeSignature() + "——>" + edge.getTgt().method().getBytecodeSignature());
-            try {
-                cgOutputWriter.write(edge.getSrc().method().getBytecodeSignature() + "——>" + edge.getTgt().method().getSignature() + "\n");
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                appLogger.error(appPath, e);
-            }
+
+            cgOutputWriteFile.writeStr(edge.getSrc().method().getBytecodeSignature() + "——>" + edge.getTgt().method().getSignature() + "\n");
+
             if (!visited.contains(edge.getSrc().method().getSignature())) {
                 cge.createNode(edge.getSrc().method().getSignature());
                 visited.add(edge.getSrc().method().getSignature());
@@ -490,13 +478,9 @@ public class AndroidCallGraph {//日志处理ok
 
 
         }
-        try {
-            cgOutputWriter.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            appLogger.error(appPath, e);
-        }
+
+        cgOutputWriteFile.close();
+
 
         // *******************************************************//
     }

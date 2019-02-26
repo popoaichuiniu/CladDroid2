@@ -184,7 +184,7 @@ public class Controller {
 
                 progressTextArea.appendText("4. Start test app\n");
                 try {
-                    int status = exeCmd(new File("testAPP"), "/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath);
+                    int status = exeCmd(new File("testAPP"), "/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
                     if (status != 0) {
                         exceptionLogger.error(status + " exeCmd error");
                     }

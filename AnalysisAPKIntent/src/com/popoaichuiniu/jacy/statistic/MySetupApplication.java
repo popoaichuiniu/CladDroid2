@@ -118,7 +118,7 @@ public class MySetupApplication extends SetupApplication {
         // lifecycle methods for this purpose.
 
         //this.sourceSinkProvider = sourcesAndSinks;
-        ProcessManifest processMan = new ProcessManifest(apkFileLocation);// This
+        ProcessManifest processMan = new MyProcessManifest(apkFileLocation);// This
         // class
         // provides
         // easy

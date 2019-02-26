@@ -80,4 +80,22 @@ public class MyProcessManifest extends ProcessManifest {
 		return permissions;
 	}
 
+	public String getApplicationName() {//父类有bug,attr.getValue()可能是int类型
+		AXmlAttribute<?> attr = this.application.getAttribute("name");
+		if(attr==null)
+		{
+			return  null;
+		}
+		else
+		{
+			if(attr.getValue() instanceof String)
+			{
+				return expandClassName((String) attr.getValue());
+			}
+
+			return expandClassName(""+attr.getValue());
+		}
+
+	}
+
 }

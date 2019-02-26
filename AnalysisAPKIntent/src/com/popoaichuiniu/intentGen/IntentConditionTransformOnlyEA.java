@@ -59,7 +59,7 @@ public class IntentConditionTransformOnlyEA
 
         }
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath,intentInfoList);
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath,intentInfoList,logger);
         System.out.println("))))))))))))))))))))))))))))))");
 
 

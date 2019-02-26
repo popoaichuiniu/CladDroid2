@@ -413,15 +413,19 @@ public class AndroidInfo {//日志ok
             for (Map.Entry<String, AXmlAttribute<?>> entry : attributeMap.entrySet()) {
                 String attrName = entry.getKey().trim();
                 if (attrName.equals("permission") || attrName.equals("readPermission") || attrName.equals("writePermission")) {
-                    String value = (String) entry.getValue().getValue();
-                    System.out.println(value);
-                    Map<AXmlNode, String> temp = new HashMap<AXmlNode, String>();
-                    temp.put(eaNodeAXMlValue, value);
-                    permissionProtectedEAs.put(componentName, temp);
+                    if(entry.getValue().getValue() instanceof String)
+                    {
+                        String value = (String) entry.getValue().getValue();
+                        System.out.println(value);
+                        Map<AXmlNode, String> temp = new HashMap<AXmlNode, String>();
+                        temp.put(eaNodeAXMlValue, value);
+                        permissionProtectedEAs.put(componentName, temp);
 
-                    List<String> permissionList = new ArrayList<>();
-                    permissionList.add(value);
-                    EAProtectedPermission.put(componentName, permissionList);//保护EA的权限
+                        List<String> permissionList = new ArrayList<>();
+                        permissionList.add(value);
+                        EAProtectedPermission.put(componentName, permissionList);//保护EA的权限
+                    }
+
                 }
             }
 

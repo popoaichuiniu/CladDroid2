@@ -78,6 +78,9 @@ public class Config {
     public static  String cladDroidLogDir =logDir+"/"+"CladdroidGUI/log";
 
 
+    public static  String dynamicTestLogDir=logDir+"/testLog";
+
+
     public static String androidCallGraphLogDir=logDir +"/androidCallgraph";
 
 
@@ -85,6 +88,8 @@ public class Config {
 
 
     public static  String normalSelfPermission=logDir+"/"+"NormalSelfPermission/computeCountOfNormalPermission";
+
+
 
 
 

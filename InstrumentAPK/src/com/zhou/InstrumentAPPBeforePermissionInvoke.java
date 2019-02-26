@@ -101,8 +101,8 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
     private Set<Pair<Integer, String>> targets = null;
 
-    private static BufferedWriter bufferedWriter_instrument_content = null;
-    private static BufferedWriter bufferedWriter_app_has_Instrumented = null;
+    private static WriteFile writeFile_instrument_content = null;
+    private static WriteFile writeFile_app_has_Instrumented=null;
 
     private static WriteFile writeFileAppInstrumentException = null;//记录出现插桩失败的app
 
@@ -192,11 +192,8 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
                 throw new RuntimeException("读取app_has_Instrumented.txt失败！");
             }
 
-            try {
-                bufferedWriter_app_has_Instrumented = new BufferedWriter(new FileWriter(Config.instrument_logDir+"/"+"app_has_Instrumented.txt", true));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            writeFile_app_has_Instrumented=new WriteFile(Config.instrument_logDir+"/"+"app_has_Instrumented.txt", true,exceptionLogger);
 
 
             for (File file : appDirFile.listFiles()) {
@@ -226,13 +223,9 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 //                                    writeFileAppInstrumentException.flush();
 //                                }
 
-                                try {
-                                    bufferedWriter_app_has_Instrumented.write(instrumentArgs[0] + "\n");
-                                    bufferedWriter_app_has_Instrumented.flush();
-                                } catch (IOException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
+
+                                writeFile_app_has_Instrumented.writeStr(instrumentArgs[0] + "\n");
+                                writeFile_app_has_Instrumented.flush();
 
 
                                 Long stopTime = System.nanoTime();
@@ -256,12 +249,9 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
             }
 
             writeFileAppInstrumentException.close();
-            try {
 
-                bufferedWriter_app_has_Instrumented.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            writeFile_app_has_Instrumented.close();
         } else {
             File unitedAnalysis = new File(appDirFile.getAbsolutePath() + "_UnitsNeedAnalysis.txt");
             instrumentArgs[0] = appDirFile.getAbsolutePath();
@@ -312,12 +302,9 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         Scene.v().addBasicClass("android.util.Log", SootClass.SIGNATURES);
 
 
-        try {
-            bufferedWriter_instrument_content = new BufferedWriter(new FileWriter(args[0] + "_instrument.log"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+
+        writeFile_instrument_content=new WriteFile(args[0] + "_instrument.log",false,exceptionLogger);
 
 
         InstrumentAPPBeforePermissionInvoke instrumentAPPBeforePermissionInvoke = new InstrumentAPPBeforePermissionInvoke(args[0], args[2]);
@@ -326,12 +313,8 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
 
         soot.Main.main(sootArgs);
-        try {
-            bufferedWriter_instrument_content.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+        writeFile_instrument_content.close();
 
 
         if (targetCount != inStrumentCount) {
@@ -366,13 +349,10 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         //check that we did not mess up the Jimple
         b.validate();
         inStrumentCount = inStrumentCount + 1;
-        try {
-            bufferedWriter_instrument_content.write(logMessage.toString() + "\n");
-            bufferedWriter_instrument_content.flush();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+
+        writeFile_instrument_content.writeStr(logMessage.toString() + "\n");
+        writeFile_instrument_content.flush();
 
 
     }
@@ -401,13 +381,10 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         b.validate();
         infoLogger.info("insert before "+point);
         inStrumentCount = inStrumentCount + 1;
-        try {
-            bufferedWriter_instrument_content.write(logMessage.toString() + "\n");
-            bufferedWriter_instrument_content.flush();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+
+        writeFile_instrument_content.writeStr(logMessage.toString() + "\n");
+        writeFile_instrument_content.flush();
 
 
     }

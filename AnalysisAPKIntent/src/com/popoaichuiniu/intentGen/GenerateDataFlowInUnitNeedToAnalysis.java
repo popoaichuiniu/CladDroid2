@@ -35,10 +35,10 @@ public class GenerateDataFlowInUnitNeedToAnalysis {//未实现
         List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(ea_entryPoints, cg);
 
 
-        BufferedWriter bufferedWriterUnitsNeedAnalysis = null;
 
+        WriteFile writeFileUnitsNeedAnalysis=null;
 
-        bufferedWriterUnitsNeedAnalysis = new BufferedWriter(new FileWriter(appPath + "_" + "UnitsNeedAnalysis.txt"));
+        writeFileUnitsNeedAnalysis=new WriteFile(appPath + "_" + "UnitsNeedAnalysis.txt",false,logger);
 
 
         for (SootMethod sootMethod : roMethods) {
@@ -70,7 +70,7 @@ public class GenerateDataFlowInUnitNeedToAnalysis {//未实现
                     if (invokeExpr == null) {
                         throw new RuntimeException("illegal unitNeedAnalysis"+unit.toString());
                     } else {
-                        bufferedWriterUnitsNeedAnalysis.write(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
+                        writeFileUnitsNeedAnalysis.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
                     }
 
 
@@ -79,7 +79,7 @@ public class GenerateDataFlowInUnitNeedToAnalysis {//未实现
             }
         }
 
-        bufferedWriterUnitsNeedAnalysis.close();
+        writeFileUnitsNeedAnalysis.close();
 
 
     }
