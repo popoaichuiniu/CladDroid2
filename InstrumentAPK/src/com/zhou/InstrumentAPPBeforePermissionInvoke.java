@@ -193,7 +193,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
             }
 
 
-            writeFile_app_has_Instrumented=new WriteFile(Config.instrument_logDir+"/"+"app_has_Instrumented.txt", true,exceptionLogger);
+            writeFile_app_has_Instrumented=new WriteFile(hasInstrumentedFile.getAbsolutePath(), true,exceptionLogger);
 
 
             for (File file : appDirFile.listFiles()) {

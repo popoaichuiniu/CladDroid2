@@ -15,6 +15,18 @@ import javax.swing.filechooser.FileFilter;
 import java.io.*;
 import java.util.List;
 
+
+class AnalysisStatus{//boolean变量无法在子线程中拷贝
+    private boolean isStart = false;
+
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
+    }
+}
 public class Controller {
 
     @FXML
@@ -31,8 +43,7 @@ public class Controller {
 
     private boolean isEvironmentCorrect = false;
 
-    private boolean isStart = false;
-
+    private AnalysisStatus analysisStatus=new AnalysisStatus();
 
     private static Logger exceptionLogger = new MyLogger(Config.cladDroidLogDir, "exception").getLogger();
 
@@ -119,8 +130,8 @@ public class Controller {
 
             } else {
 
-                if (!isStart) {
-                    isStart = true;
+                if (!analysisStatus.isStart()) {
+                    analysisStatus.setStart(true);
                     doAnalysis();
 
 
@@ -194,8 +205,7 @@ public class Controller {
                     exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
                 }
                 progressTextArea.appendText("\tPart 4 complete!\n\n");
-                isStart = false;
-
+                analysisStatus.setStart(false);
                 generateResult();
 
                 long endTime=System.nanoTime();
@@ -214,7 +224,7 @@ public class Controller {
 
     private void generateResult() {
 
-        WriteFile writeFile = new WriteFile(Config.logDir + "/" + "testlog" + "/" + "AnalysisResult.txt", false, exceptionLogger);
+        WriteFile writeFile = new WriteFile(Config.dynamicTestLogDir + "/" + "AnalysisResult.txt", false, exceptionLogger);
         String result = getResult();
         writeFile.writeStr(result);
         writeFile.close();
@@ -222,7 +232,7 @@ public class Controller {
 
     private String getResult() {
 
-        String logPath = Config.logDir + "/" + "testlog" + "/" + "ZMSInstrument.log";
+        String logPath = Config.dynamicTestLogDir + "/" + "ZMSInstrument.log";
 
         ReadFileOrInputStream readFileOrInputStream = new ReadFileOrInputStream(logPath, exceptionLogger);
         List<String> listString = readFileOrInputStream.getAllContentList();
@@ -253,7 +263,7 @@ public class Controller {
 
         try {
 
-            String analysisResultFile = Config.logDir + "/" + "testlog" + "/" + "AnalysisResult.txt";
+            String analysisResultFile = Config.dynamicTestLogDir + "/" + "AnalysisResult.txt";
             exeCmd(new File("."), "gedit", analysisResultFile);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -303,19 +313,6 @@ public class Controller {
 
     }
 
-
-    private void testCmd() {
-        try {
-            int status = exeCmd(new File("/media/mobile/myExperiment/idea_ApkIntentAnalysis/testAPP"), "/home/lab418/anaconda3/bin/python", "/media/mobile/myExperiment/idea_ApkIntentAnalysis/testAPP/testAPP.py", "/home/zms/test_cl/app-debug.apk");
-            if (status != 0) {
-                exceptionLogger.error(status + " exeCmd error");
-            }
-        } catch (IOException e) {
-            exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-        } catch (InterruptedException e) {
-            exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-        }
-    }
 
     class ReadLogThread extends Thread {
 

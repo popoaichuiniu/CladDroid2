@@ -43,7 +43,7 @@ public class ApkSigner {
 
             }
             Set<String> hasSignedApps = new ReadFileOrInputStream(hasSignedAppsFile.getAbsolutePath(), exceptionLogger).getAllContentLinSet();
-            WriteFile writeFile = new WriteFile(hasSignedAppsFile.getAbsolutePath(), true, exceptionLogger);
+            WriteFile writeFileHasSigned = new WriteFile(hasSignedAppsFile.getAbsolutePath(), true, exceptionLogger);
             WriteFile writeFileException = new WriteFile(Config.apkSignerLog + "/exceptionSignedApps.txt", true, exceptionLogger);
             for (File apkFile : appDirFile.listFiles()) {
                 if ((apkFile.getName().endsWith(".apk")) && (!apkFile.getName().endsWith("_signed_zipalign.apk"))) {
@@ -53,6 +53,8 @@ public class ApkSigner {
 
                     try {
                         singleAppAnalysis(apkFile);
+                        writeFileHasSigned.writeStr(apkFile.getAbsolutePath() + "\n");
+                        writeFileHasSigned.flush();
                     } catch (Exception e) {
 
                         writeFileException.writeStr(apkFile.getAbsolutePath() + "##" + e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e) + "\n");
@@ -61,15 +63,14 @@ public class ApkSigner {
 
                     }
 
-                    writeFile.writeStr(apkFile.getAbsolutePath() + "\n");
-                    writeFile.flush();
+
 
 
                 }
             }
 
             writeFileException.close();
-            writeFile.close();
+            writeFileHasSigned.close();
 
 
         } else {

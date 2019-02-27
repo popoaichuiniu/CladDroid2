@@ -272,7 +272,7 @@ def test(apkPath, intent_file):  # intent_file and instrumented app
             raise RuntimeError
         flag_install, install_info = installNewAPP(apkPath)
         if (flag_install):
-            flag_pushTestFile, push_info = pushTestFile("./temp_intent")
+            flag_pushTestFile, push_info = pushTestFile(logDir+"/temp_intent")
             if (flag_pushTestFile):
                 flag_test_APP, test_info = startTestAPP()
                 if (flag_test_APP):
@@ -417,9 +417,10 @@ if __name__ == '__main__':
     apkDir = ''
     logDir = ''
     print(sys.argv)
-    if (len(sys.argv) <= 2):
+    if (len(sys.argv) <= 2):#给定参数不对时，使用默认参数
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
         apkDir = '/media/mobile/myExperiment/apps/f-droid-app'
+        #apkDir='/home/lab418/Documents'
         logDir = '/home/zms/logger_file/testLog'
     else:
         apkDir = sys.argv[1]
@@ -428,16 +429,6 @@ if __name__ == '__main__':
         os.makedirs(logDir)
     threadList = []
     threadList = initialLogger(logDir)
-    fail_apk_list = open(logDir + "/failTest_apk_list", "a+")
-    success_apk_list = open(logDir + "/successTest_apk_list", "a+")
-    has_process = getFileContent(logDir + "/has_process_app_list")
-    has_process_app_list = open(logDir + "/has_process_app_list", "a+")
-    timeUse = open(logDir + "/timeUse.txt", "a+")
-
-    # apkDir="/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/selectAPP/instrumented"
-    # apkDir='/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/instrumented'
-    # apkDir='/home/zms/selectAPP2/instrumented'
-    # apkDir='/home/zms/huaweiAPPSelect/instrumented'
 
     while (not isADBWorkNormal()):
         print("等待adb工作正常")
@@ -459,6 +450,12 @@ if __name__ == '__main__':
             print("没有找到指定的intent测试文件或者instrumented app")
 
     else:
+        fail_apk_list = open(logDir + "/failTest_apk_list", "a+")
+        success_apk_list = open(logDir + "/successTest_apk_list", "a+")
+        has_process = getFileContent(logDir + "/has_process_app_list")
+        has_process_app_list = open(logDir + "/has_process_app_list", "a+")
+        timeUse = open(logDir + "/timeUse.txt", "a+")
+
         apkDir = apkDir + "/" + 'instrumented'
         for apkPath, intent_file in analysisAPKDir(apkDir):
             if apkPath in has_process:
