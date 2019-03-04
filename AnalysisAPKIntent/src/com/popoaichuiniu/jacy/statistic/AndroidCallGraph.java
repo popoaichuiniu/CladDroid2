@@ -185,7 +185,13 @@ public class AndroidCallGraph {//日志处理ok
         }
     }
 
+
+
+
     private void addICCMethods() {
+        long iccMethodCallCount=0;
+
+        long  resolveIccTarget=0;
 
 
         IntentImplicitUse intentImplicitUse = new IntentImplicitUse(appPath, true);
@@ -193,7 +199,7 @@ public class AndroidCallGraph {//日志处理ok
         Queue<SootMethod> sootMethodQueue = new LinkedList<>();
         sootMethodColor.put(entryPoint, "gray");//节点颜色为null的表示还未发现，为gray表示在队列里，节点为黑色，表示所有孩子都被发现了
         sootMethodQueue.offer(entryPoint);
-        int count = 0;
+
         //不需要使用isChanged, dummymain可以到达所有组件，这些组件包含了app的所有代码
 
         while (!sootMethodQueue.isEmpty()) {
@@ -214,7 +220,7 @@ public class AndroidCallGraph {//日志处理ok
                                     InvokeExpr invokeExpr = iccStmt.getInvokeExpr();
                                     for (Value valueIntentArg : invokeExpr.getArgs()) {
                                         if (valueIntentArg.getType().toString().equals("android.content.Intent")) {
-                                            count++;
+                                            iccMethodCallCount++;
                                             long beforeGetTargetComponent = System.nanoTime();
                                             TargetComponent targetComponent = intentImplicitUse.doAnalysisIntentGetTargetComponent(valueIntentArg, iccStmt, iccStmt, firstSootMethod);
                                             long afterGetTargetComponent = System.nanoTime();
@@ -238,7 +244,7 @@ public class AndroidCallGraph {//日志处理ok
                         for (UnitPair unitPair : insertUnitList) {
                             body.getUnits().insertAfter(unitPair.insertUnit, unitPair.point);
                             body.validate();
-
+                            resolveIccTarget++;
                             appLogger.info(firstSootMethod + "的" + unitPair.point + "解析成功！" + unitPair.className);
                         }
                     }
@@ -269,7 +275,15 @@ public class AndroidCallGraph {//日志处理ok
 
         cg = Scene.v().getCallGraph();//需要重新赋值
 
-        appLogger.info(appPath + "icc method ulCount" + count);
+        appLogger.info(appPath + "icc method ulCount" + iccMethodCallCount);
+
+        if(iccMethodCallCount>0)
+        {
+            WriteFile writeFileResolveICCTargetRate=new WriteFile(Config.statisticDir+"/"+"resolveICCTargetRate.csv",true,appLogger);
+            writeFileResolveICCTargetRate.writeStr(appPath+","+resolveIccTarget+","+iccMethodCallCount+","+(((double)resolveIccTarget)/iccMethodCallCount)+"\n");
+            writeFileResolveICCTargetRate.close();
+        }
+
 
     }
 

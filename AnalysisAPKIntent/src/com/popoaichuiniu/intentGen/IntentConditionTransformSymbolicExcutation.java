@@ -1,7 +1,7 @@
 package com.popoaichuiniu.intentGen;
 
 import com.microsoft.z3.Z3Exception;
-import com.popoaichuiniu.experiment.SEUnHandleProcessSatistic;
+import com.popoaichuiniu.experiment.SEUnHandleProcessStatistic;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
@@ -117,14 +117,14 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
     private boolean isAnalysis = false;
 
-    private SEUnHandleProcessSatistic seUnHandleProcessSatistic = null;
+    private SEUnHandleProcessStatistic seUnHandleProcessStatistic = null;
 
 
     public IntentConditionTransformSymbolicExcutation(String apkFilePath) {
 
 
         appPath = apkFilePath;
-        seUnHandleProcessSatistic = new SEUnHandleProcessSatistic(appPath);
+        seUnHandleProcessStatistic = new SEUnHandleProcessStatistic(appPath);
 
         BufferedReader bufferedReader = null;
         try {
@@ -233,9 +233,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList,exceptionLogger);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList, exceptionLogger);//产生test-app读取的测试用例文件
 
-        seUnHandleProcessSatistic.saveData();
+        seUnHandleProcessStatistic.saveData();
 
 
     }
@@ -2156,7 +2156,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 }
                 Unit succ = currPathList.get(indexOfUnit - 1);
 
-                seUnHandleProcessSatistic.addAllCount();
+
                 Set<String> newExprs = handleIfStmt(ifStmt, path, sootMethod, defs, currDecls, succ);
                 if (newExprs != null) {
                     currPathCond.addAll(newExprs);
@@ -2190,7 +2190,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             InstanceInvokeExpr ie = (InstanceInvokeExpr) defStmt.getInvokeExpr();
             if (Pattern.matches("get.*Extra", ie.getMethod().getName())) {
                 if (ie.getMethod().getDeclaringClass().toString().equals("android.content.Intent")) {
-                    seUnHandleProcessSatistic.addAllCount();
+
                     Pair<Set<String>, Set<String>> exprPair = buildGetExtraData(defStmt, defs, ie, method, currPath);
                     currDecls.addAll(exprPair.getValue0());
                     currPathCond.addAll(exprPair.getValue1());
@@ -2198,7 +2198,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             }
             if (Pattern.matches("get.*", ie.getMethod().getName())) {//defStmt:xxx=ie.get.*()  ie:android.os.Bundle
                 if (ie.getMethod().getDeclaringClass().toString().equals("android.os.Bundle") || ie.getMethod().getDeclaringClass().toString().equals("android.os.BaseBundle")) {
-                    seUnHandleProcessSatistic.addAllCount();
+
                     Pair<Set<String>, Set<String>> exprPair = buildGetBundleData(defStmt, defs, ie, method, currPath);
                     currDecls.addAll(exprPair.getValue0());
                     currPathCond.addAll(exprPair.getValue1());
@@ -2402,7 +2402,6 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         if (ie.getMethod().getName().equals("getAction")) {
             if (ie.getMethod().getDeclaringClass().getName().equals("android.content.Intent")) {
 
-                seUnHandleProcessSatistic.addAllCount();
 
                 if (ie instanceof InstanceInvokeExpr) {
                     InstanceInvokeExpr iie = (InstanceInvokeExpr) ie;
@@ -2520,7 +2519,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
     private boolean isDefInPathAndLatest(List<Unit> path, Unit inDef, Local usedLocal, Unit usedUnit, SimpleLocalDefs defs) {//---------------------------------------
         if (!MyUnitGraphFactory.getCurMyUnitGraph().allIntentUnitFromStartToTargetUnitInpath.contains(usedUnit)) {
-            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults+"/testFunctions/" + "Error.txt", true, exceptionLogger);
+            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/testFunctions/" + "Error.txt", true, exceptionLogger);
             writeFile.writeStr("allIntentUnitFromStartToTargetUnitInpath don't contains " + usedUnit + "&&" + appPath + "\n");
             writeFile.close();
             exceptionLogger.error("allIntentUnitFromStartToTargetUnitInpath don't contains " + usedUnit + "&&" + appPath + "\n");
@@ -2539,7 +2538,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 if (inDefPos > argDef2Pos) { // if inDef's position in the path is earlier then otherDef's position, then inDef is not the latest definition in the path, so return false
 
                     //-------------是可能的，可能的for循环中的i
-                    WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults+"/testFunctions/" + "isDefInPathAndLatest.txt", true, exceptionLogger);
+                    WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/testFunctions/" + "isDefInPathAndLatest.txt", true, exceptionLogger);
                     writeFile.writeStr(usedLocal + " " + inDef + " " + otherDef + " #" + usedUnit + "# " + appPath + "\n");
                     writeFile.close();
                     return false;
@@ -2547,9 +2546,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             }
             return true; // inDef is in the path and is the latest definition along that path
         } else { // inDef is not in the path, so return false
-            //seUnHandleProcessSatistic.addUnHandleCount();
+            //seUnHandleProcessStatistic.addUnHandleCount();
             if ((!MyUnitGraphFactory.getCurMyUnitGraph().allIntentUnitFromStartToTargetUnitInpath.contains(inDef)) && MyUnitGraphFactory.getCurMyUnitGraph().allIntentUnitFromStartToTargetUnitInpath.contains(usedUnit)) {
-                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults+"/testFunctions/" + "isDefInPathAndLatest.txt", true, exceptionLogger);
+                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/testFunctions/" + "isDefInPathAndLatest.txt", true, exceptionLogger);
                 writeFile.writeStr(usedLocal + " " + inDef + " " + "not in path" + " #" + usedUnit + "# " + appPath + "\n");
                 writeFile.close();
                 //exceptionLogger.error(usedLocal + " " + inDef + " " + "not in path" + " #" + usedUnit + "# " + appPath + "\n");
@@ -2708,7 +2707,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                         if (leftValue == null) {//都不满足
 
                                             UnHandleWriter.write(appPath + "%%1111111111" + jVInvokeExpr + "这种jVInvokeExpr boolean未考虑！\n");
-//                                            seUnHandleProcessSatistic.addUnHandleCount();///111111111111
+//                                            seUnHandleProcessStatistic.addUnHandleCount();///111111111111
 //                                            /media/mobile/myExperiment/apps/0_5_25_45_65_/铃声剪辑.apk%%1111111111virtualinvoke $r2.<java.lang.String: boolean startsWith(java.lang.String)>("|")这种jVInvokeExpr boolean未考虑！
 
                                             findKeysForLeftAndRightValues(ifStmt, opVal1, opVal2, defs, path);
@@ -2788,7 +2787,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                     if (opVal1 == null && opVal2 == null) {
 
                                         UnHandleWriter.write(appPath + "%%" + "equals异常" + "\n");
-                                        seUnHandleProcessSatistic.addUnHandleCount();
+                                        seUnHandleProcessStatistic.addUnHandleCount();
 
                                         MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).error("equals异常");
 
@@ -2826,80 +2825,10 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
 
                                 }
-
-
-//                                if (leftValue == null) {
-//                                    pair_quartet_left_and_right = findBundleValues(sootMethod, defs, ifStmt, conditionLeft, path);//if match this case  leftValue！=null  rightValue=null
-//                                    leftValue = pair_quartet_left_and_right.getValue0();
-//                                    rightValue = pair_quartet_left_and_right.getValue1();
 //
-//                                    if (leftValue != null || rightValue != null) {
-//                                        generateCondExpr = false;
-//                                    }
-//
-//                                    if (leftValue != null) {
-//                                        opVal1 = leftValue.getValue0();
-//                                    }
-//                                    if (rightValue != null) {
-//                                        opVal2 = rightValue.getValue0();
-//                                    }
-//                                    AssignOpVals assignOpVals = new AssignOpVals(decls, opVal1Assert, opVal2Assert, opVal1, opVal2, leftValue, rightValue).invoke();
-//                                    opVal1DefUnit = assignOpVals.getOpVal1DefUnit();
-//                                    opVal2DefUnit = assignOpVals.getOpVal2DefUnit();
-//                                    opVal1Assert = assignOpVals.getOpVal1Assert();
-//                                    opVal2Assert = assignOpVals.getOpVal2Assert();
-//                                }
-
-
-//
-
-
-//                            }//其他类型，比如float ，等
-//                            else {
-//
-//                                if (jVInvokeExpr.getMethod().getDeclaringClass().getName().equals("android.content.Intent")) {
-//
-//
-//                                    MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).info(defDefintionStmtConditionLeft);//---------------------------------------------
-//
-//
-//                                }
-//
-//
-                            }
-
-//
-//
-//                        }
-
-                            //对象类型
-
-//                        else if (conditionLeft.getType() instanceof RefLikeType) {
-//
-//                            if (conditionLeft.getType() instanceof ArrayType) {
-//
-//                                MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).info(conditionLeft);//-----------------------------------
-//
-//                            }
-//
-//                            if (conditionLeft.getType() instanceof RefType) {
-//                                if (conditionLeft.getType().toString().equals("java.lang.String")) {
-//
-//                                }
-//                                if (conditionLeft.getType().toString().equals("android.os.Bundle")) {
-//
-//                                }
-//                                if (conditionLeft.getType().toString().equals("android.content.Intent")) {
-//
-//                                }
-//
-//                            }
-//
-//                        }
-
-                            else {
+                            } else {
                                 UnHandleWriter.write(appPath + "%%2222222222" + defDefintionStmtConditionLeft + "这种defDefintionStmtConditionLeft  boolean 未考虑！\n");
-//                                seUnHandleProcessSatistic.addUnHandleCount();//////////2222222222222222222
+                                seUnHandleProcessStatistic.addUnHandleCount();//////////2222222222222222222
 ///media/mobile/myExperiment/apps/0_5_25_45_65_/导航犬.apk%%2222222222$z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2)这种defDefintionStmtConditionLeft  boolean 未考虑！
                                 findKeysForLeftAndRightValues(ifStmt, opVal1, opVal2, defs, path);
                                 opVal1DefUnit = getDefOfValInPath(opVal1, ifStmt, path, defs);
@@ -2911,7 +2840,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                         } else {
 
                             UnHandleWriter.write(appPath + "%%3333333333" + defDefintionStmtConditionLeft + "这种defDefintionStmtConditionLeft 非 boolean未考虑！\n");
-//                            seUnHandleProcessSatistic.addUnHandleCount();///////333333333333333333333  在其他地方处理了
+//                            seUnHandleProcessStatistic.addUnHandleCount();///////333333333333333333333  在其他地方处理了
 //                            media/mobile/myExperiment/apps/0_5_25_45_65_/城市旅游指南Guides.apk%%3333333333$r3 = virtualinvoke $r2.<android.content.Intent: java.lang.String getStringExtra(java.lang.String)>("referrer")这种defDefintionStmtConditionLeft 非 boolean未考虑！
 
                             findKeysForLeftAndRightValues(ifStmt, opVal1, opVal2, defs, path);
@@ -3060,6 +2989,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                 rightVal = findOriginalVal(method, defs, potentialCmpUnit, cmpExpr.getOp2(), currPath);
                             }
                         }
+                    } else {
+                        UnHandleWriter.write(appPath + "%%" + "Unhandled if stmt for: " + potentialCmpUnit + "\n");
+                        seUnHandleProcessStatistic.addUnHandleCount();
+
+
                     }
                 }
             }
@@ -3390,10 +3324,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                             if (jviExpr.getArg(0) instanceof StringConstant) {
                                                 StringConstant catStrConst = (StringConstant) jviExpr.getArg(0);
                                                 category = catStrConst.value;
+                                                seUnHandleProcessStatistic.addOKHandledCount();
                                             } else//--------------------------------------------------
                                             {
                                                 UnHandleWriter.write(appPath + "%%" + "intent has category 的值来源于非 StringConstant！" + jviExpr + "\n");
-                                                seUnHandleProcessSatistic.addUnHandleCount();
+                                                seUnHandleProcessStatistic.addUnHandleCount();
                                             }
 
                                             Body b = method.getActiveBody();
@@ -3452,7 +3387,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 return findCategories(sootMethod, defs, ifStmt, conditionLeft, path);
             } else {
                 UnHandleWriter.write(appPath + "%%" + "没有处理的返回值为boolean的intent方法:" + jVInvokeExpr.getMethod() + "\n");
-                seUnHandleProcessSatistic.addUnHandleCount();
+                seUnHandleProcessStatistic.addUnHandleCount();
             }
         }
 
@@ -3522,6 +3457,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 String keyString = null;
                 if (jVInvokeExpr.getArg(0) instanceof StringConstant) {
                     keyString = ((StringConstant) (((StringConstant) jVInvokeExpr.getArg(0)))).value;
+                    seUnHandleProcessStatistic.addOKHandledCount();
 
 
                 } else if (jVInvokeExpr.getArg(0) instanceof Local) {
@@ -3529,13 +3465,13 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                     Local keyLocal = (Local) (jVInvokeExpr.getArg(0));//-----------------------------------
 
                     UnHandleWriter.write(appPath + "%%" + "intent has extra的值来源于变量！" + jVInvokeExpr + "\n");
-                    seUnHandleProcessSatistic.addUnHandleCount();
+                    seUnHandleProcessStatistic.addUnHandleCount();
 
 
                 } else {
                     MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).error("unhandle case :" + jVInvokeExpr.toString());
                     UnHandleWriter.write(appPath + "%%" + "unhandle case :" + jVInvokeExpr.toString() + "\n");
-                    seUnHandleProcessSatistic.addUnHandleCount();
+                    seUnHandleProcessStatistic.addUnHandleCount();
                     throw new RuntimeException("unhandle case :" + jVInvokeExpr.toString());
                 }
 
@@ -3669,6 +3605,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
                                                                         leftVal = new Quartet<Value, String, String, Unit>(local, newDecl, newAssert, defUnit);
                                                                     }
+                                                                    seUnHandleProcessStatistic.addOKHandledCount();
                                                                 }
                                                             } else if (bundleInvoke.getMethod().getName().equals("getBundleExtra"))//43个------------------------这里表明bundle是从intent的getBundleExtra取出来，这里intent的getBundleExtra约束已经再处理
                                                             {
@@ -3711,10 +3648,12 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
                                                                 leftVal = new Quartet<Value, String, String, Unit>(local, newDecl, newAssert, defUnit);
 
+                                                                seUnHandleProcessStatistic.addOKHandledCount();
+
 
                                                             } else {
                                                                 UnHandleWriter.write(appPath + "%%" + "unhandle type！" + bundleInvoke.getMethod() + "\n");
-                                                                seUnHandleProcessSatistic.addUnHandleCount();
+                                                                seUnHandleProcessStatistic.addUnHandleCount();
                                                             }
 
                                                         }
@@ -3722,10 +3661,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                                 }
                                             }
                                         }
+
                                     } else if (keyVal instanceof Local)//------------------------------------------------写一个专门抽取函数
                                     {
                                         UnHandleWriter.write(appPath + "%%" + "bundle contains key 是一个变量！\n");
-                                        seUnHandleProcessSatistic.addUnHandleCount();
+                                        seUnHandleProcessStatistic.addUnHandleCount();
 
                                     }
                                 } else if (ie.getMethod().getName().equals("getBoolean")) {
@@ -3758,11 +3698,13 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
                                     leftVal = new Quartet<Value, String, String, Unit>(local, newDecl, newAssert, defUnit);
 
+                                    seUnHandleProcessStatistic.addOKHandledCount();
+
                                 } else {
 
 
                                     UnHandleWriter.write(appPath + "%%" + "unhandle type！" + ie.getMethod().getName() + "\n");
-                                    seUnHandleProcessSatistic.addUnHandleCount();
+                                    seUnHandleProcessStatistic.addUnHandleCount();
 
                                 }
                             }
@@ -3835,10 +3777,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             defUnit = r.getValue3();
         } else if (cmpOp instanceof Constant) {
             origVal = cmpOp;
+            seUnHandleProcessStatistic.addOKHandledCount();
 
         } else {
             UnHandleWriter.write(appPath + "%%" + "Unhandled cmpOp for: " + potentialCmpUnit + "\n");
-            seUnHandleProcessSatistic.addUnHandleCount();
+            seUnHandleProcessStatistic.addUnHandleCount();
 
             MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).error("Unhandled cmpOp for: " + potentialCmpUnit);
             throw new RuntimeException("Unhandled cmpOp for: " + potentialCmpUnit);
@@ -3897,6 +3840,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                     StringConstant stringConst = (StringConstant) coiStmt.getRightOp();
                     newDecl = "(declare-const " + symbol + " String )";
                     newAssert = "(assert (= " + symbol + " " + stringConst + " ))";
+                    seUnHandleProcessStatistic.addOKHandledCount();
                 } else if (coiStmt.getRightOp() instanceof ParameterRef) {
 
                     if (coiStmt.getLeftOp() instanceof Local) {
@@ -3917,11 +3861,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
 
                     UnHandleWriter.write(appPath + "%%" + "Unhandled data source" + coiStmt.getRightOp() + "\n");
-                    seUnHandleProcessSatistic.addUnHandleCount();//并没有对来源于参数的数据处理
+                    seUnHandleProcessStatistic.addUnHandleCount();//并没有对来源于参数的数据处理
 
                 } else {
                     UnHandleWriter.write(appPath + "%%" + "Unhandled type" + coiStmt.getRightOp() + "\n");
-                    seUnHandleProcessSatistic.addUnHandleCount();
+                    seUnHandleProcessStatistic.addUnHandleCount();
                 }
 
 
@@ -3953,11 +3897,12 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         } else if (value instanceof StringConstant) {
             origVal = value;
+            seUnHandleProcessStatistic.addOKHandledCount();
 
         } else {
 
             UnHandleWriter.write(appPath + "%%" + "不能处理equals的两个参数的类型情况" + equalsUnit + "\n");
-            seUnHandleProcessSatistic.addUnHandleCount();
+            seUnHandleProcessStatistic.addUnHandleCount();
 
             MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).error("不能处理equals的两个参数的类型情况" + equalsUnit);
             throw new RuntimeException("不能处理equals的两个参数的类型情况" + equalsUnit);
@@ -3995,6 +3940,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
 
                     //如果这个x1来源于intent方法, 这个约束已经在handleIntentExtra那里处理了。不用生成约束
+                    seUnHandleProcessStatistic.addOKHandledCount();
 
 
                 } else if (defDefintionStmt.getRightOp() instanceof JCastExpr) {//x1=(String)3.5
@@ -4048,13 +3994,13 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
 
                         UnHandleWriter.write(appPath + "%%" + "equals: " + "x1 from parameter" + "\n");
-                        seUnHandleProcessSatistic.addUnHandleCount();
+                        seUnHandleProcessStatistic.addUnHandleCount();
 
                     }
                 } else {// from  field or other sources  ???????可以参考原先letterbomb写的
 
                     UnHandleWriter.write(appPath + "%%" + "equals: " + "x1 from " + defDefintionStmt.getRightOp() + "\n");
-                    seUnHandleProcessSatistic.addUnHandleCount();
+                    seUnHandleProcessStatistic.addUnHandleCount();
                 }
 
             }
@@ -4156,7 +4102,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                 } else {
                                     MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).error("Unhandled case for: " + keyLocalDefStmt.getRightOp());
                                     UnHandleWriter.write("Unhandled case for: " + keyLocalDefStmt.getRightOp() + "\n");
-                                    seUnHandleProcessSatistic.addUnHandleCount();
+                                    seUnHandleProcessStatistic.addUnHandleCount();
 
                                     //throw new RuntimeException("Unhandled case for: " + keyLocalDefStmt.getRightOp());
                                 }

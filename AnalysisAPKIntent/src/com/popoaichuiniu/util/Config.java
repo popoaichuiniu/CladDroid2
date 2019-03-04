@@ -89,6 +89,8 @@ public class Config {
 
     public static  String normalSelfPermission=logDir+"/"+"NormalSelfPermission/computeCountOfNormalPermission";
 
+    public  static String statisticDir=logDir+"/"+"statisticDir";
+
 
 
 
