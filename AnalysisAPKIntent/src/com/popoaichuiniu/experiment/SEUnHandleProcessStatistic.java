@@ -17,6 +17,21 @@ public class SEUnHandleProcessStatistic {
 
 
     public static Logger exceptionLogger=new MyLogger(Config.statisticDir,"exceptionLogger").getLogger();
+    private static WriteFile writeFileResult=new WriteFile(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv",false,exceptionLogger);
+
+
+    static {
+        writeFileResult.writeStr("appPath,handledCount,allCount,handledCount/allCount\n");
+    }
+
+
+    public static void closeFile()
+    {
+        if(writeFileResult!=null)
+        {
+            writeFileResult.close();
+        }
+    }
     public SEUnHandleProcessStatistic(String appPath) {
         this.appPath = appPath;
     }
@@ -34,16 +49,18 @@ public class SEUnHandleProcessStatistic {
 
     public void saveData()
     {
-        WriteFile writeFileResult=new WriteFile(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv",true,exceptionLogger);
+
         if(handledCount !=0&& unHandleCount!=0)
         {
             writeFileResult.writeStr(appPath+","+ handledCount +","+(unHandleCount+handledCount)+","+((double)handledCount)/ (handledCount+unHandleCount) +"\n");
 
         }
 
-        writeFileResult.close();
+        writeFileResult.flush();
 
     }
+
+
 
 
 }

@@ -159,6 +159,8 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         }
 
 
+
+
     }
 
 
@@ -236,6 +238,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList, exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
+
 
 
     }
@@ -2828,7 +2831,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 //
                             } else {
                                 UnHandleWriter.write(appPath + "%%2222222222" + defDefintionStmtConditionLeft + "这种defDefintionStmtConditionLeft  boolean 未考虑！\n");
-                                seUnHandleProcessStatistic.addUnHandleCount();//////////2222222222222222222
+                                //seUnHandleProcessStatistic.addUnHandleCount();//////////2222222222222222222
 ///media/mobile/myExperiment/apps/0_5_25_45_65_/导航犬.apk%%2222222222$z0 = staticinvoke <android.text.TextUtils: boolean isEmpty(java.lang.CharSequence)>($r2)这种defDefintionStmtConditionLeft  boolean 未考虑！
                                 findKeysForLeftAndRightValues(ifStmt, opVal1, opVal2, defs, path);
                                 opVal1DefUnit = getDefOfValInPath(opVal1, ifStmt, path, defs);
@@ -4420,6 +4423,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         ifReducedWriter.close();
         writeFileCallGraphSize.close();
         appUnitGraphPathReducedReachLimit.close();
+
+        SEUnHandleProcessStatistic.closeFile();
+        UnHandleWriter.closeFile();
 
 
     }
