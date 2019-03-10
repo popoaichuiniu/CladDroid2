@@ -1,46 +1,38 @@
-package com.zhou;
-
-import java.io.*;
-import java.util.*;
-import org.apache.log4j.Logger;
+package com.popoaichuiniu.jacy;
 
 import com.popoaichuiniu.jacy.statistic.AndroidInfo;
 import com.popoaichuiniu.util.*;
-import org.javatuples.Pair;
+import com.zhou.InstrumentAPPBeforePermissionInvoke;
+import com.zhou.InstrumentUnit;
+import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.*;
 import soot.options.Options;
 import soot.tagkit.BytecodeOffsetTag;
+import org.javatuples.Pair;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
-
-public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
-
-
+public class DynamicSE extends BodyTransformer {
     private static boolean isTest = Config.isTest;
 
     private static Map<String, Set<String>> apiPermissionMap = AndroidInfo.getPermissionAndroguardMethods();
 
-    private static Logger exceptionLogger= new MyLogger(Config.instrument_logDir,"exception").getLogger();
+    private static Logger exceptionLogger= new MyLogger(Config.DynamicSE_logDir,"exception").getLogger();
 
-    private static Logger infoLogger=new MyLogger(Config.instrument_logDir,"InstrumentInfo").getLogger();
+    private static Logger infoLogger=new MyLogger(Config.DynamicSE_logDir,"InstrumentInfo").getLogger();
 
     @Override
     protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
 
-        //System.out.println("xxxxxx");
-        if (Util.isLibraryClass(b.getMethod().getBytecodeSignature())) {
-            return;
-        }
-
-        // TODO Auto-generated method stub
-//		System.out.println("************************************************");
-//		System.out.println("phaseName=" + phaseName);
-//
-//
-//		options.forEach((key, value)->{
-//			System.out.println("key="+key+"--value="+value);
-//		});
+//        //System.out.println("xxxxxx");
+//        if (Util.isLibraryClass(b.getMethod().getBytecodeSignature())) {
+//            return;
+//        }
 
 
         PatchingChain<Unit> units = b.getUnits();
@@ -49,15 +41,13 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         List<InstrumentUnit> instrumentUnits = new ArrayList<InstrumentUnit>();
         for (Unit unit : units) {
 
-
-//			for(Tag tag:unit.getTags())
-//			{
-//				System.out.println(tag.getName()+"zzzzzzzzzzz");
-//			}
-
-
             if (unitNeedAnalysis(unit, b.getMethod())) {
-                instrumentUnits.add(new InstrumentUnit(b, unit, appPath));
+                //Body b, Unit point, String message
+                String permission =getPermissionString(unit);
+                String message="#Instrument#" + appPath +
+                        "#method#" + b.getMethod().getSignature() + "#unitPoint_before#" + unit.toString() + "#lineNumber#" + unit.getJavaSourceStartLineNumber() + "#unitPoint_permission#" + permission;
+
+                instrumentUnits.add(new InstrumentUnit(b, unit, message));
             }
 
 
@@ -97,7 +87,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
     private static int targetCount = 0;
 
 
-    public InstrumentAPPBeforePermissionInvoke(String appPath, String targetsFile) {
+    public DynamicSE(String appPath, String targetsFile) {
         this.appPath = appPath;
 
         targets = new LinkedHashSet<Pair<Integer, String>>();
@@ -154,11 +144,11 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
         File appDirFile = new File(appDir);
 
-        writeFileAppInstrumentException = new WriteFile(Config.instrument_logDir+"/" + appDirFile.getName() + "_instrumentException.log", true,exceptionLogger);
+        writeFileAppInstrumentException = new WriteFile(Config.DynamicSE_logDir+"/" + appDirFile.getName() + "_instrumentException.log", true,exceptionLogger);
 
         if (appDirFile.isDirectory()) {
 
-            File hasInstrumentedFile=new File(Config.instrument_logDir+"/"+appDirFile.getName()+"_has_Instrumented.txt");
+            File hasInstrumentedFile=new File(Config.DynamicSE_logDir+"/"+appDirFile.getName()+"_has_Instrumented.txt");
 
             if(!hasInstrumentedFile.exists())
             {
@@ -203,7 +193,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
                                 soot.G.reset();
                                 //try {
-                                    singleAPPAnalysis(instrumentArgs);
+                                singleAPPAnalysis(instrumentArgs);
 //                                } catch (RuntimeException e) {
 //                                    writeFileAppInstrumentException.writeStr(e.getMessage() + " " + instrumentArgs[0] + "\n");
 //                                    writeFileAppInstrumentException.flush();
@@ -313,35 +303,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
     }
 
-    public void addInstrumentAfterStatement(Body b, Unit point, String message) {
 
-
-        //insert a log.i instrument statement
-
-        Scene.v().forceResolve("android.util.Log", SootClass.SIGNATURES);
-
-        SootMethod log = Scene.v().getMethod("<android.util.Log: int i(java.lang.String,java.lang.String)>");
-        Value logMessage = StringConstant.v("#Instrument#" + message +
-                "#method#" + b.getMethod().getSignature() + "#unitPoint_after#" + point.toString() + "#lineNumber#" + point.getJavaSourceStartLineNumber());
-        Value logType = StringConstant.v("ZMSInstrument");
-        Value logMsg = logMessage;
-        //make new static invokement
-        StaticInvokeExpr newInvokeExpr = Jimple.v().newStaticInvokeExpr(log.makeRef(), logType, logMsg);
-        // turn it into an invoke statement
-
-        InvokeStmt invokeStmt = Jimple.v().newInvokeStmt(newInvokeExpr);
-
-        b.getUnits().insertAfter(invokeStmt, point);
-        //check that we did not mess up the Jimple
-        b.validate();
-        inStrumentCount = inStrumentCount + 1;
-
-
-        writeFile_instrument_content.writeStr(logMessage.toString() + "\n");
-        writeFile_instrument_content.flush();
-
-
-    }
 
     public void addInstrumentBeforeStatement(Body b, Unit point, String message) {
 
@@ -351,13 +313,12 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         Scene.v().forceResolve("android.util.Log", SootClass.SIGNATURES);
 
         SootMethod log = Scene.v().getMethod("<android.util.Log: int i(java.lang.String,java.lang.String)>");
-        String permission =getPermissionString(point);
-        Value logMessage = StringConstant.v("#Instrument#" + message +
-                "#method#" + b.getMethod().getSignature() + "#unitPoint_before#" + point.toString() + "#lineNumber#" + point.getJavaSourceStartLineNumber() + "#unitPoint_permission#" + permission);
+
         Value logType = StringConstant.v("ZMSInstrument");
-        Value logMsg = logMessage;
+        Value logMessage = StringConstant.v(message);
+
         //make new static invokement
-        StaticInvokeExpr newInvokeExpr = Jimple.v().newStaticInvokeExpr(log.makeRef(), logType, logMsg);
+        StaticInvokeExpr newInvokeExpr = Jimple.v().newStaticInvokeExpr(log.makeRef(), logType, logMessage);
         // turn it into an invoke statement
 
         InvokeStmt invokeStmt = Jimple.v().newInvokeStmt(newInvokeExpr);

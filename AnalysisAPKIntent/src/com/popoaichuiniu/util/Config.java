@@ -73,6 +73,8 @@ public class Config {
 
     public static String instrument_logDir=logDir+"/"+"instrument_log";
 
+    public static String DynamicSE_logDir=logDir+"/"+"DynamicSE";
+
     public static  String apkSignerLog=logDir+"/"+"apkSignerLog";
 
     public static  String cladDroidLogDir =logDir+"/"+"CladdroidGUI/log";

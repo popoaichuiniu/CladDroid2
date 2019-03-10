@@ -35,6 +35,11 @@ public class ApkSigner {
 
             File hasSignedAppsFile = new File(Config.apkSignerLog + "/" + appDirFile.getName() + "_hasSignedApps.txt");
             if (!hasSignedAppsFile.exists()) {
+                File parentDir=hasSignedAppsFile.getParentFile();
+                if(!parentDir.exists())
+                {
+                    parentDir.mkdirs();
+                }
                 try {
                     hasSignedAppsFile.createNewFile();
                 } catch (IOException e) {
