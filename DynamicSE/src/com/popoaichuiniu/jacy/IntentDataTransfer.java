@@ -5,22 +5,22 @@ import soot.Unit;
 
 import java.util.Objects;
 
-public class IntentDataTransfer{
+public class IntentDataTransfer{//
 
     public SootMethod targetSootMethod;
     public int targetParameter=-2;
+    public String type="";//TYPE_ACTION
 
-    public String type="";
+    public String id ="";//ID
+    public Unit whereGenUnit;
+    public SootMethod whereGenSootMethod;
 
-    public String value="";
-
-    public Unit  whereGen;
 
     public static String TYPE_ACTION="ACTION";
     public static String TYPE_CATEGORY="CATEGORY";
     public static String TYPE_EXTRA="EXTRA";
     public static String TYPE_INTENT="INTENT";
-    public static  int TARGET_Return=-1;
+
 
     @Override
     public boolean equals(Object o) {
@@ -46,8 +46,9 @@ public class IntentDataTransfer{
         this.targetSootMethod=intentDataTransfer.targetSootMethod;
         this.targetParameter=intentDataTransfer.targetParameter;
         this.type=intentDataTransfer.type;
-        this.value=intentDataTransfer.value;
-        this.whereGen=intentDataTransfer.whereGen;
+        this.id =intentDataTransfer.id;
+        this.whereGenUnit =intentDataTransfer.whereGenUnit;
+        this.whereGenSootMethod=intentDataTransfer.whereGenSootMethod;
     }
 
     @Override

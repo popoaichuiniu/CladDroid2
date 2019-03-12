@@ -7,6 +7,7 @@ import com.zhou.InstrumentUnit;
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.*;
+import soot.jimple.internal.JimpleLocal;
 import soot.options.Options;
 import soot.tagkit.BytecodeOffsetTag;
 import org.javatuples.Pair;
@@ -320,6 +321,12 @@ public class DynamicSE extends BodyTransformer {
 
         Value logType = StringConstant.v("ZMSInstrument");
         Value logMessage = StringConstant.v(message);
+
+        //Jimple.v().newLocal()
+        //Scene.v().getRefType()
+        //Scene.v().getType()
+
+
 
         //make new static invokement
         StaticInvokeExpr newInvokeExpr = Jimple.v().newStaticInvokeExpr(log.makeRef(), logType, logMessage);
