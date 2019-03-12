@@ -34,6 +34,10 @@ public class DynamicSE extends BodyTransformer {
 //            return;
 //        }
 
+        if(!Util.isApplicationMethod(b.getMethod()))
+        {
+            return;
+        }
 
         PatchingChain<Unit> units = b.getUnits();
 

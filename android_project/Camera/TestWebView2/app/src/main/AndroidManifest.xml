@@ -20,16 +20,16 @@
         </activity>
         <activity
             android:name=".TestExampleActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <service
             android:name=".MyService"
-            android:enabled="true"
+            android:exported="true"
              />
 
         <receiver
             android:name=".ExampleReceiver"
-            android:enabled="true"
+            android:exported="true"
             />
 
         <activity android:name=".Main6Activity" />

@@ -1,21 +1,25 @@
 package com.popoaichuiniu.jacy;
 
 import soot.SootMethod;
+import soot.Unit;
 
 import java.util.Objects;
 
 public class IntentDataTransfer{
 
     public SootMethod targetSootMethod;
-    public int targetParameter;
-    public String type;
+    public int targetParameter=-2;
 
-    public String value;
+    public String type="";
+
+    public String value="";
+
+    public Unit  whereGen;
 
     public static String TYPE_ACTION="ACTION";
     public static String TYPE_CATEGORY="CATEGORY";
-    public static String TYPE_EXTRA="TYPE_EXTRA";
-    public static String TYPE_INTENT="TYPE_INTENT";
+    public static String TYPE_EXTRA="EXTRA";
+    public static String TYPE_INTENT="INTENT";
     public static  int TARGET_Return=-1;
 
     @Override
@@ -31,5 +35,27 @@ public class IntentDataTransfer{
     @Override
     public int hashCode() {
         return Objects.hash(targetSootMethod, targetParameter, type);
+    }
+
+    public IntentDataTransfer()
+    {
+
+    }
+    public IntentDataTransfer(IntentDataTransfer intentDataTransfer)
+    {
+        this.targetSootMethod=intentDataTransfer.targetSootMethod;
+        this.targetParameter=intentDataTransfer.targetParameter;
+        this.type=intentDataTransfer.type;
+        this.value=intentDataTransfer.value;
+        this.whereGen=intentDataTransfer.whereGen;
+    }
+
+    @Override
+    public String toString() {
+        return "IntentDataTransfer{" +
+                "targetSootMethod=" + targetSootMethod +
+                ", targetParameter=" + targetParameter +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

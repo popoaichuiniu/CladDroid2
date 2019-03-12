@@ -9,57 +9,145 @@ import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.Stmt;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.toolkits.graph.BriefUnitGraph;
 
 import java.io.*;
 import java.util.*;
 
 
-
 public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
 
-    private static boolean isTest = Config.isTest;
-
+    //private static boolean isTest = Config.isTest;
+    private static boolean isTest = false;
 
     private static Logger exceptionLogger = new MyLogger(Config.DynamicSE_logDir, "generateUnitNeedToAnalysisAppException").getLogger();
 
     private static Logger infoLogger = new MyLogger(Config.DynamicSE_logDir, "GenerateUnitNeedToAnalysisInfo").getLogger();
 
 
+    private static boolean isJustThinkDangerous = false;//是否只考虑危险API
 
-    private static void generateUnitToAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) throws IOException {
+    private static Set<String> dangerousPermissions = null;
+    private static Map<String, Set<String>> apiPermissionMap = AndroidInfo.getPermissionAndroguardMethods();
 
-
-
-
-
-        WriteFile writeFileUnitsNeedAnalysis = null;
-
-        writeFileUnitsNeedAnalysis = new WriteFile(appPath + "_" + "UnitsNeedInstrumentBefore.txt", false, exceptionLogger);
+    private static void generateUnitToAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
 
 
-        for (Unit unit : unitsNeedToAnalysis) {
+        //WriteFileForUnitNeedAnalysis(ea_entryPoints, cg, appPath);
 
-            Stmt stmt = (Stmt) unit;
-            InvokeExpr invokeExpr = stmt.getInvokeExpr();
-            if (invokeExpr == null) {
-                throw new RuntimeException("illegal unitNeedAnalysis" + unit.toString());
-            } else {
-                writeFileUnitsNeedAnalysis.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
+        WriteFileForUnitInstrumentAnalysis(ea_entryPoints, cg, appPath);
+
+
+    }
+
+    private static void WriteFileForUnitInstrumentAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
+
+
+        for (SootMethod sootMethod : ea_entryPoints) {
+
+
+            IntentDataTransfer initialIntentDataTransfer = new IntentDataTransfer();
+            initialIntentDataTransfer.targetSootMethod = sootMethod;
+
+            int count = 0;
+            for (Type type : sootMethod.getParameterTypes()) {
+                if (type.toString().equals("android.content.Intent")) {
+                    initialIntentDataTransfer.type = IntentDataTransfer.TYPE_INTENT;
+                    initialIntentDataTransfer.targetParameter = count;
+                }
+
+                count++;
+            }
+
+
+            if (Util.isApplicationMethod(initialIntentDataTransfer.targetSootMethod) && initialIntentDataTransfer.targetSootMethod.hasActiveBody()) {
+                BriefUnitGraph briefUnitGraph = new BriefUnitGraph(initialIntentDataTransfer.targetSootMethod.getActiveBody());
+
+                IntentDataFlowAnalysisForDynamicSE intentDataFlowAnalysisForDynamicSE = new IntentDataFlowAnalysisForDynamicSE(briefUnitGraph, initialIntentDataTransfer, exceptionLogger);
+
+
             }
 
 
         }
 
 
-        writeFileUnitsNeedAnalysis.close();
+        WriteFile allWriteFile = new WriteFile(Config.DynamicSE_logDir + "/" + "instrument_unit.log", true, exceptionLogger);
+        for (Map.Entry<Unit, IntentDataTransfer> entry : IntentDataFlowAnalysisForDynamicSE.allInstrumentUnitIntentDataFlowIn.entrySet()) {
+
+            allWriteFile.writeStr(appPath + "##" + entry.getKey() + "##" + entry.getValue().type + "\n");
+            allWriteFile.flush();
+
+
+        }
+
+        allWriteFile.close();
 
 
     }
 
+    private static void WriteFileForUnitNeedAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
+        List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(ea_entryPoints, cg);
+
+
+        WriteFile writeFileUnitsNeedAnalysis = null;
+
+        writeFileUnitsNeedAnalysis = new WriteFile(appPath + "_" + "UnitsNeedAnalysis.txt", false, exceptionLogger);
+
+
+        for (SootMethod sootMethod : roMethods) {
+
+            List<Unit> unitsNeedToAnalysis = new ArrayList<>();
+
+            Body body = sootMethod.getActiveBody();
+            if (body != null) {
+                PatchingChain<Unit> units = body.getUnits();
+                for (Unit unit : units) {
+
+                    SootMethod calleeSootMethod = Util.getCalleeSootMethodAt(unit);
+                    if (calleeSootMethod == null) {
+                        continue;
+                    }
+                    Set<String> permissionSet = apiPermissionMap.get(calleeSootMethod.getBytecodeSignature());
+                    if (permissionSet != null && isExistSimilarItem(permissionSet, dangerousPermissions)) {
+                        unitsNeedToAnalysis.add(unit);
+                        infoLogger.info(appPath + " ##" + unit + " need analysis!");
+
+                    }
+
+
+                }
+
+                for (Unit unit : unitsNeedToAnalysis) {
+
+                    Stmt stmt = (Stmt) unit;
+                    InvokeExpr invokeExpr = stmt.getInvokeExpr();
+                    if (invokeExpr == null) {
+                        throw new RuntimeException("illegal unitNeedAnalysis" + unit.toString());
+                    } else {
+                        writeFileUnitsNeedAnalysis.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
+                    }
+
+
+                }
+
+            }
+        }
+
+        writeFileUnitsNeedAnalysis.close();
+    }
+
 
     public static void main(String[] args) {
-
+        //dangerousPermissions是考虑的自己设定的需要考虑的权限提升
+        dangerousPermissions = new ReadFileOrInputStream("AnalysisAPKIntent" + "/" + "think_dangerousPermission.txt", exceptionLogger).getAllContentLinSet();
+        for (Iterator<String> dangerousPermissionsIterator = dangerousPermissions.iterator(); ((Iterator) dangerousPermissionsIterator).hasNext(); ) {
+            String dangerousPermission = dangerousPermissionsIterator.next();
+            if (dangerousPermission.startsWith("#")) {
+                dangerousPermissionsIterator.remove();//
+            }
+        }
 
         String appDirPath = null;
         if (isTest) {
@@ -168,6 +256,20 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
         generateUnitToAnalysis(ea_entryPoints, cGraph, appPath);
 
         infoLogger.info("Part1's analysis completed! " + appPath);
+    }
+
+    private static boolean isExistSimilarItem(Set<String> permissionSet, Set<String> dangerousPermissions) {
+        if (isJustThinkDangerous) {
+            for (String permission : permissionSet) {
+                if (dangerousPermissions.contains(permission)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+
     }
 }
 

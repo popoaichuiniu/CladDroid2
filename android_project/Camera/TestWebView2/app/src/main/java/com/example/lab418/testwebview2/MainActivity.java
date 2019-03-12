@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
 //        return intent;
 //    }
 
-    private void fromPara(Intent intent) {
-
-        intent.setClass(this, Main6Activity.class);
-
-
-
-    }
+//    private void fromPara(Intent intent) {
+//
+//        intent.setClass(this, Main6Activity.class);
+//
+//
+//
+//    }
 
 //    private void inThisMethod() {
 //

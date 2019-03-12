@@ -1,12 +1,12 @@
 package com.popoaichuiniu.jacy;
 
 import com.popoaichuiniu.intentGen.MyArraySparseSet;
-import soot.SootMethod;
-import soot.Unit;
-import soot.Value;
-import soot.ValueBox;
+import com.popoaichuiniu.util.Util;
+import org.apache.log4j.Logger;
+import soot.*;
 import soot.jimple.*;
 import soot.jimple.internal.JVirtualInvokeExpr;
+import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.graph.DirectedGraph;
 import soot.toolkits.scalar.FlowSet;
 import soot.toolkits.scalar.ForwardFlowAnalysis;
@@ -14,56 +14,188 @@ import soot.toolkits.scalar.ForwardFlowAnalysis;
 import java.util.*;
 import java.util.regex.Pattern;
 
+class MethodSummary {
+    SootMethod sootMethod;
+    int paraIndex;
+
+    boolean isParaFlowToReturn;
+    IntentDataTransfer returnIntentDataTransfer=null;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MethodSummary that = (MethodSummary) o;
+        return paraIndex == that.paraIndex &&
+                Objects.equals(sootMethod, that.sootMethod);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sootMethod, paraIndex);
+    }
+
+    public MethodSummary(SootMethod sootMethod, int paraIndex) {
+        this.sootMethod = sootMethod;
+        this.paraIndex = paraIndex;
+    }
+}
+
 public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit, FlowSet<Value>> {//终极ok
     public static int ID = 0;
-    private IntentDataTransfer initialIntentDataTransfer = null;
+    public static Set<MethodSummary> methodSummarySet = new HashSet<>();
+    public static Map<Unit, IntentDataTransfer> allInstrumentUnitIntentDataFlowIn = new HashMap<>();
 
-    public IntentDataFlowAnalysisForDynamicSE(DirectedGraph<Unit> graph, IntentDataTransfer intentDataTransfer) {
+    private IntentDataTransfer initialIntentDataTransfer = null;
+    private Logger logger = null;
+    private SootMethod sootMethod = null;
+
+    public Map<String, IntentDataTransfer> intentDataTransferMap = new HashMap<>();//传输的Intent相关数据集合
+    public Map<Unit, IntentDataTransfer> instrumentUnitIntentDataFlowIn = new HashMap<>();//需要插桩的语句 包括if和extra
+    //public Set<IntentDataTransfer> calleeMethodSetWithIntentData = new HashSet<>();
+    public boolean isParaFlowToReturn = false;
+
+    public IntentDataTransfer returnIntentDataTransfer=null;
+
+    public IntentDataFlowAnalysisForDynamicSE(DirectedGraph<Unit> graph, IntentDataTransfer intentDataTransfer, Logger logger) {
 
         super(graph);
         this.initialIntentDataTransfer = intentDataTransfer;
+        this.logger = logger;
+        this.sootMethod = initialIntentDataTransfer.targetSootMethod;
+
         doAnalysis();
+
+        Map<Unit, IntentDataTransfer> extraInstrumentUnitMap = new HashMap<>();
+        for (Map.Entry<Unit, IntentDataTransfer> entry : instrumentUnitIntentDataFlowIn.entrySet()) {
+            if (entry.getValue().type.equals(IntentDataTransfer.TYPE_EXTRA)) {
+                extraInstrumentUnitMap.put(entry.getValue().whereGen, intentDataTransfer);
+            }
+        }
+
+        instrumentUnitIntentDataFlowIn.putAll(extraInstrumentUnitMap);
 
 
     }
 
 
-    private Map<Value, IntentDataTransfer> intentDataTransferMap = new HashMap<>();
-
-    public Map<Unit,IntentDataTransfer> instrumentUnitIntentDataFlowIn=new HashMap<>();
-
-
-//终止是不再变化.
-
     @Override
-    protected void flowThrough(FlowSet<Value> in, Unit d, FlowSet<Value> out) {//1.从方法中传入的intent属性数据多不多统计一下
-        //2.intent属性数据和intent从方法的返回值多不多
-        //3.intent属性数据从类属性中取。（未考虑，考虑了intent来自field）
+    protected void flowThrough(FlowSet<Value> in, Unit d, FlowSet<Value> out) {
 
 
         in.copy(out);
 
         System.out.println("%%%%%%%" + d);
 
+        Stmt stmt = (Stmt) d;
 
-        if (d instanceof IfStmt) {
-            IfStmt ifStmt = (IfStmt) d;
-            List<ValueBox> valueBoxList= ifStmt.getUseBoxes();
+        if (stmt.containsInvokeExpr()&&(!stmt.getInvokeExpr().getMethod().getDeclaringClass().getType().toString().equals("android.content.Intent")))//传播到一个方法里
+        {
+
+            if (Util.isApplicationMethod(stmt.getInvokeExpr().getMethod()) && stmt.getInvokeExpr().getMethod().hasActiveBody()) {
+
+                IntentDataTransfer intentDataTransfer = new IntentDataTransfer();// no para about intent data
+                intentDataTransfer.targetSootMethod = stmt.getInvokeExpr().getMethod();
+
+                List<Value> args = stmt.getInvokeExpr().getArgs();
+                int count = 0;
+                for (int index = 0; index < args.size(); index++) {
+                    if (in.contains(args.get(index))) {//para about intent data
+                        intentDataTransfer = new IntentDataTransfer(intentDataTransferMap.get(args.get(index).toString()));
+                        intentDataTransfer.targetSootMethod = stmt.getInvokeExpr().getMethod();
+                        intentDataTransfer.targetParameter = index;
+
+                        count++;
+                    }
+
+
+                }
+
+                if (count > 1) {
+                    logger.error("method para has more than one intent data");
+                }
+
+                MethodSummary methodSummary = new MethodSummary(intentDataTransfer.targetSootMethod, intentDataTransfer.targetParameter);
+                if (!methodSummarySet.contains(methodSummary)) {
+
+
+                    BriefUnitGraph briefUnitGraph = new BriefUnitGraph(intentDataTransfer.targetSootMethod.getActiveBody());
+                    IntentDataFlowAnalysisForDynamicSE intentDataFlowAnalysisForDynamicSE = new IntentDataFlowAnalysisForDynamicSE(briefUnitGraph, intentDataTransfer, logger);
+
+
+                    methodSummary.isParaFlowToReturn = intentDataFlowAnalysisForDynamicSE.isParaFlowToReturn;
+                    methodSummary.returnIntentDataTransfer=intentDataFlowAnalysisForDynamicSE.returnIntentDataTransfer;
+                    methodSummarySet.add(methodSummary);
+                    allInstrumentUnitIntentDataFlowIn.putAll(intentDataFlowAnalysisForDynamicSE.instrumentUnitIntentDataFlowIn);
+
+
+                }
+
+                if (stmt instanceof DefinitionStmt) {
+
+                    DefinitionStmt definitionStmt= (DefinitionStmt) stmt;
+
+                    if (methodSummary.isParaFlowToReturn)
+                    {
+                        out.add(definitionStmt.getLeftOp());
+
+                        intentDataTransferMap.put(definitionStmt.getLeftOp().toString(),methodSummary.returnIntentDataTransfer);
+                    }
+
+                }
+            }
+
+
+        }
+
+        if (stmt instanceof ReturnStmt)// return value
+        {
+            ReturnStmt returnStmt = (ReturnStmt) stmt;
+            if (in.contains(returnStmt.getOp())) {
+
+                isParaFlowToReturn = true;
+                returnIntentDataTransfer=intentDataTransferMap.get(returnStmt.getOp().toString());
+                //logger.error("return intent data  doesn't handle!" + sootMethod);
+            }
         }
 
 
-        if (d instanceof DefinitionStmt) {
+        if (d instanceof IfStmt) {//传播到if语句里
+            IfStmt ifStmt = (IfStmt) d;
+            ConditionExpr condition = (ConditionExpr) ifStmt.getCondition();
+            Value conditionLeft = condition.getOp1();
+            Value conditionRight = condition.getOp2();
+            boolean flag1 = false;
+            boolean flag2 = false;
+            if (in.contains(conditionLeft)) {
+                instrumentUnitIntentDataFlowIn.put(ifStmt, intentDataTransferMap.get(conditionLeft.toString()));
+                flag1 = true;
+            }
+
+            if (in.contains(conditionRight)) {
+                instrumentUnitIntentDataFlowIn.put(ifStmt, intentDataTransferMap.get(conditionRight.toString()));
+                flag2 = true;
+            }
+
+            if (flag1 && flag2) {
+                logger.error("if conditionLeft and conditionRight are have intent data!");
+            }
+        }
+
+
+        if (d instanceof DefinitionStmt) {//intent data 数据传播
             DefinitionStmt definitionStmt = (DefinitionStmt) d;
 
-            if (definitionStmt.getRightOp() instanceof ParameterRef) {//-----------------加入传入的参数---？？？？
-                if (definitionStmt.getLeftOp().toString().contains(String.valueOf(initialIntentDataTransfer.targetParameter))) {
+            if (initialIntentDataTransfer.targetParameter != -2) {
+                if (definitionStmt.getRightOp() instanceof ParameterRef) {
+                    if (definitionStmt.getRightOp().toString().contains(String.valueOf("@parameter" + initialIntentDataTransfer.targetParameter))) {
 
 
-                    out.add(definitionStmt.getLeftOp());
+                        out.add(definitionStmt.getLeftOp());
+                        intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), initialIntentDataTransfer);
 
-                    intentDataTransferMap.put(definitionStmt.getLeftOp(), initialIntentDataTransfer);
 
-
+                    }
                 }
             }
 
@@ -71,22 +203,22 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
             if (definitionStmt.getRightOp().getType().toString().equals("android.content.Intent")) {
                 if (definitionStmt.getRightOp() instanceof FieldRef) {//Intent 来自域 保守的认为这个是外部Intent
 
-                    out.add(definitionStmt.getLeftOp());
-                    out.add(definitionStmt.getRightOp());
-
-
                     IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                     intentDataTransfer.type = IntentDataTransfer.TYPE_INTENT;
                     intentDataTransfer.value = String.valueOf(ID);
+                    intentDataTransfer.whereGen = definitionStmt;
                     ID++;
-                    intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransfer);
+                    intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
+                    out.add(definitionStmt.getLeftOp());
 
 
                     IntentDataTransfer intentDataTransfer2 = new IntentDataTransfer();
                     intentDataTransfer2.type = IntentDataTransfer.TYPE_INTENT;
                     intentDataTransfer2.value = String.valueOf(ID);
+                    intentDataTransfer2.whereGen = definitionStmt;//这有点不对，但是无所谓，忽略
                     ID++;
-                    intentDataTransferMap.put(definitionStmt.getRightOp(), intentDataTransfer2);
+                    intentDataTransferMap.put(definitionStmt.getRightOp().toString(), intentDataTransfer2);
+                    out.add(definitionStmt.getRightOp());
 
 
                 } else if (definitionStmt.getRightOp() instanceof JVirtualInvokeExpr) {
@@ -96,9 +228,9 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                         IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                         intentDataTransfer.type = IntentDataTransfer.TYPE_INTENT;
                         intentDataTransfer.value = String.valueOf(ID);
+                        intentDataTransfer.whereGen = definitionStmt;
                         ID++;
-                        intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransfer);
-
+                        intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
                         out.add(definitionStmt.getLeftOp());
 
 
@@ -119,9 +251,12 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                                 intentDataTransfer.type = IntentDataTransfer.TYPE_EXTRA;
                                 intentDataTransfer.value = String.valueOf(ID);
+                                intentDataTransfer.whereGen = definitionStmt;
                                 ID++;
-                                intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransfer);
+                                intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
                                 out.add(definitionStmt.getLeftOp());
+
+
                             }
 
                             if (invokeExpr.getMethod().getName().equals("getAction")) {
@@ -129,8 +264,9 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                                 intentDataTransfer.type = IntentDataTransfer.TYPE_ACTION;
                                 intentDataTransfer.value = String.valueOf(ID);
+                                intentDataTransfer.whereGen = definitionStmt;
                                 ID++;
-                                intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransfer);
+                                intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
                                 out.add(definitionStmt.getLeftOp());
                             }
 
@@ -138,8 +274,9 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                                 intentDataTransfer.type = IntentDataTransfer.TYPE_CATEGORY;
                                 intentDataTransfer.value = String.valueOf(ID);
+                                intentDataTransfer.whereGen = definitionStmt;
                                 ID++;
-                                intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransfer);
+                                intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
                                 out.add(definitionStmt.getLeftOp());
                             }
 
@@ -151,12 +288,71 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                 }
             }
 
-            if (in.contains(definitionStmt.getRightOp()))//赋值
+
+            if (in.contains(definitionStmt.getRightOp()))//assign
             {
-
-                intentDataTransferMap.put(definitionStmt.getLeftOp(), intentDataTransferMap.get(definitionStmt.getRightOp()));
-
                 out.add(definitionStmt.getLeftOp());
+                intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransferMap.get(definitionStmt.getRightOp().toString()));
+            }
+
+            //number
+            if (isNumberOperation(definitionStmt)) {
+                if (definitionStmt.containsInvokeExpr()) {
+                    int count = 0;
+                    for (Value arg : definitionStmt.getInvokeExpr().getArgs()) {
+                        if (in.contains(arg)) {
+                            out.add(definitionStmt.getLeftOp());
+                            intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransferMap.get(arg.toString()));
+                            count++;
+                        }
+                    }
+
+                    if (count > 1) {
+                        logger.error("number operate intent data >1");
+                    }
+                } else {
+                    if ((definitionStmt.getRightOp() instanceof AddExpr) || (definitionStmt.getRightOp() instanceof SubExpr) || (definitionStmt.getRightOp() instanceof MulExpr) || (definitionStmt.getRightOp() instanceof DivExpr)) {
+                        BinopExpr binopExpr = (BinopExpr) definitionStmt.getRightOp();
+                        int count = 0;
+                        if (in.contains(binopExpr.getOp1())) {
+                            intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransferMap.get(binopExpr.getOp1().toString()));
+                            count++;
+                        }
+                        if (in.contains(binopExpr.getOp2())) {
+                            intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransferMap.get(binopExpr.getOp2().toString()));
+                            count++;
+                        }
+
+                        if (count > 1) {
+                            logger.error("number operate intent data >1");
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+            // String
+            if (isStringOperation(definitionStmt)) {
+
+                if (definitionStmt.containsInvokeExpr()) {
+                    int count = 0;
+                    for (Value arg : definitionStmt.getInvokeExpr().getArgs()) {
+                        if (in.contains(arg)) {
+                            out.add(definitionStmt.getLeftOp());
+                            intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransferMap.get(arg.toString()));
+                            count++;
+                        }
+                    }
+
+                    if (count > 1) {
+                        logger.error("String operate intent data >1");
+                    }
+                }
+
             }
 
 
@@ -199,6 +395,65 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
 
             }
         }
+    }
+
+    private boolean isStringOperation(DefinitionStmt definitionStmt) {
+
+        if (definitionStmt.containsInvokeExpr()) {
+            InvokeExpr invokeExpr = definitionStmt.getInvokeExpr();
+            if (invokeExpr.getMethod().getDeclaringClass().getType().toString().equals("java.lang.StringBuilder")) {
+
+                return true;
+
+            }
+
+            if (invokeExpr.getMethod().getDeclaringClass().getType().toString().equals("java.lang.StringBuffer")) {
+
+                return true;
+
+            }
+            if (invokeExpr.getMethod().getDeclaringClass().getType().toString().equals("java.lang.String")) {
+
+                return true;
+
+            }
+        }
+
+        return false;
+
+    }
+
+    private boolean isNumberOperation(DefinitionStmt definitionStmt) {
+
+        if (definitionStmt.containsInvokeExpr()) {
+            InvokeExpr invokeExpr = definitionStmt.getInvokeExpr();
+            if (invokeExpr.getMethod().getDeclaringClass().hasSuperclass()) {
+                if (invokeExpr.getMethod().getDeclaringClass().getSuperclass().getType().toString().equals("java.lang.Number")) {
+                    return true;
+                }
+            }
+
+
+        }
+
+        if (definitionStmt.getRightOp() instanceof AddExpr) {
+            return true;
+        }
+
+        if (definitionStmt.getRightOp() instanceof SubExpr) {
+            return true;
+        }
+        if (definitionStmt.getRightOp() instanceof MulExpr) {
+            return true;
+        }
+
+        if (definitionStmt.getRightOp() instanceof DivExpr) {
+            return true;
+        }
+
+        return false;
+
+
     }
 
 
