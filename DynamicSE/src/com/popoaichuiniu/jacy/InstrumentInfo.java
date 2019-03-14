@@ -14,6 +14,7 @@ public class InstrumentInfo {
     String id;//action extra, category
     boolean isIf;
 
+
     public InstrumentInfo(SootMethod sootMethod, Unit point, String name, String type, boolean isLocal, String id, boolean isIf) {
         this.sootMethod = sootMethod;
         this.point = point;

@@ -1,5 +1,8 @@
 package com.popoaichuiniu.jacy;
 
+import com.popoaichuiniu.intentGen.Intent;
+import com.popoaichuiniu.intentGen.IntentConditionTransformSymbolicExcutation;
+import com.popoaichuiniu.intentGen.IntentInfo;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
 import com.popoaichuiniu.jacy.statistic.AndroidInfo;
@@ -7,6 +10,7 @@ import com.popoaichuiniu.util.*;
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.*;
+import soot.jimple.infoflow.android.axml.AXmlNode;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.scalar.SimpleLocalDefs;
@@ -15,48 +19,11 @@ import java.io.*;
 import java.util.*;
 
 
-class InstrumentInfo{
-    SootMethod sootMethod;
-    Unit point;
-    String name;
-    String type;
-    boolean isLocal;
-    String id;//action extra, category
-
-    public InstrumentInfo(SootMethod sootMethod, Unit point, String name, String type, boolean isLocal, String id) {
-        this.sootMethod = sootMethod;
-        this.point = point;
-        this.name = name;
-        this.type = type;
-        this.isLocal = isLocal;
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InstrumentInfo that = (InstrumentInfo) o;
-        return isLocal == that.isLocal &&
-                Objects.equals(sootMethod, that.sootMethod) &&
-                Objects.equals(point, that.point) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sootMethod, point, name, type, isLocal, id);
-    }
-}
-
-
 public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
 
     //private static boolean isTest = Config.isTest;
-    private static boolean isTest = false;
+    private static boolean isTest = Config.isDynamicSETest;
 
     private static Logger exceptionLogger = new MyLogger(Config.DynamicSE_logDir, "generateUnitNeedToAnalysisAppException").getLogger();
 
@@ -71,7 +38,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
     private static void generateUnitToAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
 
 
-        //WriteFileForUnitNeedAnalysis(ea_entryPoints, cg, appPath);
+        WriteFileForUnitNeedAnalysis(ea_entryPoints, cg, appPath);
 
         WriteFileForUnitInstrumentAnalysis(ea_entryPoints, cg, appPath);
 
@@ -79,22 +46,42 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
     }
 
     private static void WriteFileForUnitInstrumentAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
+        AndroidInfo androidInfo = new AndroidInfo(appPath, exceptionLogger);
+
+        Map<String, AXmlNode> eas = androidInfo.getEAs();
+
+        List<IntentInfo> intentInfoList = new ArrayList<>();
+        for (SootMethod sootMethod : ea_entryPoints) {
+            AXmlNode aXmlNode = eas.get(sootMethod.getDeclaringClass().getName());
+            if (aXmlNode == null) {
+                continue;
+
+            }
+            String componentName = sootMethod.getDeclaringClass().getName();
+            String componentType = aXmlNode.getTag();
+            Intent intent = new Intent();
+            intent.targetComponent = componentName;
+            IntentConditionTransformSymbolicExcutation.IntentUnit intentUnit = new IntentConditionTransformSymbolicExcutation.IntentUnit(intent, null, componentType, componentName);
+            intentInfoList.add();
+        }
+
 
         IntentDataFlowAnalysisForDynamicSE.clearIntentDataFlowAnalysisForDynamicSE();//
+
         for (SootMethod sootMethod : ea_entryPoints) {
 
 
             IntentDataTransfer initialIntentDataTransfer = new IntentDataTransfer();
             initialIntentDataTransfer.targetSootMethod = sootMethod;
 
-            int count = 0;
-            for (Type type : sootMethod.getParameterTypes()) {
-                if (type.toString().equals("android.content.Intent")) {
+
+            for (int index = 0; index < sootMethod.getParameterTypes().size(); index++) {
+                if (sootMethod.getParameterTypes().get(index).toString().equals("android.content.Intent")) {
                     initialIntentDataTransfer.type = IntentDataTransfer.TYPE_INTENT;
-                    initialIntentDataTransfer.targetParameter = count;
+                    initialIntentDataTransfer.targetParameter = index;
                 }
 
-                count++;
+
             }
 
 
@@ -114,8 +101,8 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
         }
 
-        Set<InstrumentInfo> allInstrumentInfo=new HashSet<>();
-        WriteFile allWriteFile = new WriteFile(Config.DynamicSE_logDir + "/" + "instrument_unit.log", true, exceptionLogger);
+        Set<InstrumentInfo> allInstrumentInfo = new HashSet<>();
+        WriteFile allWriteFile = new WriteFile(Config.DynamicSE_logDir + "/" + "instrument_unit_get_info.log", true, exceptionLogger);
         for (Map.Entry<MethodUnit, IntentDataTransfer> entry : IntentDataFlowAnalysisForDynamicSE.allInstrumentUnitIntentDataFlowIn.entrySet()) {
 
 //            allWriteFile.writeStr(appPath + "##" + entry.getKey() + "##" + entry.getValue().type + "##" + entry.getValue().id + "\n");
@@ -140,40 +127,42 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
                             if (entry.getValue().type.equals(IntentDataTransfer.TYPE_ACTION) || entry.getValue().type.equals(IntentDataTransfer.TYPE_CATEGORY)) {
                                 if (valueBox.getValue().getType().toString().equals("java.lang.String")) {
-                                    if(valueBox.getValue() instanceof Local)
-                                    {
-                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod,definitionStmt,valueBox.getValue().toString(),valueBox.getValue().getType().toString(),true,entry.getValue().id));
-                                    }
-                                    else if(valueBox.getValue() instanceof Constant)
-                                    {
-                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod,definitionStmt,valueBox.getValue().toString(),valueBox.getValue().getType().toString(),false,entry.getValue().id));
-                                    }
-                                    else
-                                    {
+                                    if (valueBox.getValue() instanceof Local) {
+                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, definitionStmt, valueBox.getValue().toString(), valueBox.getValue().getType().toString(), true, entry.getValue().id, true));
+                                    } else if (valueBox.getValue() instanceof Constant) {
+                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, definitionStmt, valueBox.getValue().toString(), valueBox.getValue().getType().toString(), false, entry.getValue().id, true));
+                                    } else {
                                         exceptionLogger.warn("can't handle -----not local or constant ");
                                     }
-
 
 
                                 }
                             }
 
-                            if (entry.getValue().type.equals(IntentDataTransfer.TYPE_EXTRA)) {
-                                Unit extraUnit=entry.getValue().whereGenUnit;
-                                SootMethod extraSootMethod=entry.getValue().whereGenSootMethod;
+                            if (entry.getValue().type.contains(IntentDataTransfer.TYPE_EXTRA)) {
+                                Unit extraUnit = entry.getValue().whereGenUnit;
+                                SootMethod extraSootMethod = entry.getValue().whereGenSootMethod;
+                                DefinitionStmt definitionStmtExtra = (DefinitionStmt) extraUnit;
+                                InvokeExpr invokeExprGetExtra = definitionStmtExtra.getInvokeExpr();
+                                for (int i = 0; i < invokeExprGetExtra.getArgs().size(); i++) {
+                                    Value arg = invokeExprGetExtra.getArgs().get(i);
+                                    if (arg instanceof Local) {
+                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), true, entry.getValue().id, false));
+                                    } else if (arg instanceof Constant) {
+                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), false, entry.getValue().id, false));
+                                    } else {
+                                        exceptionLogger.warn("can't handle -----not local or constant ");
+                                    }
+                                }
+
 
                                 if (valueBox.getValue().getType() instanceof PrimType || valueBox.getValue().getType().toString().equals("java.lang.String")) {
 
-                                    if(valueBox.getValue() instanceof Local)
-                                    {
-                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod,definitionStmt,valueBox.getValue().toString(),valueBox.getValue().getType().toString(),true,entry.getValue().id));
-                                    }
-                                    else if(valueBox.getValue() instanceof Constant)
-                                    {
-                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod,definitionStmt,valueBox.getValue().toString(),valueBox.getValue().getType().toString(),false,entry.getValue().id));
-                                    }
-                                    else
-                                    {
+                                    if (valueBox.getValue() instanceof Local) {
+                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, definitionStmt, valueBox.getValue().toString(), valueBox.getValue().getType().toString(), true, entry.getValue().id, true));
+                                    } else if (valueBox.getValue() instanceof Constant) {
+                                        allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, definitionStmt, valueBox.getValue().toString(), valueBox.getValue().getType().toString(), false, entry.getValue().id, true));
+                                    } else {
                                         exceptionLogger.warn("can't handle -----not local or constant ");
                                     }
 
@@ -192,9 +181,22 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
         allWriteFile.close();
 
+        WriteFile writeUnitsInstrumentGetInfo = new WriteFile(appPath + "_" + "UnitsInstrumentGetInfo.txt", false, exceptionLogger);
+
+
+        for (InstrumentInfo instrumentInfo : allInstrumentInfo) {
+
+
+            writeUnitsInstrumentGetInfo.writeStr(instrumentInfo.sootMethod.getBytecodeSignature() + "#" + instrumentInfo.point.getTag("BytecodeOffsetTag") + "#" + instrumentInfo.name + "#" + instrumentInfo.type + "#" + instrumentInfo.isLocal + "#" + instrumentInfo.id + "#" + instrumentInfo.isIf + "#" + instrumentInfo.point.toString() + "\n");
+            if (instrumentInfo.point.getTag("BytecodeOffsetTag") == null) {
+                exceptionLogger.error("instrumentInfo.point.getTag(\"BytecodeOffsetTag\")==null");
+            }
+
+        }
+        writeUnitsInstrumentGetInfo.close();
+
 
     }
-
 
 
     private static void WriteFileForUnitNeedAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {

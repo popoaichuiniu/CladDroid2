@@ -19,6 +19,17 @@ public class IntentDataTransfer{//
     public static String TYPE_ACTION="ACTION";
     public static String TYPE_CATEGORY="CATEGORY";
     public static String TYPE_EXTRA="EXTRA";
+
+    public static String TYPE_RETURN_BOOLEAN_EXTRA="BOOLEAN_EXTRA";
+    public static String TYPE_RETURN_BYTE_EXTRA="BYTE_EXTRA";
+    //public static String TYPE_RETURN_CHAR_EXTRA="CHAR_EXTRA";
+    public static String TYPE_RETURN_SHORT_EXTRA="SHORT_EXTRA";
+    public static String TYPE_RETURN_INT_EXTRA="INT_EXTRA";
+    public static String TYPE_RETURN_FLOAT_EXTRA="FLOAT_EXTRA";
+    public static String TYPE_RETURN_LONG_EXTRA="LONG_EXTRA";
+    public static String TYPE_RETURN_DOUBLE_EXTRA="DOUBLE_EXTRA";
+    public static String TYPE_RETURN_STRING_EXTRA="STRING_EXTRA";
+
     public static String TYPE_INTENT="INTENT";
 
 

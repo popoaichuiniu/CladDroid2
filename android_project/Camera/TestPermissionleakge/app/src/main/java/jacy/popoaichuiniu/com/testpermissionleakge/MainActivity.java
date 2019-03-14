@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     } else {
-                                        Log.i("ZMSStart", "can't handle " + extraData+"eeeeeeeeeeee");
+                                        Log.i("ZMSStart", "can't handle " + extraData + "eeeeeeeeeeee");
                                     }
 
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         } catch (NumberFormatException e) {
-                            Log.i("ZMSStart", appPath + "数据转化异常！"+content+"eeeeeeeeeeee");
+                            Log.i("ZMSStart", appPath + "数据转化异常！" + content + "eeeeeeeeeeee");
                             continue;
                         }
 
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
                         intent.setClassName(appPackageName, comPonentName);
 
-                        Log.i("ZMSStart", "启动********" + appPackageName + "******************"+comPonentName);
+                        Log.i("ZMSStart", "启动********" + appPackageName + "******************" + comPonentName);
 
 
                         if (!comPonentType.equals("null")) {
@@ -208,30 +208,25 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-//
-//                        try {
-//                            Thread.sleep(300);
-//                        } catch (InterruptedException e) {  //one--------------------------------------------
-//                            e.printStackTrace();
-//                        }
 
                     }
 
 
-
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.i("ZMSStart", "intentInfo.txt打开失败"+"eeeeeeeeeeee");
+                    Log.i("ZMSStart", "intentInfo.txt打开失败" + "eeeeeeeeeeee");
                 }
 
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
 
-                }
-                Log.i("ZMSStart", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& app is died now!");
-                android.os.Process.killProcess(android.os.Process.myPid());
+
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//
+//                }
+//                Log.i("ZMSStart", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& app is died now!");
+//                android.os.Process.killProcess(android.os.Process.myPid());
 
             }
         }).start();
@@ -272,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
 
-            Log.i("ZMSStart", comPonentType + ":" + comPonentName +"启动异常! "+ e+"eeeeeeeeeeee");
+            Log.i("ZMSStart", comPonentType + ":" + comPonentName + "启动异常! " + e + "eeeeeeeeeeee");
 
             return false;
         }

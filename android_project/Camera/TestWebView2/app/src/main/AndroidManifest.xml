@@ -24,7 +24,7 @@
 
         <service
             android:name=".MyService"
-            android:exported="true"
+            android:exported="false"
              />
 
         <receiver
@@ -32,8 +32,6 @@
             android:exported="true"
             />
 
-        <activity android:name=".Main6Activity" />
-        <activity android:name=".Main7Activity"></activity>
     </application>
 
 </manifest>

@@ -51,7 +51,7 @@ public class Config {
 
     public static String videoDemo="/home/lab418/videoDemo.apk";
     public static String videoDemoDir="/home/lab418";
-    public static String defaultAppDirPath=Config.wandoijiaAPP;
+    public static String defaultAppDirPath=Config.repeatExperiment;
 
 
     //log path
@@ -98,6 +98,8 @@ public class Config {
 
 
     public static boolean isTest =false;
+
+    public static boolean isDynamicSETest=true;
 
     // public  static  String testAppPath="/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/AnalysisAPKIntent/万花筒之旅一宝宝巴士.apk";
     public static void setSootOptions(String appPath) {

@@ -9,7 +9,8 @@ import java.util.Set;
 
 public class ApkSigner {
 
-    private static boolean isTest = Config.isTest;
+    //private static boolean isTest = Config.isTest;
+    private static boolean isTest = Config.isDynamicSETest;
     private static Logger exceptionLogger = new MyLogger(Config.apkSignerLog, "exception").getLogger();
     private static Logger infoLogger = new MyLogger(Config.apkSignerLog, "info").getLogger();
 
