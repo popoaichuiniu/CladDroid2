@@ -243,57 +243,232 @@ def getNewContent(test_feedback):
 
 
 class Extra:
-    def __init__(self, key, value):
+    def __init__(self, key, type, value):
         self.key = key
+        self.type = type
         self.value = value
+
+    def __init__(self, extra):
+        self.key = extra.key
+        self.value = extra.value
+        self.type = extra.type
 
     def __eq__(self, o: object) -> bool:
         if (isinstance(o, Extra)):
-            if (self.key == o.key and self.value == o.value):
+            if (self.key == o.key and self.type == o.type and self.value == o.value):
                 return True
         return False
 
     def __hash__(self) -> int:
-        return 31 * hash(self.key) + hash(self.value)
+        return 31 * (31 * hash(self.key) + hash(self.type)) + hash(self.value)
 
 
 class Intent:
-    def __init__(self, action, categorySet, extraSet) -> None:
+    def __init__(self, appPath, appPackageName, comPonentType, comPonentName, action, categorySet, comPonentData,
+                 extraSet) -> None:
+        self.appPath = appPath
+        self.appPackageName = appPackageName
+        self.comPonentType = comPonentType
+        self.comPonentName = comPonentName
         self.action = action
         self.categorySet = categorySet
+        self.comPonentData = comPonentData
         self.extraSet = extraSet
 
     def __eq__(self, o: object) -> bool:
-        if (isinstance(o, Extra)):
-            if (self.action == o.action and self.categorySet ==
-                    o.categorySet and self.extraSet == o.extraSet):
+        if (isinstance(o, Intent)):
+            # o=Intent(o)
+            if (self.appPath == o.appPath and self.comPonentType
+                    == o.comPonentType and self.comPonentName == o.comPonentName and self.action == o.action and self.categorySet ==
+                    o.categorySet and self.comPonentData == o.comPonentData and self.extraSet == o.extraSet):
                 return True
         return False
 
     def __hash__(self) -> int:
-        return 31 * (31 * hash(self.action) + hash(self.categorySet)) + hash(self.extraSet)
+        return 31 * ((31 * (31 * (31 * (31 * hash(self.action) + hash(self.categorySet)) + hash(self.extraSet)) + hash(
+            self.comPonentData)) + hash(self.appPath)) + hash(self.comPonentType)) + hash(self.comPonentName)
 
-    # def __init__(self, action,categorySet,ExtraSet):
+    def __str__(self) -> str:
+        line = ''
+        if (self.appPath != None):
+            line = line + self.appPath + "#"
+        else:
+            line = line + "null" + "#"
+        if (self.appPackageName != None):
+            line = line + self.appPackageName + "#"
+        else:
+            line = line + "null" + "#"
+        if (self.comPonentType != None):
+            line = line + self.comPonentType + "#"
+        else:
+            line = line + "null" + "#"
+        if (self.comPonentName != None):
+            line = line + self.comPonentName + "#"
+        else:
+            line = line + "null" + "#"
+        if (self.action != None):
+            line = line + self.action + "#"
+        else:
+            line = line + "null" + "#"
+        categoryStr = ''
+        if (self.categorySet == None or len(self.categorySet) == 0):
+            categoryStr = "null"
+        else:
+            for category in self.categorySet:
+                if (categoryStr == ''):
+                    categoryStr = category
+                else:
+                    categoryStr = categoryStr + "," + category
+        line = line + categoryStr + "#"
+
+        if (self.comPonentData != None):
+            line = line + self.comPonentData + "#"
+        else:
+            line = line + "null" + "#"
+
+        extraStr = ''
+        if (self.extraSet == None or len(self.extraSet) == 0):
+            extraStr = "null"
+        else:
+            for extra in self.extraSet:
+                if (extraStr == ""):
+                    extraStr = extra.type + "&" + extra.key + "&" + extra.value;
+                else:
+                    extraStr = extraStr + ";" + extra.type + "&" + extra.key + "&" + extra.value;
+        line = line + extraStr;
+        return line
 
 
-def test(apkPath, initial_intent_file):  # intent_file and instrumented app
+def getCombinationCategorySet(categoryList, index, selectCategorySet, oneCategorySet):
+    if (index >= len(categoryList)):
+        selectCategorySet.add(oneCategorySet)
+    oneCategorySet = set()
+
+    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySet)
+
+    category = categoryList[index]
+    oneCategorySet.add(category)
+    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySet)
+
+
+def getCombinationExtraSet(extraList, index, selectExtraSet, oneExtraSet):
+    if (index >= len(extraList)):  #
+        selectExtraSet.add(oneExtraSet)
+    oneExtraSet = set()
+    extra = extraList[index]
+    if (extra.type == "int"):
+        oneExtraSet.add(extra)
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+
+        extraG = Extra(extra)
+        extraG.value = int(extraG.value) + 1
+        oneExtraSet.add(extraG)
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+
+        extraL = Extra(extra)
+        extraL.value = int(extra.value) - 1
+        oneExtraSet.add(extraL)
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+    else:
+        if extra.type == "float":
+            oneExtraSet.add(extra)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+
+            extraG = Extra(extra)
+            extraG.value = float(extraG.value) + 0.1
+            oneExtraSet.add(extraG)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+
+            extraL = Extra(extra)
+            extraL.value = float(extra.value) - 0.1
+            oneExtraSet.add(extraL)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+        else:
+            if (extra.type != "java.lang.String"):
+                fail_unHandle = open(logDir + "/" + "fail_unHandle.txt", 'a+')
+                fail_unHandle.write(extra.type + "can't handle" + "\n")
+                fail_unHandle.close()
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+            oneExtraSet.add(extra)
+
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+
+
+def monitorFeedBack():
+    while (not isADBWorkNormal()):
+        print("等待adb工作正常")
+        time.sleep(1)
+    log_getFeedBack = 'guake -e  "adb logcat | grep ZMSGetInfo | tee  ' + logDir + '/ZMSGetInfo.log "'
+    thread_getFeedBack = MyThread(log_getFeedBack)
+    thread_getFeedBack.start()
+    time.sleep(3)
+    return thread_getFeedBack
+
+
+def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
     global intent_test_count
-    flag_test = False;
+
     app_test_status = open(logDir + "/app_test_status", 'a+')
     print(apkPath + "11111111111111111111111111111111111" + "\n")
     app_test_status.write(apkPath + "11111111111111111111111111111111111" + "\n")
     waitForTestStop()
     print("开始测试新app")
-    initial_intent = open(initial_intent_file, "r")
-    apk_exported_info = initial_intent.readline()
+
+    initial_intent = open(initial_intent_file_path, 'r')
+    content = initial_intent.readlines()
     initial_intent.close()
+    for one_line in content:
+        infoList = one_line.split("#")
+        appPath = infoList[0]
+        appPackageName = infoList[1]
+        comPonentType = infoList[2]
+        comPonentName = infoList[3]
 
-    index = 0
+        isFirstIn = True
+        actionSet = set()
+        categorySet = set()
+        extraSet = set()
+        while (True):
+            thread_getFeedBack = monitorFeedBack()
+            if (isFirstIn):
+                isFirstIn = False
+                flag_test = start_one_intent_test(apkPath, initial_intent_file_path, app_test_status)
 
-    print("ssssssssssssssssss" + line)
-    oneIntentFile = open(logDir + "/temp_intent", "w")
-    oneIntentFile.write(line)
-    oneIntentFile.close()
+            else:
+                selectExtraSet = set()
+                extraList = list(extraSet)
+                getCombinationExtraSet(extraList, 0, selectExtraSet, set())
+
+                selectCategorySet = set()
+                categoryList = list(categorySet)
+                getCombinationCategorySet(categoryList, 0, selectCategorySet, set())
+
+                for action in actionSet:
+                    for oneExtraSet in selectExtraSet:
+                        for oneCategorySet in selectCategorySet:
+                            intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
+                                            oneCategorySet, None, oneExtraSet)
+                            one_intent_file = open(logDir + "/temp_intent", 'w')
+                            one_intent_file.write(intent.__str__() + "\n")
+                            one_intent_file.close()
+                            flag_test = start_one_intent_test(apkPath, logDir + "/temp_intent", app_test_status)
+
+            killProcessTree(thread_getFeedBack.proc.pid)
+            flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,app_test_status)
+            if (not flag_add_new_content):
+                break
+
+    print(apkPath + "222222222222222222222222222222222222222" + "\n")
+    app_test_status.write(apkPath + "222222222222222222222222222222222222222" + "\n")
+    app_test_status.close()
+
+    return flag_test
+
+
+def start_one_intent_test(apkPath, testFile, app_test_status):
+    global intent_test_count
+
+    flag_test = False
     flag_install = installNewAPP(
         "/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
     if (not flag_install):
@@ -301,31 +476,31 @@ def test(apkPath, initial_intent_file):  # intent_file and instrumented app
         raise RuntimeError
     flag_install, install_info = installNewAPP(apkPath)
     if (flag_install):
-        flag_pushTestFile, push_info = pushTestFile(logDir + "/temp_intent")
+        flag_pushTestFile, push_info = pushTestFile(testFile)
         if (flag_pushTestFile):
             flag_test_APP, test_info = startTestAPP()
             if (flag_test_APP):
                 flag_test = True
-                print(str(index) + ":oneIntent启动成功!" + "\n")
-                app_test_status.write(str(index) + ":oneIntent启动成功!" + "\n")
+                print("oneIntent启动成功!" + "\n")
+                app_test_status.write("oneIntent启动成功!" + "\n")
 
             else:
-                print(str(index) + ":启动TestPermissionAPP失败")
-                app_test_status.write(str(index) + test_info + "\n")
+                print("启动TestPermissionAPP失败")
+                app_test_status.write(test_info + "\n")
 
         else:
-            print(str(index) + ":推送测试文件失败")
-            app_test_status.write(str(index) + push_info + "\n")
+            print("推送测试文件失败")
+            app_test_status.write(push_info + "\n")
 
 
     else:
-        print(str(index) + ":待测apk安装失败")
-        app_test_status.write(str(index) + install_info + "\n")
+        print("待测apk安装失败")
+        app_test_status.write(install_info + "\n")
 
     waitForTestStop()
     uninstall_app_by_path(apkPath)
     uninstall_app_by_packageName("jacy.popoaichuiniu.com.testpermissionleakge")
-    index = index + 1
+
     intent_test_count = intent_test_count + 1
     if (intent_test_count % 20 == 0):
         if (rebootPhone()):
@@ -335,13 +510,79 @@ def test(apkPath, initial_intent_file):  # intent_file and instrumented app
         else:
             app_test_status.write("reboot phone error" + "\n")
             raise RuntimeError
+    if (flag_test):
+        return True
+    else:
+        return False
 
 
-print(apkPath + "222222222222222222222222222222222222222" + "\n")
-app_test_status.write(apkPath + "222222222222222222222222222222222222222" + "\n")
-app_test_status.close()
+def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,app_test_status):
+    # I / ZMSGetInfo_0_false_java.lang.String(2300): ggg
+    # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
+    flag_add_new=False
+    feedBackFile = open(logDir + '/ZMSGetInfo.log', 'r')
+    lines = feedBackFile.readlines()
+    dict={}#{key=id value=list[isIf,type,value]}}
+    for line in lines:
+        start=line.index('ZMSGetInfo')
+        end=line.index('(')
 
-return flag_test
+        if(start==-1 or end==-1):
+            continue
+        info=line[start,end]
+        info_array=info.split('_')
+
+        if(len(info_array)!=4):
+            continue
+        start_value=line.index(":")
+        end_value=line.index("\n")
+
+        if(start_value==-1 or end_value==-1):
+            continue
+        value=line[start_value+2,end_value]
+
+        if(info_array[1]=="action"):
+            actionSet.add(value)
+            flag_add_new = True
+            continue
+        if(info_array[1]=="category"):
+            categorySet.add(value)
+            flag_add_new = True
+            continue
+        list=[]
+        list[0]=info_array[2]
+        list[1]=info_array[3]#这个是存储的type值，是这个日志后面变量的值的类型，for extra unit log ,the type is alsways string
+        list[2]=value
+        # dict[info_array[1]]=list
+        testSet=dict.get(info_array[1])
+        if(testSet==None):
+            testSet=set()
+        testSet.add(list)
+        dict[info_array[1]]=testSet
+    for id,listSet in dict.items():#相同id的信息 #{key=id value=list[isIf,type,value]}}
+        extraValue=''
+        extraType=''
+        if_count=0
+        for list in listSet:
+            if list[0]=="true":
+                extraValue=list[2]
+                extraType=list[1]
+                if_count=if_count+1
+        if(if_count>1 or if_count==0):
+            app_test_status.write("if_count is not correct! "+str(if_count)+" $$$"+str(listSet)+"$$$\n")
+
+        for list in listSet:
+            if list[0]=="false":
+                extraKey=list[2]
+                extraSet.add(Extra(extraKey,extraType,extraValue))
+                flag_add_new = True
+    return flag_add_new
+
+
+
+
+
+
 
 
 class MyThread(threading.Thread):
@@ -449,9 +690,9 @@ if __name__ == '__main__':
     print(sys.argv)
     if (len(sys.argv) <= 2):  # 给定参数不对时，使用默认参数
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
-        apkDir = '/media/mobile/myExperiment/apps/f-droid-app'
+        apkDir = '/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk'
         # apkDir='/home/lab418/Documents'
-        logDir = '/home/zms/logger_file/testLog'
+        logDir = '/home/zms/logger_file/DynamicSE/testLog'
     else:
         apkDir = sys.argv[1]
         logDir = sys.argv[2]

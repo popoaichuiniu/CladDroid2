@@ -3,6 +3,7 @@ package com.popoaichuiniu.jacy;
 import com.popoaichuiniu.intentGen.Intent;
 import com.popoaichuiniu.intentGen.IntentConditionTransformSymbolicExcutation;
 import com.popoaichuiniu.intentGen.IntentInfo;
+import com.popoaichuiniu.intentGen.IntentInfoFileGenerate;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
 import com.popoaichuiniu.jacy.statistic.AndroidInfo;
@@ -46,11 +47,13 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
     }
 
     private static void WriteFileForUnitInstrumentAnalysis(List<SootMethod> ea_entryPoints, CallGraph cg, String appPath) {
-        AndroidInfo androidInfo = new AndroidInfo(appPath, exceptionLogger);
 
+        //******************************生成initialIntent
+        AndroidInfo androidInfo = new AndroidInfo(appPath, exceptionLogger);
+        String packageName=androidInfo.getPackageName(appPath);
         Map<String, AXmlNode> eas = androidInfo.getEAs();
 
-        List<IntentInfo> intentInfoList = new ArrayList<>();
+        Set<IntentInfo> intentInfoSet = new HashSet<>();
         for (SootMethod sootMethod : ea_entryPoints) {
             AXmlNode aXmlNode = eas.get(sootMethod.getDeclaringClass().getName());
             if (aXmlNode == null) {
@@ -62,8 +65,12 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
             Intent intent = new Intent();
             intent.targetComponent = componentName;
             IntentConditionTransformSymbolicExcutation.IntentUnit intentUnit = new IntentConditionTransformSymbolicExcutation.IntentUnit(intent, null, componentType, componentName);
-            intentInfoList.add();
+            intentInfoSet.add(IntentConditionTransformSymbolicExcutation.getIntentInfo(intentUnit,appPath,packageName));
         }
+
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath,new ArrayList<>(intentInfoSet),exceptionLogger);
+
+        //******************************生成initialIntent
 
 
         IntentDataFlowAnalysisForDynamicSE.clearIntentDataFlowAnalysisForDynamicSE();//
@@ -144,16 +151,20 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                                 SootMethod extraSootMethod = entry.getValue().whereGenSootMethod;
                                 DefinitionStmt definitionStmtExtra = (DefinitionStmt) extraUnit;
                                 InvokeExpr invokeExprGetExtra = definitionStmtExtra.getInvokeExpr();
-                                for (int i = 0; i < invokeExprGetExtra.getArgs().size(); i++) {
-                                    Value arg = invokeExprGetExtra.getArgs().get(i);
-                                    if (arg instanceof Local) {
-                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), true, entry.getValue().id, false));
-                                    } else if (arg instanceof Constant) {
-                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), false, entry.getValue().id, false));
-                                    } else {
-                                        exceptionLogger.warn("can't handle -----not local or constant ");
+                                //for (int i = 0; i < invokeExprGetExtra.getArgs().size(); i++) {
+                                    if(invokeExprGetExtra.getArgs().size()>=1)//extra default value is not considered
+                                    {
+                                        Value arg = invokeExprGetExtra.getArgs().get(0);
+                                        if (arg instanceof Local) {
+                                            allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), true, entry.getValue().id, false));
+                                        } else if (arg instanceof Constant) {
+                                            allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), false, entry.getValue().id, false));
+                                        } else {
+                                            exceptionLogger.warn("can't handle -----not local or constant ");
+                                        }
                                     }
-                                }
+
+                               // }
 
 
                                 if (valueBox.getValue().getType() instanceof PrimType || valueBox.getValue().getType().toString().equals("java.lang.String")) {

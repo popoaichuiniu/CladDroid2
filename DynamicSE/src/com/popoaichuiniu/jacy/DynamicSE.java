@@ -30,6 +30,10 @@ public class DynamicSE extends BodyTransformer {
     @Override
     protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
 
+        SootMethod sootMethod = b.getMethod();
+        if (sootMethod.getBytecodeSignature().equals("com.example.lab418.testwebview2.ExampleReceiver")) {
+            System.out.println("11111111111111111111111111111111111111" + "com.example.lab418.testwebview2.ExampleReceiver");
+        }
         varName = 1000;
         if (!Util.isApplicationMethod(b.getMethod())) {
             return;
@@ -40,6 +44,8 @@ public class DynamicSE extends BodyTransformer {
         List<InstrumentUnit> instrumentUnitsCustomMessageList = new ArrayList<InstrumentUnit>();
         List<InstrumentInfo> instrumentInfoLogConstantList = new ArrayList<>();
         List<InstrumentInfo> instrumentInfoLogVarList = new ArrayList<>();
+
+
         for (Unit unit : units) {
 
             if (unitNeedAnalysis(unit, b.getMethod())) {
@@ -52,13 +58,17 @@ public class DynamicSE extends BodyTransformer {
             }
 
 
-            InstrumentInfo instrumentInfo = unitNeedInstrumentToGetInfo(unit, b.getMethod());
+            Set<InstrumentInfo> instrumentInfoSet = unitNeedInstrumentToGetInfo(unit, b.getMethod());
 
-            if (instrumentInfo != null) {
-                if (instrumentInfo.isLocal) {
-                    instrumentInfoLogVarList.add(instrumentInfo);
-                } else {
-                    instrumentInfoLogConstantList.add(instrumentInfo);
+            if(instrumentInfoSet!=null&&instrumentInfoSet.size()>0)
+            {
+                for(InstrumentInfo instrumentInfo:instrumentInfoSet)
+                {
+                    if (instrumentInfo.isLocal) {
+                        instrumentInfoLogVarList.add(instrumentInfo);
+                    } else {
+                        instrumentInfoLogConstantList.add(instrumentInfo);
+                    }
                 }
             }
 
@@ -71,7 +81,7 @@ public class DynamicSE extends BodyTransformer {
                 addInstrumentBeforeStatementCustomMessage(instrumentUnit.body, instrumentUnit.point, instrumentUnit.message);
             }
 
-            for (InstrumentInfo instrumentInfoVar : instrumentInfoLogVarList) {
+            for (InstrumentInfo instrumentInfoVar : instrumentInfoLogVarList) {//
                 addInstrumentBeforeStatementInstrumentInfoVar(instrumentInfoVar);
             }
 
@@ -80,12 +90,9 @@ public class DynamicSE extends BodyTransformer {
             }
 
         } catch (RuntimeException e) {
-            writeFileAppInstrumentException.writeStr(e.getMessage() + " " + ExceptionStackMessageUtil.getStackTrace(e)+"###"+appPath + "\n");
+            writeFileAppInstrumentException.writeStr(e.getMessage() + " " + ExceptionStackMessageUtil.getStackTrace(e) + "###" + appPath + "\n");
             writeFileAppInstrumentException.flush();
         }
-
-
-
 
 
     }
@@ -94,7 +101,7 @@ public class DynamicSE extends BodyTransformer {
 
         //insert a log.i instrument statement
 
-        JimpleBody body= (JimpleBody) instrumentInfoConstant.sootMethod.getActiveBody();
+        JimpleBody body = (JimpleBody) instrumentInfoConstant.sootMethod.getActiveBody();
 
         Scene.v().forceResolve("android.util.Log", SootClass.SIGNATURES);
         Scene.v().forceResolve("java.lang.String", SootClass.SIGNATURES);
@@ -102,12 +109,11 @@ public class DynamicSE extends BodyTransformer {
         SootMethod logMethod = Scene.v().getMethod("<android.util.Log: int i(java.lang.String,java.lang.String)>");
 
 
-
         String logTag = "ZMSGetInfo";
-        logTag = logTag + "_" + instrumentInfoConstant.id + "_" + instrumentInfoConstant.isIf;
+        logTag = logTag + "_" + instrumentInfoConstant.id + "_" + instrumentInfoConstant.isIf+"_"+instrumentInfoConstant.type;
         Value logType = StringConstant.v(logTag);
 
-        Value logMessage = StringConstant.v(instrumentInfoConstant.name.replaceAll("\"",""));
+        Value logMessage = StringConstant.v(instrumentInfoConstant.name.replaceAll("\"", ""));
 
 
         //make new static invokement
@@ -129,7 +135,7 @@ public class DynamicSE extends BodyTransformer {
 
         //insert a log.i instrument statement
 
-        JimpleBody body= (JimpleBody) instrumentInfoVar.sootMethod.getActiveBody();
+        JimpleBody body = (JimpleBody) instrumentInfoVar.sootMethod.getActiveBody();
 
         Scene.v().forceResolve("android.util.Log", SootClass.SIGNATURES);
         Scene.v().forceResolve("java.lang.String", SootClass.SIGNATURES);
@@ -149,29 +155,24 @@ public class DynamicSE extends BodyTransformer {
         SootMethod stringMethodLong = Scene.v().getMethod("<java.lang.String: java.lang.String valueOf(long)>");
 
         String logTag = "ZMSGetInfo";
-        logTag = logTag + "_" + instrumentInfoVar.id + "_" + instrumentInfoVar.isIf;
+        logTag = logTag + "_" + instrumentInfoVar.id + "_" + instrumentInfoVar.isIf+"_"+instrumentInfoVar.type;
         Value logType = StringConstant.v(logTag);
 
         Value logMessage = null;
-        Type localType=Scene.v().getType(instrumentInfoVar.type);
-        Unit pointUnit=instrumentInfoVar.point;
-        DefinitionStmt definitionStmt= (DefinitionStmt) pointUnit;
-        Local local=null;
-        for(ValueBox valueBox:definitionStmt.getRightOp().getUseBoxes())
-        {
-            if(valueBox.getValue() instanceof Local && valueBox.getValue().getType().toString().equals(instrumentInfoVar.type)&&valueBox.getValue().toString().equals(instrumentInfoVar.name))
-            {
+        Type localType = Scene.v().getType(instrumentInfoVar.type);
+        Unit pointUnit = instrumentInfoVar.point;
+        DefinitionStmt definitionStmt = (DefinitionStmt) pointUnit;
+        Local local = null;
+        for (ValueBox valueBox : definitionStmt.getRightOp().getUseBoxes()) {
+            if (valueBox.getValue() instanceof Local && valueBox.getValue().getType().toString().equals(instrumentInfoVar.type) && valueBox.getValue().toString().equals(instrumentInfoVar.name)) {
                 local = (Local) valueBox.getValue();
             }
         }
 
-        if(local==null)
-        {
+        if (local == null) {
             exceptionLogger.error("can't find local");
             return;
         }
-
-
 
 
         if (local.getType().toString().equals("java.lang.String")) {
@@ -217,7 +218,7 @@ public class DynamicSE extends BodyTransformer {
             if (whichStringValueOfSootMethod != null) {
                 StaticInvokeExpr stringValueOfInvokeExpr = Jimple.v().newStaticInvokeExpr(whichStringValueOfSootMethod, local);
                 Local localStringValueOfReturn = Jimple.v().newLocal("r" + varName, Scene.v().getType("java.lang.String"));
-                body.getLocals().insertAfter(localStringValueOfReturn,local);
+                body.getLocals().insertAfter(localStringValueOfReturn, local);
                 varName++;
                 //AssignStmt表示赋值语句；而IdentityStmt表示将参数赋值给Local这样的语句。
                 AssignStmt assignStmt = Jimple.v().newAssignStmt(localStringValueOfReturn, stringValueOfInvokeExpr);
@@ -237,7 +238,6 @@ public class DynamicSE extends BodyTransformer {
             // turn it into an invoke statement
 
             InvokeStmt invokeStmt = Jimple.v().newInvokeStmt(newInvokeExpr);
-
 
 
             body.getUnits().insertBefore(invokeStmt, instrumentInfoVar.point);
@@ -353,7 +353,9 @@ public class DynamicSE extends BodyTransformer {
         return false;
     }
 
-    private InstrumentInfo unitNeedInstrumentToGetInfo(Unit unit, SootMethod sootMethod) {
+    private Set<InstrumentInfo> unitNeedInstrumentToGetInfo(Unit unit, SootMethod sootMethod) {
+
+        Set<InstrumentInfo> instrumentInfoSet=new HashSet<>();
         BytecodeOffsetTag tag = Util.extractByteCodeOffset(unit);
         if (tag == null) {
             return null;
@@ -361,11 +363,11 @@ public class DynamicSE extends BodyTransformer {
 
         for (InstrumentInfoByte instrumentInfoByte : instrumentUnitInfoByteSet) {
             if (Integer.valueOf(instrumentInfoByte.byteTag) == tag.getBytecodeOffset() && instrumentInfoByte.methodString.equals(sootMethod.getBytecodeSignature())) {
-                return new InstrumentInfo(sootMethod, unit, instrumentInfoByte.name, instrumentInfoByte.type, instrumentInfoByte.isLocal, instrumentInfoByte.id, instrumentInfoByte.isIf);
+                instrumentInfoSet.add(new InstrumentInfo(sootMethod, unit, instrumentInfoByte.name, instrumentInfoByte.type, instrumentInfoByte.isLocal, instrumentInfoByte.id, instrumentInfoByte.isIf)) ;
             }
 
         }
-        return null;
+        return instrumentInfoSet;
     }
 
     public static void main(String[] args) {
@@ -522,7 +524,7 @@ public class DynamicSE extends BodyTransformer {
 
         DynamicSE dynamicSE = new DynamicSE(args[0], args[2], args[3]);
 
-        PackManager.v().getPack("jtp").add(new Transform("jtp.myInstrumenter", dynamicSE));
+        PackManager.v().getPack("jtp").add(new Transform("jtp.myDynamicSE", dynamicSE));
 
 
         soot.Main.main(sootArgs);
@@ -568,7 +570,7 @@ public class DynamicSE extends BodyTransformer {
 
         //check that we did not mess up the Jimple
         b.validate();
-        infoLogger.info("insert before " + point);
+        infoLogger.info("insert unit " + invokeStmt);
         inStrumentCount = inStrumentCount + 1;
 
 

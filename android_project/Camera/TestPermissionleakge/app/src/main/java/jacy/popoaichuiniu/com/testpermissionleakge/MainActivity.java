@@ -219,14 +219,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//
-//                }
-//                Log.i("ZMSStart", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& app is died now!");
-//                android.os.Process.killProcess(android.os.Process.myPid());
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+                Log.i("ZMSStart", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& app is died now!");
+                android.os.Process.killProcess(android.os.Process.myPid());
 
             }
         }).start();

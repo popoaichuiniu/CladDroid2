@@ -318,7 +318,7 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
 
                                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                                 intentDataTransfer.type = IntentDataTransfer.TYPE_ACTION;
-                                intentDataTransfer.id = "Action";
+                                intentDataTransfer.id = "action";
                                 intentDataTransfer.whereGenUnit = definitionStmt;
                                 intentDataTransfer.whereGenSootMethod = sootMethod;
                                 intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);
@@ -328,7 +328,7 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
                             if (invokeExpr.getMethod().getName().equals("hasCategory")) {
                                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer();
                                 intentDataTransfer.type = IntentDataTransfer.TYPE_CATEGORY;
-                                intentDataTransfer.id = "Category";
+                                intentDataTransfer.id = "category";
                                 intentDataTransfer.whereGenUnit = definitionStmt;
                                 intentDataTransfer.whereGenSootMethod = sootMethod;
                                 intentDataTransferMap.put(definitionStmt.getLeftOp().toString(), intentDataTransfer);

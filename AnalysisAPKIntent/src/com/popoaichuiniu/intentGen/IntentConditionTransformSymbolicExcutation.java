@@ -219,7 +219,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         ultiIntentSet = preProcess(ultiIntentSet);//将intent的num值和string处理
 
-        List<IntentInfo> intentInfoList = new ArrayList<>();
+        Set<IntentInfo> intentInfoSet = new HashSet<>();
         for (IntentUnit intentUnit : ultiIntentSet) {
             Stmt stmt = (Stmt) intentUnit.unit;
             InvokeExpr invokeExpr = stmt.getInvokeExpr();
@@ -227,7 +227,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 throw new RuntimeException("intent unit do not contain invoke!");
             } else {
 
-                intentInfoList.add(getIntentInfo(intentUnit));
+                intentInfoSet.add(getIntentInfo(intentUnit,appPath,packageName));
                 writeFile_intent_ulti.writeStr(intentUnit.intent + "%%%" + intentUnit.unit + "&*" + intentUnit.unit.getTag("BytecodeOffsetTag") + "%%%" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
             }
 
@@ -235,7 +235,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, intentInfoList, exceptionLogger);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
 
@@ -343,7 +343,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         }
     }
 
-    private IntentInfo getIntentInfo(IntentUnit intentUnit) {
+    public static IntentInfo getIntentInfo(IntentUnit intentUnit,String appPath,String packageName) {
 
         IntentInfo intentInfo = new IntentInfo();
         intentInfo.appPath = appPath;

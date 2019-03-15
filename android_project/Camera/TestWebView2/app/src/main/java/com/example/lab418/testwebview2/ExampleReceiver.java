@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 public class ExampleReceiver extends BroadcastReceiver {
 
@@ -15,6 +16,7 @@ public class ExampleReceiver extends BroadcastReceiver {
         String sss=String.valueOf(x);
 
         String ttt=sss+xxx;
+
         if(intent.getStringExtra("ggg").equals(ttt))
         {
             SmsManager.getDefault().sendTextMessage("123456789", null, "fff", null, null);
