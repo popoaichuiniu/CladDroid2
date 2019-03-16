@@ -101,6 +101,8 @@ public class Config {
 
     public static boolean isDynamicSETest=true;
 
+    public static String dynamicAppDir=Config.wandoijiaAPP;
+
     // public  static  String testAppPath="/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/AnalysisAPKIntent/万花筒之旅一宝宝巴士.apk";
     public static void setSootOptions(String appPath) {
         soot.G.reset();// 标准的soot操作，清空soot之前所有操作遗留下的缓存值

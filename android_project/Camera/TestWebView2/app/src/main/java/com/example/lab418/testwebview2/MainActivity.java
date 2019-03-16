@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent=new Intent();
+        intent.setClass(this,ExampleReceiver.class);
+        sendBroadcast(intent);
 
        // x = 2;
         //switch (x)

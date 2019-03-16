@@ -238,20 +238,11 @@ def rebootPhone():
 intent_test_count = 0
 
 
-def getNewContent(test_feedback):
-    feedback = open(test_feedback, 'r')
-
-
 class Extra:
     def __init__(self, key, type, value):
         self.key = key
         self.type = type
         self.value = value
-
-    def __init__(self, extra):
-        self.key = extra.key
-        self.value = extra.value
-        self.type = extra.type
 
     def __eq__(self, o: object) -> bool:
         if (isinstance(o, Extra)):
@@ -277,16 +268,75 @@ class Intent:
 
     def __eq__(self, o: object) -> bool:
         if (isinstance(o, Intent)):
-            # o=Intent(o)
-            if (self.appPath == o.appPath and self.comPonentType
-                    == o.comPonentType and self.comPonentName == o.comPonentName and self.action == o.action and self.categorySet ==
-                    o.categorySet and self.comPonentData == o.comPonentData and self.extraSet == o.extraSet):
-                return True
+            if (self.getBaseStr(self) == self.getBaseStr(o) and self.getActionStr(
+                    self) == self.getActionStr(
+                o)):
+                if (self.getCategorySet(self) == self.getCategorySet(o) and self.getDataStr(
+                        self) == self.getDataStr(
+                    o)):
+                    if (self.getExtraSet(self) == self.getExtraSet(o)):
+                        return True
+
         return False
 
+    def getBaseStr(self, intent):
+        line = ''
+        if (intent.appPath != None):
+            line = line + intent.appPath + "#"
+        else:
+            line = line + "null" + "#"
+        if (intent.appPackageName != None):
+            line = line + intent.appPackageName + "#"
+        else:
+            line = line + "null" + "#"
+        if (intent.comPonentType != None):
+            line = line + intent.comPonentType + "#"
+        else:
+            line = line + "null" + "#"
+        if (intent.comPonentName != None):
+            line = line + intent.comPonentName + "#"
+        else:
+            line = line + "null" + "#"
+
+        return line
+
+    def getActionStr(self, intent):
+        line = ''
+        if (intent.action != None):
+            line = line + intent.action + "#"
+        else:
+            line = line + "null" + "#"
+        return line
+
+    def getCategorySet(self, intent):
+        categorySet = set()
+        if (intent.categorySet == None or len(intent.categorySet) == 0):
+            categorySet.add("null")
+        else:
+            for category in intent.categorySet:
+                categorySet.add(category)
+        return categorySet
+
+    def getDataStr(self, intent):
+        line = ''
+        if (intent.comPonentData != None):
+            line = line + intent.comPonentData + "#"
+        else:
+            line = line + "null" + "#"
+        return line
+
+    def getExtraSet(self, intent):
+        extraSet = set()
+        if (intent.extraSet == None or len(intent.extraSet) == 0):
+            extraSet.add("null")
+        else:
+            for extra in intent.extraSet:
+                extraStr = extra.type + "&" + extra.key + "&" + str(extra.value)
+                extraSet.add(extraStr)
+        return extraSet
+
     def __hash__(self) -> int:
-        return 31 * ((31 * (31 * (31 * (31 * hash(self.action) + hash(self.categorySet)) + hash(self.extraSet)) + hash(
-            self.comPonentData)) + hash(self.appPath)) + hash(self.comPonentType)) + hash(self.comPonentName)
+        return hash(self.__str__())
 
     def __str__(self) -> str:
         line = ''
@@ -332,76 +382,88 @@ class Intent:
         else:
             for extra in self.extraSet:
                 if (extraStr == ""):
-                    extraStr = extra.type + "&" + extra.key + "&" + extra.value;
+                    extraStr = extra.type + "&" + extra.key + "&" + str(extra.value);
                 else:
-                    extraStr = extraStr + ";" + extra.type + "&" + extra.key + "&" + extra.value;
+                    extraStr = extraStr + ";" + extra.type + "&" + extra.key + "&" + str(extra.value);
         line = line + extraStr;
         return line
 
 
 def getCombinationCategorySet(categoryList, index, selectCategorySet, oneCategorySet):
     if (index >= len(categoryList)):
-        selectCategorySet.add(oneCategorySet)
-    oneCategorySet = set()
+        selectCategorySet.add(frozenset(oneCategorySet))
+        return
 
-    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySet)
+    oneCategorySetCopy = set(oneCategorySet)
+    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySetCopy)
 
     category = categoryList[index]
-    oneCategorySet.add(category)
-    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySet)
+    oneCategorySetCopy = set(oneCategorySet)
+    oneCategorySetCopy.add(category)
+    getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySetCopy)
 
 
 def getCombinationExtraSet(extraList, index, selectExtraSet, oneExtraSet):
     if (index >= len(extraList)):  #
-        selectExtraSet.add(oneExtraSet)
-    oneExtraSet = set()
+        selectExtraSet.add(frozenset(oneExtraSet))
+        return
+
     extra = extraList[index]
     if (extra.type == "int"):
-        oneExtraSet.add(extra)
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+        oneExtraSetCopy = set(oneExtraSet)
+        oneExtraSetCopy.add(extra)  # ==
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
-        extraG = Extra(extra)
+        oneExtraSetCopy = set(oneExtraSet)
+        extraG = Extra(extra.key, extra.type, extra.value)#+1
         extraG.value = int(extraG.value) + 1
-        oneExtraSet.add(extraG)
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+        oneExtraSetCopy.add(extraG)
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
-        extraL = Extra(extra)
+        oneExtraSetCopy = set(oneExtraSet)
+        extraL = Extra(extra.key, extra.type, extra.value)#-1
         extraL.value = int(extra.value) - 1
-        oneExtraSet.add(extraL)
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+        oneExtraSetCopy.add(extraL)
+        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
     else:
         if extra.type == "float":
-            oneExtraSet.add(extra)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+            oneExtraSetCopy = set(oneExtraSet)
+            oneExtraSetCopy.add(extra)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
-            extraG = Extra(extra)
+            extraG = Extra(extra.key, extra.type, extra.value)
             extraG.value = float(extraG.value) + 0.1
-            oneExtraSet.add(extraG)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+            oneExtraSetCopy = set(oneExtraSet)
+            oneExtraSetCopy.add(extraG)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
-            extraL = Extra(extra)
+            extraL = Extra(extra.key, extra.type, extra.value)
             extraL.value = float(extra.value) - 0.1
-            oneExtraSet.add(extraL)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+            oneExtraSetCopy = set(oneExtraSet)
+            oneExtraSetCopy.add(extraL)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
         else:
             if (extra.type != "java.lang.String"):
                 fail_unHandle = open(logDir + "/" + "fail_unHandle.txt", 'a+')
                 fail_unHandle.write(extra.type + "can't handle" + "\n")
                 fail_unHandle.close()
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
-            oneExtraSet.add(extra)
 
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSet)
+            oneExtraSetCopy = set(oneExtraSet)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
+
+            oneExtraSetCopy = set(oneExtraSet)
+            oneExtraSetCopy.add(extra)
+            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
 
 def monitorFeedBack():
     while (not isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
-    log_getFeedBack = 'guake -e  "adb logcat | grep ZMSGetInfo | tee  ' + logDir + '/ZMSGetInfo.log "'
+    log_getFeedBack = 'guake -e  "adb logcat | grep ZMSGetInfo | tee   ' + logDir + '/ZMSGetInfo.log "'
     thread_getFeedBack = MyThread(log_getFeedBack)
     thread_getFeedBack.start()
-    time.sleep(3)
+    time.sleep(5)
     return thread_getFeedBack
 
 
@@ -417,6 +479,8 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
     initial_intent = open(initial_intent_file_path, 'r')
     content = initial_intent.readlines()
     initial_intent.close()
+
+    has_tested_intent = set()
     for one_line in content:
         infoList = one_line.split("#")
         appPath = infoList[0]
@@ -426,13 +490,18 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
 
         isFirstIn = True
         actionSet = set()
+        actionSet.add(None)  # default
         categorySet = set()
         extraSet = set()
         while (True):
             thread_getFeedBack = monitorFeedBack()
+            intent = None
             if (isFirstIn):
                 isFirstIn = False
                 flag_test = start_one_intent_test(apkPath, initial_intent_file_path, app_test_status)
+                intent = Intent(appPath, appPackageName, comPonentType, comPonentName, None,
+                                None, None, None)
+                has_tested_intent.add(intent)
 
             else:
                 selectExtraSet = set()
@@ -448,13 +517,32 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
                         for oneCategorySet in selectCategorySet:
                             intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
                                             oneCategorySet, None, oneExtraSet)
-                            one_intent_file = open(logDir + "/temp_intent", 'w')
-                            one_intent_file.write(intent.__str__() + "\n")
-                            one_intent_file.close()
-                            flag_test = start_one_intent_test(apkPath, logDir + "/temp_intent", app_test_status)
+                            if (intent not in has_tested_intent):
+                                one_intent_file = open(logDir + "/temp_intent", 'w')
+                                one_intent_file.write(intent.__str__() + "\n")
+                                one_intent_file.close()
+                                flag_test = start_one_intent_test(apkPath, logDir + "/temp_intent", app_test_status)
+                                has_tested_intent.add(intent)
 
             killProcessTree(thread_getFeedBack.proc.pid)
-            flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,app_test_status)
+
+            try:
+                recordProc = psutil.Process(thread_getFeedBack.proc.pid)
+                if (recordProc.is_running()):
+                    runLogFile.write("thread_getFeedBack is not stop\n")
+                    break
+                else:
+                    runLogFile.write("ZMSGetInfo log process " + str(recordProc.status()) + "\n")
+
+
+            except psutil.NoSuchProcess:
+                runLogFile.write("ZMSGetInfo log process has died!\n")
+
+            newInfoFile.write("1111111111111111111111111\n\n")
+            newInfoFile.write(intent.__str__() + "\n\n")
+            flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,
+                                                                       app_test_status)
+            newInfoFile.write("2222222222222222222222222\n\n\n")
             if (not flag_add_new_content):
                 break
 
@@ -516,73 +604,72 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         return False
 
 
-def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,app_test_status):
+def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, app_test_status):
     # I / ZMSGetInfo_0_false_java.lang.String(2300): ggg
     # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
-    flag_add_new=False
-    feedBackFile = open(logDir + '/ZMSGetInfo.log', 'r')
-    lines = feedBackFile.readlines()
-    dict={}#{key=id value=list[isIf,type,value]}}
-    for line in lines:
-        start=line.index('ZMSGetInfo')
-        end=line.index('(')
+    flag_add_new = False
+    if (os.path.exists(logDir + '/ZMSGetInfo.log')):
+        feedBackFile = open(logDir + '/ZMSGetInfo.log', 'r')
+        lines = feedBackFile.readlines()
+        feedBackFile.close()
+        os.remove(logDir + '/ZMSGetInfo.log')
+        dict = {}  # {key=id value=list[isIf,type,value]}}
+        for line in lines:
+            newInfoFile.write(line)
+            newInfoFile.flush()
+            start = line.index('ZMSGetInfo')
+            end = line.index('(')
 
-        if(start==-1 or end==-1):
-            continue
-        info=line[start,end]
-        info_array=info.split('_')
+            if (start == -1 or end == -1):
+                continue
+            info = line[start:end]
+            info_array = info.split('_')
 
-        if(len(info_array)!=4):
-            continue
-        start_value=line.index(":")
-        end_value=line.index("\n")
+            if (len(info_array) != 4):
+                continue
+            start_value = line.index(":")
+            end_value = line.index("\n")
 
-        if(start_value==-1 or end_value==-1):
-            continue
-        value=line[start_value+2,end_value]
+            if (start_value == -1 or end_value == -1):
+                continue
+            value = line[start_value + 2:end_value]
 
-        if(info_array[1]=="action"):
-            actionSet.add(value)
-            flag_add_new = True
-            continue
-        if(info_array[1]=="category"):
-            categorySet.add(value)
-            flag_add_new = True
-            continue
-        list=[]
-        list[0]=info_array[2]
-        list[1]=info_array[3]#这个是存储的type值，是这个日志后面变量的值的类型，for extra unit log ,the type is alsways string
-        list[2]=value
-        # dict[info_array[1]]=list
-        testSet=dict.get(info_array[1])
-        if(testSet==None):
-            testSet=set()
-        testSet.add(list)
-        dict[info_array[1]]=testSet
-    for id,listSet in dict.items():#相同id的信息 #{key=id value=list[isIf,type,value]}}
-        extraValue=''
-        extraType=''
-        if_count=0
-        for list in listSet:
-            if list[0]=="true":
-                extraValue=list[2]
-                extraType=list[1]
-                if_count=if_count+1
-        if(if_count>1 or if_count==0):
-            app_test_status.write("if_count is not correct! "+str(if_count)+" $$$"+str(listSet)+"$$$\n")
-
-        for list in listSet:
-            if list[0]=="false":
-                extraKey=list[2]
-                extraSet.add(Extra(extraKey,extraType,extraValue))
+            if (info_array[1] == "action"):
+                actionSet.add(value)
                 flag_add_new = True
-    return flag_add_new
+                continue
+            if (info_array[1] == "category"):
+                categorySet.add(value)
+                flag_add_new = True
+                continue
+            list = []
+            list.append(info_array[2])  # isIf
+            list.append(info_array[3])  # 这个是存储的type值，是这个日志后面变量的值的类型，for extra unit log ,the type is alsways string
+            list.append(value)
+            # dict[info_array[1]]=list
+            testSet = dict.get(info_array[1])
+            if (testSet == None):
+                testSet = set()
+            testSet.add(tuple(list))
+            dict[info_array[1]] = testSet
+        for id, tupleSet in dict.items():  # 相同id的信息 #{key=id value=list[isIf,type,value]}}
+            extraValue = []
+            extraType = []
+            for info_tuple in tupleSet:
+                if info_tuple[0] == "true":
+                    extraValue.append(info_tuple[2])
+                    extraType.append(info_tuple[1])
 
+            extraKey = []
+            for info_tuple in tupleSet:
+                if info_tuple[0] == "false":
+                    extraKey.append(info_tuple[2])
 
-
-
-
-
+            for indexValue in range(len(extraValue)):
+                for indexKey in range(len(extraKey)):
+                    extraSet.add(Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue]))
+                    flag_add_new = True
+        return flag_add_new
 
 
 class MyThread(threading.Thread):
@@ -642,20 +729,27 @@ def getFileContent(path):
 
 
 def killProcessTree(pid):
-    rootProc = psutil.Process(pid)
-    print("childProcess:" + str(rootProc.pid) + "  " + str(rootProc.gids()))
-    procs = rootProc.children()
-    for proc in procs:
-        if (len(proc.children()) == 0):
-            cmd = "kill -9 " + str(proc.pid)
+    try:
+        rootProc = psutil.Process(pid)
+        print("childProcess:" + str(rootProc.pid) + "  " + str(rootProc.gids()))
+        procs = rootProc.children()
+        for proc in procs:
+            if proc.is_running():  # one process died may cause other processes died
+
+                if (len(proc.children()) == 0):
+                    cmd = "kill -9 " + str(proc.pid)
+                    status, output, p = execuateCmd(cmd)
+                    print("exe over  " + cmd)
+
+                else:
+                    killProcessTree(proc.pid)
+        if (rootProc.is_running()):
+            cmd = "kill -9 " + str(rootProc.pid)
             status, output, p = execuateCmd(cmd)
             print("exe over  " + cmd)
-        else:
-            killProcessTree(proc.pid)
 
-    cmd = "kill -9 " + str(rootProc.pid)
-    status, output, p = execuateCmd(cmd)
-    print("exe over  " + cmd)
+    except psutil.NoSuchProcess:
+        runLogFile.write("NoSuchProcess" + "\n")
 
 
 if __name__ == '__main__':
@@ -698,9 +792,11 @@ if __name__ == '__main__':
         logDir = sys.argv[2]
     if (not os.path.exists(logDir)):
         os.makedirs(logDir)
+
+    runLogFile = open(logDir + "/runException.log", 'w')
+    newInfoFile = open(logDir + "/feedbackInfo.log", 'w')
     threadList = []
     threadList = initialLogger(logDir)
-
     while (not isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
@@ -755,4 +851,6 @@ print("curProcess:" + str(os.getpid()) + " " + str(os.getgid()))
 for oneThread in threadList:
     killProcessTree(oneThread.proc.pid)
 print("over")
+runLogFile.close()
+newInfoFile.close()
 sys.exit(0)

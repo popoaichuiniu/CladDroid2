@@ -198,14 +198,14 @@ public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit
             boolean flag2 = false;
             if (in.contains(conditionLeft)) {
                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer(intentDataTransferMap.get(conditionLeft.toString()));
-
                 instrumentUnitIntentDataFlowIn.put(new MethodUnit(sootMethod, ifStmt), intentDataTransfer);
+
                 flag1 = true;
             }
 
             if (in.contains(conditionRight)) {
                 IntentDataTransfer intentDataTransfer = new IntentDataTransfer(intentDataTransferMap.get(conditionRight.toString()));
-
+                instrumentUnitIntentDataFlowIn.put(new MethodUnit(sootMethod, ifStmt), intentDataTransfer);
                 flag2 = true;
             }
 

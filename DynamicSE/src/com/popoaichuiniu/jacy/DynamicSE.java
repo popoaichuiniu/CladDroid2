@@ -159,7 +159,6 @@ public class DynamicSE extends BodyTransformer {
         Value logType = StringConstant.v(logTag);
 
         Value logMessage = null;
-        Type localType = Scene.v().getType(instrumentInfoVar.type);
         Unit pointUnit = instrumentInfoVar.point;
         DefinitionStmt definitionStmt = (DefinitionStmt) pointUnit;
         Local local = null;
@@ -362,7 +361,7 @@ public class DynamicSE extends BodyTransformer {
         }
 
         for (InstrumentInfoByte instrumentInfoByte : instrumentUnitInfoByteSet) {
-            if (Integer.valueOf(instrumentInfoByte.byteTag) == tag.getBytecodeOffset() && instrumentInfoByte.methodString.equals(sootMethod.getBytecodeSignature())) {
+            if (Integer.parseInt(instrumentInfoByte.byteTag) == tag.getBytecodeOffset() && instrumentInfoByte.methodString.equals(sootMethod.getBytecodeSignature())) {
                 instrumentInfoSet.add(new InstrumentInfo(sootMethod, unit, instrumentInfoByte.name, instrumentInfoByte.type, instrumentInfoByte.isLocal, instrumentInfoByte.id, instrumentInfoByte.isIf)) ;
             }
 
@@ -379,7 +378,7 @@ public class DynamicSE extends BodyTransformer {
         if (isTest) {
             appDir = Config.testAppPath;
         } else {
-            appDir = Config.defaultAppDirPath;
+            appDir = Config.dynamicAppDir;
         }
 
 

@@ -23,7 +23,6 @@ import java.util.*;
 public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
 
-    //private static boolean isTest = Config.isTest;
     private static boolean isTest = Config.isDynamicSETest;
 
     private static Logger exceptionLogger = new MyLogger(Config.DynamicSE_logDir, "generateUnitNeedToAnalysisAppException").getLogger();
@@ -50,7 +49,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
         //******************************生成initialIntent
         AndroidInfo androidInfo = new AndroidInfo(appPath, exceptionLogger);
-        String packageName=androidInfo.getPackageName(appPath);
+        String packageName = androidInfo.getPackageName(appPath);
         Map<String, AXmlNode> eas = androidInfo.getEAs();
 
         Set<IntentInfo> intentInfoSet = new HashSet<>();
@@ -65,10 +64,10 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
             Intent intent = new Intent();
             intent.targetComponent = componentName;
             IntentConditionTransformSymbolicExcutation.IntentUnit intentUnit = new IntentConditionTransformSymbolicExcutation.IntentUnit(intent, null, componentType, componentName);
-            intentInfoSet.add(IntentConditionTransformSymbolicExcutation.getIntentInfo(intentUnit,appPath,packageName));
+            intentInfoSet.add(IntentConditionTransformSymbolicExcutation.getIntentInfo(intentUnit, appPath, packageName));
         }
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath,new ArrayList<>(intentInfoSet),exceptionLogger);
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);
 
         //******************************生成initialIntent
 
@@ -122,6 +121,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                 IfStmt ifStmt = (IfStmt) entry.getKey().unit;
                 ConditionExpr condition = (ConditionExpr) ifStmt.getCondition();
                 Value conditionLeft = condition.getOp1();
+                Value conditionRight=condition.getOp2();
                 if (conditionLeft instanceof Local) {
                     Local local = (Local) conditionLeft;
                     BriefUnitGraph briefUnitGraph = new BriefUnitGraph(sootMethod.getActiveBody());
@@ -152,19 +152,19 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                                 DefinitionStmt definitionStmtExtra = (DefinitionStmt) extraUnit;
                                 InvokeExpr invokeExprGetExtra = definitionStmtExtra.getInvokeExpr();
                                 //for (int i = 0; i < invokeExprGetExtra.getArgs().size(); i++) {
-                                    if(invokeExprGetExtra.getArgs().size()>=1)//extra default value is not considered
-                                    {
-                                        Value arg = invokeExprGetExtra.getArgs().get(0);
-                                        if (arg instanceof Local) {
-                                            allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), true, entry.getValue().id, false));
-                                        } else if (arg instanceof Constant) {
-                                            allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), false, entry.getValue().id, false));
-                                        } else {
-                                            exceptionLogger.warn("can't handle -----not local or constant ");
-                                        }
+                                if (invokeExprGetExtra.getArgs().size() >= 1)//extra default value is not considered
+                                {
+                                    Value arg = invokeExprGetExtra.getArgs().get(0);
+                                    if (arg instanceof Local) {
+                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), true, entry.getValue().id, false));
+                                    } else if (arg instanceof Constant) {
+                                        allInstrumentInfo.add(new InstrumentInfo(extraSootMethod, definitionStmtExtra, arg.toString(), arg.getType().toString(), false, entry.getValue().id, false));
+                                    } else {
+                                        exceptionLogger.warn("can't handle -----not local or constant ");
                                     }
+                                }
 
-                               // }
+                                // }
 
 
                                 if (valueBox.getValue().getType() instanceof PrimType || valueBox.getValue().getType().toString().equals("java.lang.String")) {
@@ -177,6 +177,8 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                                         exceptionLogger.warn("can't handle -----not local or constant ");
                                     }
 
+
+
                                 }
                             }
 
@@ -184,6 +186,16 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                             allWriteFile.flush();
                         }
                     }
+                }
+
+                if(conditionRight instanceof Constant)
+                {
+                    allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, ifStmt, conditionRight.toString(), conditionRight.getType().toString(), false, entry.getValue().id, true));
+                }
+
+                if(conditionRight instanceof  Local)
+                {
+                    allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, ifStmt, conditionRight.toString(), conditionRight.getType().toString(), true, entry.getValue().id, true));
                 }
             }
 
@@ -198,9 +210,13 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
         for (InstrumentInfo instrumentInfo : allInstrumentInfo) {
 
 
-            writeUnitsInstrumentGetInfo.writeStr(instrumentInfo.sootMethod.getBytecodeSignature() + "#" + instrumentInfo.point.getTag("BytecodeOffsetTag") + "#" + instrumentInfo.name + "#" + instrumentInfo.type + "#" + instrumentInfo.isLocal + "#" + instrumentInfo.id + "#" + instrumentInfo.isIf + "#" + instrumentInfo.point.toString() + "\n");
+
             if (instrumentInfo.point.getTag("BytecodeOffsetTag") == null) {
-                exceptionLogger.error("instrumentInfo.point.getTag(\"BytecodeOffsetTag\")==null");
+                exceptionLogger.error("instrumentInfo.point.getTag(\"BytecodeOffsetTag\")==null"+instrumentInfo.point);
+            }
+            else
+            {
+                writeUnitsInstrumentGetInfo.writeStr(instrumentInfo.sootMethod.getBytecodeSignature() + "#" + instrumentInfo.point.getTag("BytecodeOffsetTag") + "#" + instrumentInfo.name + "#" + instrumentInfo.type + "#" + instrumentInfo.isLocal + "#" + instrumentInfo.id + "#" + instrumentInfo.isIf + "#" + instrumentInfo.point.toString() + "\n");
             }
 
         }

@@ -9,8 +9,10 @@ import java.util.Set;
 
 public class ApkSigner {
 
-    //private static boolean isTest = Config.isTest;
-    private static boolean isTest = Config.isDynamicSETest;
+    public static boolean isTest = Config.isTest;
+    
+    public static  String defaultAppDirPath=Config.defaultAppDirPath;
+
     private static Logger exceptionLogger = new MyLogger(Config.apkSignerLog, "exception").getLogger();
     private static Logger infoLogger = new MyLogger(Config.apkSignerLog, "info").getLogger();
 
@@ -22,9 +24,9 @@ public class ApkSigner {
         if (isTest) {
             appDir = new File(Config.testAppPath).getParentFile().getAbsolutePath() + "/" + "instrumented/" + new File(Config.testAppPath).getName();
         } else {
-            File dirFile = new File(Config.defaultAppDirPath);
+            File dirFile = new File(defaultAppDirPath);
             if (dirFile.isDirectory()) {
-                appDir = Config.defaultAppDirPath + "/" + "instrumented";
+                appDir = defaultAppDirPath + "/" + "instrumented";
             } else {
                 appDir = dirFile.getParentFile().getAbsolutePath() + "/" + "instrumented/" + dirFile.getName();
             }
@@ -36,9 +38,8 @@ public class ApkSigner {
 
             File hasSignedAppsFile = new File(Config.apkSignerLog + "/" + appDirFile.getName() + "_hasSignedApps.txt");
             if (!hasSignedAppsFile.exists()) {
-                File parentDir=hasSignedAppsFile.getParentFile();
-                if(!parentDir.exists())
-                {
+                File parentDir = hasSignedAppsFile.getParentFile();
+                if (!parentDir.exists()) {
                     parentDir.mkdirs();
                 }
                 try {
@@ -68,8 +69,6 @@ public class ApkSigner {
 
 
                     }
-
-
 
 
                 }
