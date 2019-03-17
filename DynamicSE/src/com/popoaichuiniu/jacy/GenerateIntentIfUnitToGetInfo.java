@@ -293,7 +293,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
             appDirPath = Config.testAppPath;
         } else {
 
-            appDirPath = Config.defaultAppDirPath;
+            appDirPath = Config.dynamicSEAppDir;
 
         }
 

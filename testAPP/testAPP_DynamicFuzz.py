@@ -235,9 +235,6 @@ def rebootPhone():
         return False
 
 
-intent_test_count = 0
-
-
 class Extra:
     def __init__(self, key, type, value):
         self.key = key
@@ -252,6 +249,9 @@ class Extra:
 
     def __hash__(self) -> int:
         return 31 * (31 * hash(self.key) + hash(self.type)) + hash(self.value)
+
+    def __str__(self) -> str:
+        return self.type + "&" + self.key + "&" + str(self.value)
 
 
 class Intent:
@@ -415,13 +415,13 @@ def getCombinationExtraSet(extraList, index, selectExtraSet, oneExtraSet):
         getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
         oneExtraSetCopy = set(oneExtraSet)
-        extraG = Extra(extra.key, extra.type, extra.value)#+1
+        extraG = Extra(extra.key, extra.type, extra.value)  # +1
         extraG.value = int(extraG.value) + 1
         oneExtraSetCopy.add(extraG)
         getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
 
         oneExtraSetCopy = set(oneExtraSet)
-        extraL = Extra(extra.key, extra.type, extra.value)#-1
+        extraL = Extra(extra.key, extra.type, extra.value)  # -1
         extraL.value = int(extra.value) - 1
         oneExtraSetCopy.add(extraL)
         getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
@@ -467,12 +467,12 @@ def monitorFeedBack():
     return thread_getFeedBack
 
 
-def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
+def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumented app
     global intent_test_count
 
     app_test_status = open(logDir + "/app_test_status", 'a+')
-    print(apkPath + "11111111111111111111111111111111111" + "\n")
-    app_test_status.write(apkPath + "11111111111111111111111111111111111" + "\n")
+    print(test_apkPath + "11111111111111111111111111111111111" + "\n")
+    app_test_status.write(test_apkPath + "11111111111111111111111111111111111" + "\n")
     waitForTestStop()
     print("开始测试新app")
 
@@ -480,7 +480,6 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
     content = initial_intent.readlines()
     initial_intent.close()
 
-    has_tested_intent = set()
     for one_line in content:
         infoList = one_line.split("#")
         appPath = infoList[0]
@@ -493,15 +492,25 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
         actionSet.add(None)  # default
         categorySet = set()
         extraSet = set()
+        has_tested_intent = set()
+
         while (True):
-            thread_getFeedBack = monitorFeedBack()
-            intent = None
+            newInfoFile.write(appPath + "\n")
+            newInfoFile.write(comPonentType + "\n")
+            newInfoFile.write(comPonentName + "\n")
+            newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
+            newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
+            newInfoFile.write("extraSet:" + getStr(extraSet) + "\n\n")
+            newInfoFile.flush()
+            # thread_getFeedBack = monitorFeedBack()
             if (isFirstIn):
                 isFirstIn = False
-                flag_test = start_one_intent_test(apkPath, initial_intent_file_path, app_test_status)
+                flag_test = start_one_intent_test(test_apkPath, initial_intent_file_path, app_test_status)
                 intent = Intent(appPath, appPackageName, comPonentType, comPonentName, None,
                                 None, None, None)
                 has_tested_intent.add(intent)
+                newInfoFile.write(intent.__str__() + "\n\n")
+                newInfoFile.flush()
 
             else:
                 selectExtraSet = set()
@@ -521,42 +530,78 @@ def test(apkPath, initial_intent_file_path):  # intent_file and instrumented app
                                 one_intent_file = open(logDir + "/temp_intent", 'w')
                                 one_intent_file.write(intent.__str__() + "\n")
                                 one_intent_file.close()
-                                flag_test = start_one_intent_test(apkPath, logDir + "/temp_intent", app_test_status)
+                                flag_test = start_one_intent_test(test_apkPath, logDir + "/temp_intent",
+                                                                  app_test_status)
                                 has_tested_intent.add(intent)
+                                newInfoFile.write(intent.__str__() + "\n\n")
+                                newInfoFile.flush()
 
-            killProcessTree(thread_getFeedBack.proc.pid)
+            # killProcessTree(thread_getFeedBack.proc.pid)
+            #
+            # try:
+            #     recordProc = psutil.Process(thread_getFeedBack.proc.pid)
+            #     if (recordProc.is_running()):
+            #         runLogFile.write("thread_getFeedBack is not stop\n")
+            #         break
+            #     else:
+            #         runLogFile.write("ZMSGetInfo log process status: " + str(recordProc.status()) + "\n")
+            #
+            #
+            # except psutil.NoSuchProcess:
+            #     runLogFile.write("ZMSGetInfo log process has died!\n")
 
-            try:
-                recordProc = psutil.Process(thread_getFeedBack.proc.pid)
-                if (recordProc.is_running()):
-                    runLogFile.write("thread_getFeedBack is not stop\n")
-                    break
-                else:
-                    runLogFile.write("ZMSGetInfo log process " + str(recordProc.status()) + "\n")
+            newInfoFile.write("1111111111111111111111111\n")
 
-
-            except psutil.NoSuchProcess:
-                runLogFile.write("ZMSGetInfo log process has died!\n")
-
-            newInfoFile.write("1111111111111111111111111\n\n")
-            newInfoFile.write(intent.__str__() + "\n\n")
             flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,
-                                                                       app_test_status)
+                                                                       has_tested_intent)
             newInfoFile.write("2222222222222222222222222\n\n\n")
+            newInfoFile.flush()
             if (not flag_add_new_content):
                 break
 
-    print(apkPath + "222222222222222222222222222222222222222" + "\n")
-    app_test_status.write(apkPath + "222222222222222222222222222222222222222" + "\n")
+    print(test_apkPath + "222222222222222222222222222222222222222" + "\n")
+    app_test_status.write(test_apkPath + "222222222222222222222222222222222222222" + "\n")
     app_test_status.close()
 
     return flag_test
 
+def getStr(oneSet):
+    line="{"
+    for ele in oneSet:
+        if(line=="{"):
+            line=str(ele)
+        else:
+            line=line+"#"+str(ele)
+    line=line+"}"
+    return line
+def clearLog():
+    while (not isADBWorkNormal()):
+        print("等待adb工作正常")
+        time.sleep(1)
+    log_clear = 'adb logcat -c'
+    status, output, proc = execuateCmd(log_clear)
+    if (status == 0):
+        return True
+    else:
+        return False
+
+
+def dumpLog():
+    while (not isADBWorkNormal()):
+        print("等待adb工作正常")
+        time.sleep(1)
+    log_dump = 'adb logcat -d >>' + logDir + '/ZMSGetInfo.log'
+    status, output, proc = execuateCmd(log_dump)
+    if (status == 0):
+        return True
+    else:
+        return False
+
 
 def start_one_intent_test(apkPath, testFile, app_test_status):
     global intent_test_count
-
     flag_test = False
+
     flag_install = installNewAPP(
         "/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
     if (not flag_install):
@@ -566,6 +611,13 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     if (flag_install):
         flag_pushTestFile, push_info = pushTestFile(testFile)
         if (flag_pushTestFile):
+
+            flag_clear = clearLog()
+            if (not flag_clear):
+                print("clearLog failure")
+                runLogFile.write("clearLog failure\n")
+                return False
+
             flag_test_APP, test_info = startTestAPP()
             if (flag_test_APP):
                 flag_test = True
@@ -588,6 +640,12 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     waitForTestStop()
     uninstall_app_by_path(apkPath)
     uninstall_app_by_packageName("jacy.popoaichuiniu.com.testpermissionleakge")
+    flag_dump = dumpLog()
+    if (not flag_dump):
+        flag_test = False
+        print("dumpLog failure")
+        runLogFile.write("dumpLog failure\n")
+        return flag_test
 
     intent_test_count = intent_test_count + 1
     if (intent_test_count % 20 == 0):
@@ -604,19 +662,53 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         return False
 
 
-def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, app_test_status):
+def waitForGetInfoFile(file):
+    while (not os.path.exists(file)):
+        time.sleep(1)
+
+
+def filterLog(file, message, returnFile):
+    filter = 'cat ' + file + " | grep " + message + " > " + returnFile
+    status, output, proc = execuateCmd(filter)
+    if (status == 0):
+        return returnFile
+    else:
+        return None
+def filterLogAppend(file, message, returnFile):
+    filter = 'cat ' + file + " | grep " + message + " >>" + returnFile
+    status, output, proc = execuateCmd(filter)
+    if (status == 0):
+        return returnFile
+    else:
+        return None
+
+
+def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_Intented):
     # I / ZMSGetInfo_0_false_java.lang.String(2300): ggg
     # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
     flag_add_new = False
+    #waitForGetInfoFile(logDir + '/ZMSGetInfo.log')
     if (os.path.exists(logDir + '/ZMSGetInfo.log')):
-        feedBackFile = open(logDir + '/ZMSGetInfo.log', 'r')
+
+        getInfoFile = open(logDir + '/ZMSGetInfo.log', 'r')
+        info_lines = getInfoFile.readlines()
+        for info_line in info_lines:
+            allInfoFile.write(info_line)
+        getInfoFile.close()
+
+
+        permissionLeak=filterLogAppend(logDir + '/ZMSGetInfo.log', 'ZMSInstrument', logDir + '/ZMSGetInfo_permission.log')
+
+        returnFile = filterLog(logDir + '/ZMSGetInfo.log', 'ZMSGetInfo', logDir + '/ZMSGetInfo_feedback.log')
+        if (returnFile == None):
+            return False
+        feedBackFile = open(returnFile, 'r')
         lines = feedBackFile.readlines()
         feedBackFile.close()
         os.remove(logDir + '/ZMSGetInfo.log')
         dict = {}  # {key=id value=list[isIf,type,value]}}
         for line in lines:
             newInfoFile.write(line)
-            newInfoFile.flush()
             start = line.index('ZMSGetInfo')
             end = line.index('(')
 
@@ -667,8 +759,16 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, app_te
 
             for indexValue in range(len(extraValue)):
                 for indexKey in range(len(extraKey)):
-                    extraSet.add(Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue]))
-                    flag_add_new = True
+                    newExtra=Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
+                    hasExist=False
+                    for intent in has_Intented:
+                        if intent.__str__().find(newExtra.__str__())>=0:
+                            hasExist=True
+                            break
+                    if(not hasExist):
+                        extraSet.add(newExtra)
+                        flag_add_new = True
+
         return flag_add_new
 
 
@@ -687,6 +787,15 @@ class MyThread(threading.Thread):
         print("output info: " + str(outs, encoding="utf-8") + "##" + str(errs, encoding="utf-8"))
 
 
+def setLogSize():
+    cmd = 'adb logcat -G 16M'
+    status, output, p = execuateCmd(cmd)
+    if (status == 0):
+        return True
+    else:
+        return False
+
+
 def initialLogger(logDir):
     threadList = []
     log1 = 'guake -e  "adb logcat | grep ZMSInstrument | tee -a ' + logDir + '/ZMSInstrument.log "'
@@ -695,7 +804,7 @@ def initialLogger(logDir):
 
     # 创建3个线程
 
-    threadStart = MyThread("/home/lab418/Android/Sdk/emulator/emulator -avd Nexus_5X_API_19 -wipe-data")
+    threadStart = MyThread("/home/lab418/Android/Sdk/emulator/emulator -avd Nexus_5X_API_19 -wipe-data")  # 5.0 can‘t
     threadStart.start()
     threadList.append(threadStart)
     while (
@@ -705,6 +814,7 @@ def initialLogger(logDir):
     # flag_install = installNewAPP("/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
     # if (not flag_install):
     #     print("install error")
+    # setLogSize() it can’t be used under android5.0
     thread1 = MyThread(log1)
     thread2 = MyThread(log2)
     thread3 = MyThread(log3)
@@ -734,24 +844,29 @@ def killProcessTree(pid):
         print("childProcess:" + str(rootProc.pid) + "  " + str(rootProc.gids()))
         procs = rootProc.children()
         for proc in procs:
-            if proc.is_running():  # one process died may cause other processes died
+            try:
+                if proc.is_running():  # one process died may cause other processes died
 
-                if (len(proc.children()) == 0):
-                    cmd = "kill -9 " + str(proc.pid)
-                    status, output, p = execuateCmd(cmd)
-                    print("exe over  " + cmd)
+                    if (len(proc.children()) == 0):
+                        cmd = "kill -9 " + str(proc.pid)
+                        status, output, p = execuateCmd(cmd)
+                        print("exe over  " + cmd)
 
-                else:
-                    killProcessTree(proc.pid)
+                    else:
+                        killProcessTree(proc.pid)
+            except psutil.NoSuchProcess:  # one Proc
+                runLogFile.write("NoSuchProcess" + "\n")
+
         if (rootProc.is_running()):
             cmd = "kill -9 " + str(rootProc.pid)
             status, output, p = execuateCmd(cmd)
             print("exe over  " + cmd)
 
-    except psutil.NoSuchProcess:
+    except psutil.NoSuchProcess:  # rootProc
         runLogFile.write("NoSuchProcess" + "\n")
 
 
+intent_test_count = 0
 if __name__ == '__main__':
 
     # print(isADBWorkNormal())
@@ -785,7 +900,7 @@ if __name__ == '__main__':
     if (len(sys.argv) <= 2):  # 给定参数不对时，使用默认参数
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
         apkDir = '/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk'
-        # apkDir='/home/lab418/Documents'
+        apkDir='/media/mobile/myExperiment/apps/0_9_18_27_36_45_'
         logDir = '/home/zms/logger_file/DynamicSE/testLog'
     else:
         apkDir = sys.argv[1]
@@ -795,6 +910,7 @@ if __name__ == '__main__':
 
     runLogFile = open(logDir + "/runException.log", 'w')
     newInfoFile = open(logDir + "/feedbackInfo.log", 'w')
+    allInfoFile = open(logDir + "/allInfo.log", 'w')
     threadList = []
     threadList = initialLogger(logDir)
     while (not isADBWorkNormal()):

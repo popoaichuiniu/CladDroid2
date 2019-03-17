@@ -21,9 +21,9 @@ public class ExampleReceiver extends BroadcastReceiver {
         if (intent.getIntExtra("ggg",-1)-7>0) {
             Log.i("ZMSGetInfo","success!");
            Toast.makeText(context,"2222222222",Toast.LENGTH_LONG).show();
-            //if (intent.getAction().equals(ttt)) {
-                //SmsManager.getDefault().sendTextMessage("123456789", null, "fff", null, null);
-           // }
+            if (intent.getAction().equals(ttt)) {
+                SmsManager.getDefault().sendTextMessage("123456789", null, "fff", null, null);
+            }
 
         }
 

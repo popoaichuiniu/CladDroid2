@@ -1,6 +1,7 @@
 package com.popoaichuiniu.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import com.google.common.collect.Lists;
@@ -127,6 +128,29 @@ public class Util {
             return true;
         }
         return false;
+    }
+    public static int exeCmd(File workdir,Logger infoLogger,Logger exceptionLogger, String... command) throws InterruptedException, IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        processBuilder.directory(workdir);
+        processBuilder.redirectErrorStream(true);
+        Process process = processBuilder.start();
+
+        Thread childThread = new Thread(new Runnable() {//must start thread to read process output
+            @Override
+            public void run() {
+
+                ReadFileOrInputStream readFileOrInputStreamReturnString = new ReadFileOrInputStream(process.getInputStream(), exceptionLogger);
+                infoLogger.info(readFileOrInputStreamReturnString.getContent() + "&&&");
+
+            }
+        });
+
+        childThread.start();
+        int status = process.waitFor();//
+
+        return status;
+
+
     }
 
 

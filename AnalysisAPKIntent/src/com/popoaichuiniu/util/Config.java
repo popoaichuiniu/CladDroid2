@@ -47,7 +47,7 @@ public class Config {
 
     public static String droidBench="/media/mobile/myExperiment/apps/DroidBench/apk/InterComponentCommunication";
 
-    public static String experimentDataDir="/media/mobile/myExperiment/apps/0_5_25_45_65_";
+    public static String experimentDataDir="/media/mobile/myExperiment/apps/0_9_18_27_36_45_";
 
     public static String videoDemo="/home/lab418/videoDemo.apk";
     public static String videoDemoDir="/home/lab418";
@@ -99,9 +99,9 @@ public class Config {
 
     public static boolean isTest =false;
 
-    public static boolean isDynamicSETest=true;
+    public static boolean isDynamicSETest=false;
 
-    public static String dynamicAppDir=Config.wandoijiaAPP;
+    public static String dynamicSEAppDir =Config.experimentDataDir;
 
     // public  static  String testAppPath="/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/AnalysisAPKIntent/万花筒之旅一宝宝巴士.apk";
     public static void setSootOptions(String appPath) {

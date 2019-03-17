@@ -378,7 +378,7 @@ public class DynamicSE extends BodyTransformer {
         if (isTest) {
             appDir = Config.testAppPath;
         } else {
-            appDir = Config.dynamicAppDir;
+            appDir = Config.dynamicSEAppDir;
         }
 
 

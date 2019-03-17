@@ -15,6 +15,8 @@ import javax.swing.filechooser.FileFilter;
 import java.io.*;
 import java.util.List;
 
+import static com.popoaichuiniu.util.Util.exeCmd;
+
 
 class AnalysisStatus{//boolean变量无法在子线程中拷贝
     private boolean isStart = false;
@@ -195,7 +197,7 @@ public class Controller {
 
                 progressTextArea.appendText("4. Start test app\n");
                 try {
-                    int status = exeCmd(new File("testAPP"), "/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
+                    int status = exeCmd(new File("testAPP"), infoLogger,exceptionLogger,"/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
                     if (status != 0) {
                         exceptionLogger.error(status + " exeCmd error");
                     }
@@ -264,7 +266,7 @@ public class Controller {
         try {
 
             String analysisResultFile = Config.dynamicTestLogDir + "/" + "AnalysisResult.txt";
-            exeCmd(new File("."), "gedit", analysisResultFile);
+            exeCmd(new File("."), infoLogger,exceptionLogger,"gedit", analysisResultFile);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -279,7 +281,7 @@ public class Controller {
             @Override
             public void run() {
                 try {
-                    exeCmd(new File("."), "nautilus", Config.logDir);
+                    exeCmd(new File("."), infoLogger,exceptionLogger,"nautilus", Config.logDir);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -289,29 +291,7 @@ public class Controller {
 
     }
 
-    private int exeCmd(File workdir, String... command) throws InterruptedException, IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder(command);
-        processBuilder.directory(workdir);
-        processBuilder.redirectErrorStream(true);
-        Process process = processBuilder.start();
 
-        Thread childThread = new Thread(new Runnable() {//must start thread to read process output
-            @Override
-            public void run() {
-
-                ReadFileOrInputStream readFileOrInputStreamReturnString = new ReadFileOrInputStream(process.getInputStream(), exceptionLogger);
-                infoLogger.info(readFileOrInputStreamReturnString.getContent() + "&&&");
-
-            }
-        });
-
-        childThread.start();
-        int status = process.waitFor();//
-
-        return status;
-
-
-    }
 
 
     class ReadLogThread extends Thread {
