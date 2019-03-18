@@ -218,21 +218,30 @@ def waitForTestStop():
 
 
 def rebootPhone():
-    status, output, proc = execuateCmd("killall guake")
+    cmd = "adb shell reboot -p"
+    status, output, proc = execuateCmd(cmd)
     if (status == 0):
-        print("killall guake ok!")
-        cmd = "adb shell reboot -p"
-        status, output, proc = execuateCmd(cmd)
-        if (status == 0):
-            print("emulator has closed")
-            threadList = initialLogger(logDir)
-            return True
-        else:
-            print("关闭手机失败," + output)
-            return False
+        print("emulator has closed")
+        threadList = initialLogger(logDir)
+        return True
     else:
-        print("killall guake fail!")
+        print("关闭手机失败," + output)
         return False
+    # status, output, proc = execuateCmd("killall guake")
+    # if (status == 0):
+    #     print("killall guake ok!")
+    #     cmd = "adb shell reboot -p"
+    #     status, output, proc = execuateCmd(cmd)
+    #     if (status == 0):
+    #         print("emulator has closed")
+    #         threadList = initialLogger(logDir)
+    #         return True
+    #     else:
+    #         print("关闭手机失败," + output)
+    #         return False
+    # else:
+    #     print("killall guake fail!")
+    #     return False
 
 
 class Extra:
@@ -252,6 +261,25 @@ class Extra:
 
     def __str__(self) -> str:
         return self.type + "&" + self.key + "&" + str(self.value)
+
+
+class Extra_Key:
+    def __init__(self, key, type, value):
+        self.key = key
+        self.type = type
+        self.value = value
+
+    def __eq__(self, o: object) -> bool:
+        if (isinstance(o, Extra)):
+            if (self.key == o.key and self.type == o.type):
+                return True
+        return False
+
+    def __hash__(self) -> int:
+        return 31 * (31 * hash(self.key) + hash(self.type))
+
+    def __str__(self) -> str:
+        return self.type + "&" + self.key
 
 
 class Intent:
@@ -403,57 +431,56 @@ def getCombinationCategorySet(categoryList, index, selectCategorySet, oneCategor
     getCombinationCategorySet(categoryList, index + 1, selectCategorySet, oneCategorySetCopy)
 
 
-def getCombinationExtraSet(extraList, index, selectExtraSet, oneExtraSet):
-    if (index >= len(extraList)):  #
-        selectExtraSet.add(frozenset(oneExtraSet))
-        return
+def addMutatedIntentToExtra(extraSet):
+    extraNew = set()
+    for extra in extraSet:
+        if (extra.type == "int"):
+            extraG = Extra(extra.key, extra.type, extra.value)  # +1
+            extraG.value = int(extraG.value) + 1
+            extraNew.add(extraG)
 
-    extra = extraList[index]
-    if (extra.type == "int"):
-        oneExtraSetCopy = set(oneExtraSet)
-        oneExtraSetCopy.add(extra)  # ==
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
-
-        oneExtraSetCopy = set(oneExtraSet)
-        extraG = Extra(extra.key, extra.type, extra.value)  # +1
-        extraG.value = int(extraG.value) + 1
-        oneExtraSetCopy.add(extraG)
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
-
-        oneExtraSetCopy = set(oneExtraSet)
-        extraL = Extra(extra.key, extra.type, extra.value)  # -1
-        extraL.value = int(extra.value) - 1
-        oneExtraSetCopy.add(extraL)
-        getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
-    else:
-        if extra.type == "float":
-            oneExtraSetCopy = set(oneExtraSet)
-            oneExtraSetCopy.add(extra)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
-
+            extraL = Extra(extra.key, extra.type, extra.value)
+            extraL.value = int(extra.value) - 1
+            extraNew.add(extraL)
+        if (extra.type == "float"):
             extraG = Extra(extra.key, extra.type, extra.value)
             extraG.value = float(extraG.value) + 0.1
-            oneExtraSetCopy = set(oneExtraSet)
-            oneExtraSetCopy.add(extraG)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
+            extraNew.add(extraG)
 
             extraL = Extra(extra.key, extra.type, extra.value)
             extraL.value = float(extra.value) - 0.1
-            oneExtraSetCopy = set(oneExtraSet)
-            oneExtraSetCopy.add(extraL)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
-        else:
-            if (extra.type != "java.lang.String"):
-                fail_unHandle = open(logDir + "/" + "fail_unHandle.txt", 'a+')
-                fail_unHandle.write(extra.type + "can't handle" + "\n")
-                fail_unHandle.close()
+            extraNew.add(extraL)
 
-            oneExtraSetCopy = set(oneExtraSet)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
+        if (extra.type == "java.lang.String"):
+            if (extra.value != None):
+                extraG = Extra(extra.key, extra.type, extra.value)
+                extraG.value = None
+                extraNew.add(extraG)
 
-            oneExtraSetCopy = set(oneExtraSet)
-            oneExtraSetCopy.add(extra)
-            getCombinationExtraSet(extraList, index + 1, selectExtraSet, oneExtraSetCopy)
+                if (extra.value != ""):
+                    extraG = Extra(extra.key, extra.type, extra.value)
+                    extraG.value = ""
+                    extraNew.add(extraG)
+
+
+            else:
+                extraG = Extra(extra.key, extra.type, extra.value)
+                extraG.value = "zms"
+                extraNew.add(extraG)
+    for extra in extraNew:
+        extraSet.add(extra)
+
+
+def getCombinationExtraSet(extraMap,extraMapKeyList,index,selectExtraSet,oneExtraSet):
+    if(index>=len(extraMapKeyList)):
+        selectExtraSet.add(frozenset(oneExtraSet))
+        return
+    extraKey=extraMapKeyList[index]
+    extraSet=extraMap.get(extraKey)
+    for extra in extraSet:
+        oneExtraSetCopy=set(oneExtraSet)
+        oneExtraSetCopy.add(extra)
+        getCombinationExtraSet(extraMap,extraMapKeyList,index+1,selectExtraSet,oneExtraSetCopy)
 
 
 def monitorFeedBack():
@@ -467,9 +494,30 @@ def monitorFeedBack():
     return thread_getFeedBack
 
 
+def generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet, categorySet, extraSet,
+                   selectExtraSet, selectCategorySet, has_tested_intent):
+    all_intent_count = 0
+    for action in actionSet:
+        for oneExtraSet in selectExtraSet:
+            for oneCategorySet in selectCategorySet:
+                intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
+                                oneCategorySet, None, oneExtraSet)
+                if (intent not in has_tested_intent):
+                    all_intent_count = all_intent_count + 1
+                    if (all_intent_count > 100):
+                        intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
+                        intent_count_exceed.write(
+                            appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
+                                extraSet) + "\n")
+                        intent_count_exceed.close()
+                        return
+                    else:
+                        yield intent
+
+
 def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumented app
     global intent_test_count
-
+    flag_test = False
     app_test_status = open(logDir + "/app_test_status", 'a+')
     print(test_apkPath + "11111111111111111111111111111111111" + "\n")
     app_test_status.write(test_apkPath + "11111111111111111111111111111111111" + "\n")
@@ -495,17 +543,21 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
         has_tested_intent = set()
 
         while (True):
+            newInfoFile.write("---------intent------------\n")
             newInfoFile.write(appPath + "\n")
             newInfoFile.write(comPonentType + "\n")
             newInfoFile.write(comPonentName + "\n")
             newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
             newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
-            newInfoFile.write("extraSet:" + getStr(extraSet) + "\n\n")
+            newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
+            newInfoFile.write("---------------------\n\n\n")
             newInfoFile.flush()
             # thread_getFeedBack = monitorFeedBack()
             if (isFirstIn):
                 isFirstIn = False
-                flag_test = start_one_intent_test(test_apkPath, initial_intent_file_path, app_test_status)
+                flag = start_one_intent_test(test_apkPath, initial_intent_file_path, app_test_status)
+                if (flag):
+                    flag_test = True
                 intent = Intent(appPath, appPackageName, comPonentType, comPonentName, None,
                                 None, None, None)
                 has_tested_intent.add(intent)
@@ -513,42 +565,45 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
                 newInfoFile.flush()
 
             else:
+                addMutatedIntentToExtra(extraSet)
+                extraMap = {}
+                for extra in extraSet:
+                    if(extra!=None):
+                        extra_key = Extra_Key(extra.key, extra.type, extra.value)
+                        extraSetHasOneKeyType = extraMap.get(extra_key.__str__())
+                        if (extraSetHasOneKeyType == None):
+                            extraSetHasOneKeyType = set()
+                        extraSetHasOneKeyType.add(extra)
+                        extraMap[extra_key.__str__()] = extraSetHasOneKeyType
+
                 selectExtraSet = set()
-                extraList = list(extraSet)
-                getCombinationExtraSet(extraList, 0, selectExtraSet, set())
+                extraMapKeyList=list(extraMap.keys())
+                getCombinationExtraSet(extraMap,extraMapKeyList,0,selectExtraSet,set())
 
                 selectCategorySet = set()
                 categoryList = list(categorySet)
                 getCombinationCategorySet(categoryList, 0, selectCategorySet, set())
 
-                for action in actionSet:
-                    for oneExtraSet in selectExtraSet:
-                        for oneCategorySet in selectCategorySet:
-                            intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
-                                            oneCategorySet, None, oneExtraSet)
-                            if (intent not in has_tested_intent):
-                                one_intent_file = open(logDir + "/temp_intent", 'w')
-                                one_intent_file.write(intent.__str__() + "\n")
-                                one_intent_file.close()
-                                flag_test = start_one_intent_test(test_apkPath, logDir + "/temp_intent",
-                                                                  app_test_status)
-                                has_tested_intent.add(intent)
-                                newInfoFile.write(intent.__str__() + "\n\n")
-                                newInfoFile.flush()
+                newInfoFile.write("----------intent test select-----------\n")
+                newInfoFile.write("actionSetUUU:" + str(len(actionSet)) + "\n")
+                newInfoFile.write("categorySetUUU:" + str(len(selectCategorySet)) + "\n")
+                newInfoFile.write("extraSetUUU:" + str(len(selectExtraSet)) + "\n")
+                newInfoFile.write("---------------------\n\n\n")
+                newInfoFile.flush()
 
-            # killProcessTree(thread_getFeedBack.proc.pid)
-            #
-            # try:
-            #     recordProc = psutil.Process(thread_getFeedBack.proc.pid)
-            #     if (recordProc.is_running()):
-            #         runLogFile.write("thread_getFeedBack is not stop\n")
-            #         break
-            #     else:
-            #         runLogFile.write("ZMSGetInfo log process status: " + str(recordProc.status()) + "\n")
-            #
-            #
-            # except psutil.NoSuchProcess:
-            #     runLogFile.write("ZMSGetInfo log process has died!\n")
+                for intent in generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet,
+                                             categorySet, extraSet,
+                                             selectExtraSet, selectCategorySet, has_tested_intent):
+                    one_intent_file = open(logDir + "/temp_intent", 'w')
+                    one_intent_file.write(intent.__str__() + "\n")
+                    one_intent_file.close()
+                    flag = start_one_intent_test(test_apkPath, logDir + "/temp_intent",
+                                                 app_test_status)
+                    if (flag):
+                        flag_test = True
+                    has_tested_intent.add(intent)
+                    newInfoFile.write(intent.__str__() + "\n\n")
+                    newInfoFile.flush()
 
             newInfoFile.write("1111111111111111111111111\n")
 
@@ -565,15 +620,18 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
 
     return flag_test
 
+
 def getStr(oneSet):
-    line="{"
+    line = "{"
     for ele in oneSet:
-        if(line=="{"):
-            line=str(ele)
+        if (line == "{"):
+            line = "{" + str(ele) + "\n"
         else:
-            line=line+"#"+str(ele)
-    line=line+"}"
+            line = line + "#" + str(ele) + "\n"
+    line = line + "}"
     return line
+
+
 def clearLog():
     while (not isADBWorkNormal()):
         print("等待adb工作正常")
@@ -602,6 +660,7 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     global intent_test_count
     flag_test = False
 
+    start_time = time.time()
     flag_install = installNewAPP(
         "/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
     if (not flag_install):
@@ -647,6 +706,8 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         runLogFile.write("dumpLog failure\n")
         return flag_test
 
+    end_time = time.time()
+    newInfoFile.write("time:" + str(end_time - start_time) + "\n")
     intent_test_count = intent_test_count + 1
     if (intent_test_count % 20 == 0):
         if (rebootPhone()):
@@ -662,11 +723,6 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         return False
 
 
-def waitForGetInfoFile(file):
-    while (not os.path.exists(file)):
-        time.sleep(1)
-
-
 def filterLog(file, message, returnFile):
     filter = 'cat ' + file + " | grep " + message + " > " + returnFile
     status, output, proc = execuateCmd(filter)
@@ -674,6 +730,8 @@ def filterLog(file, message, returnFile):
         return returnFile
     else:
         return None
+
+
 def filterLogAppend(file, message, returnFile):
     filter = 'cat ' + file + " | grep " + message + " >>" + returnFile
     status, output, proc = execuateCmd(filter)
@@ -687,24 +745,29 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
     # I / ZMSGetInfo_0_false_java.lang.String(2300): ggg
     # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
     flag_add_new = False
-    #waitForGetInfoFile(logDir + '/ZMSGetInfo.log')
+    # waitForGetInfoFile(logDir + '/ZMSGetInfo.log')
     if (os.path.exists(logDir + '/ZMSGetInfo.log')):
 
-        getInfoFile = open(logDir + '/ZMSGetInfo.log', 'r')
-        info_lines = getInfoFile.readlines()
-        for info_line in info_lines:
-            allInfoFile.write(info_line)
-        getInfoFile.close()
+        try:
+            once_getInfoFile = open(logDir + '/ZMSGetInfo.log', 'r')
+            info_lines = once_getInfoFile.readlines()
+            for info_line in info_lines:
+                allInfoFile.write(info_line)
+        except Exception as err:
+            runLogFile.write(str(err) + "\n")
+            return False
+        else:
+            once_getInfoFile.close()
 
+        permissionLeak = filterLogAppend(logDir + '/ZMSGetInfo.log', 'ZMSInstrument',
+                                         logDir + '/permissionLeakResults.log')
 
-        permissionLeak=filterLogAppend(logDir + '/ZMSGetInfo.log', 'ZMSInstrument', logDir + '/ZMSGetInfo_permission.log')
-
-        returnFile = filterLog(logDir + '/ZMSGetInfo.log', 'ZMSGetInfo', logDir + '/ZMSGetInfo_feedback.log')
+        returnFile = filterLog(logDir + '/ZMSGetInfo.log', 'ZMSGetInfo', logDir + '/once_feedback.log')
         if (returnFile == None):
             return False
-        feedBackFile = open(returnFile, 'r')
-        lines = feedBackFile.readlines()
-        feedBackFile.close()
+        once_feedBackFile = open(returnFile, 'r')
+        lines = once_feedBackFile.readlines()
+        once_feedBackFile.close()
         os.remove(logDir + '/ZMSGetInfo.log')
         dict = {}  # {key=id value=list[isIf,type,value]}}
         for line in lines:
@@ -759,17 +822,17 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
 
             for indexValue in range(len(extraValue)):
                 for indexKey in range(len(extraKey)):
-                    newExtra=Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
-                    hasExist=False
+                    newExtra = Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
+                    hasExist = False
                     for intent in has_Intented:
-                        if intent.__str__().find(newExtra.__str__())>=0:
-                            hasExist=True
+                        if intent.__str__().find(newExtra.__str__()) >= 0:
+                            hasExist = True
                             break
-                    if(not hasExist):
+                    if (not hasExist):
                         extraSet.add(newExtra)
                         flag_add_new = True
 
-        return flag_add_new
+    return flag_add_new
 
 
 class MyThread(threading.Thread):
@@ -811,20 +874,19 @@ def initialLogger(logDir):
             not isADBWorkNormal()):  # adb devices work  normal and install app inmmediately and install successfully and app is not installed
         print("等待adb...")
         time.sleep(1)
-    # flag_install = installNewAPP("/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
-    # if (not flag_install):
-    #     print("install error")
+
     # setLogSize() it can’t be used under android5.0
-    thread1 = MyThread(log1)
-    thread2 = MyThread(log2)
-    thread3 = MyThread(log3)
+
     time.sleep(10)
-    thread1.start()
-    thread2.start()
-    thread3.start()
-    threadList.append(thread1)
-    threadList.append(thread2)
-    threadList.append(thread3)
+    # thread1 = MyThread(log1)
+    # thread2 = MyThread(log2)
+    # thread3 = MyThread(log3)
+    # thread1.start()
+    # thread2.start()
+    # thread3.start()
+    # threadList.append(thread1)
+    # threadList.append(thread2)
+    # threadList.append(thread3)
     return threadList
 
 
@@ -900,17 +962,17 @@ if __name__ == '__main__':
     if (len(sys.argv) <= 2):  # 给定参数不对时，使用默认参数
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
         apkDir = '/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk'
-        apkDir='/media/mobile/myExperiment/apps/0_9_18_27_36_45_'
+        apkDir = '/media/mobile/myExperiment/apps/0_9_18_27_36_45_'
         logDir = '/home/zms/logger_file/DynamicSE/testLog'
     else:
         apkDir = sys.argv[1]
         logDir = sys.argv[2]
     if (not os.path.exists(logDir)):
         os.makedirs(logDir)
-
-    runLogFile = open(logDir + "/runException.log", 'w')
-    newInfoFile = open(logDir + "/feedbackInfo.log", 'w')
-    allInfoFile = open(logDir + "/allInfo.log", 'w')
+    baseName = os.path.basename(apkDir)
+    runLogFile = open(logDir + "/" + baseName + "_runException.log", 'a+')
+    newInfoFile = open(logDir + "/" + baseName + "_feedbackInfo.log", 'a+')
+    allInfoFile = open(logDir + "/" + baseName + "_allInfo.log", 'a+')
     threadList = []
     threadList = initialLogger(logDir)
     while (not isADBWorkNormal()):
@@ -934,7 +996,6 @@ if __name__ == '__main__':
 
     else:
         fail_apk_list = open(logDir + "/failTest_apk_list", "a+")
-        success_apk_list = open(logDir + "/successTest_apk_list", "a+")
         has_process = getFileContent(logDir + "/has_process_app_list")
         has_process_app_list = open(logDir + "/has_process_app_list", "a+")
         timeUse = open(logDir + "/timeUse.txt", "a+")
@@ -949,24 +1010,21 @@ if __name__ == '__main__':
             flag_test = test(apkPath, intent_file)
             if (flag_test):
                 end_time = time.time()
-                timeUse.write(str(end_time - start_time) + "\n")
+                timeUse.write(str(end_time - start_time) + "," + apkPath + "\n")
                 timeUse.flush()
-                success_apk_list.write(apkPath + "\n")
-                success_apk_list.flush()
             else:
                 print(apkPath + "测试失败！")
                 fail_apk_list.write(apkPath + "\n")
                 fail_apk_list.flush()
 
         timeUse.close()
-        success_apk_list.close()
         fail_apk_list.close()
         has_process_app_list.close()
-# execuateCmd("prctl(PR_SET_PDEATHSIG, SIGHUP)")
-print("curProcess:" + str(os.getpid()) + " " + str(os.getgid()))
-for oneThread in threadList:
-    killProcessTree(oneThread.proc.pid)
-print("over")
-runLogFile.close()
-newInfoFile.close()
-sys.exit(0)
+    # execuateCmd("prctl(PR_SET_PDEATHSIG, SIGHUP)")
+    print("curProcess:" + str(os.getpid()) + " " + str(os.getgid()))
+    for oneThread in threadList:
+        killProcessTree(oneThread.proc.pid)
+    print("over")
+    runLogFile.close()
+    newInfoFile.close()
+    sys.exit(0)
