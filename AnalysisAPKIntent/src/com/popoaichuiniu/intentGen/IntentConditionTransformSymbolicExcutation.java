@@ -159,8 +159,6 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         }
 
 
-
-
     }
 
 
@@ -217,8 +215,6 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         //最终intent结果
         WriteFile writeFile_intent_ulti = new WriteFile(Config.intent_ulti_path + "/" + new File(appPath).getName() + ".txt", false, exceptionLogger);
 
-        ultiIntentSet = preProcess(ultiIntentSet);//将intent的num值和string处理
-
         Set<IntentInfo> intentInfoSet = new HashSet<>();
         for (IntentUnit intentUnit : ultiIntentSet) {
             Stmt stmt = (Stmt) intentUnit.unit;
@@ -227,7 +223,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 throw new RuntimeException("intent unit do not contain invoke!");
             } else {
 
-                intentInfoSet.add(getIntentInfo(intentUnit,appPath,packageName));
+                intentInfoSet.add(getIntentInfo(intentUnit, appPath, packageName));
                 writeFile_intent_ulti.writeStr(intentUnit.intent + "%%%" + intentUnit.unit + "&*" + intentUnit.unit.getTag("BytecodeOffsetTag") + "%%%" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
             }
 
@@ -238,7 +234,6 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
-
 
 
     }
@@ -343,7 +338,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         }
     }
 
-    public static IntentInfo getIntentInfo(IntentUnit intentUnit,String appPath,String packageName) {
+    public static IntentInfo getIntentInfo(IntentUnit intentUnit, String appPath, String packageName) {
 
         IntentInfo intentInfo = new IntentInfo();
         intentInfo.appPath = appPath;
@@ -713,47 +708,124 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        Map<SootMethod, Set<Intent>> sootMethodIntentConditionSummary = new HashMap<>();//这是结果！！！
-        Set<List<SootMethod>> sootMethodCallFinalPaths = new HashSet<>();
-        //正向路径
-
-        if (!callGraphLimitEnabled) {
-            callgraphEnterBranchLimit = Integer.MAX_VALUE;
-        }
-
-        hasReachCallGraphBranchLimit = false;
-        long startTime = System.nanoTime();
-        getCallPathSootMethod(myCallGraph.dummyMainMethod, new ArrayList<SootMethod>(), myCallGraph, null, new HashSet<Edge>(), sootMethodCallFinalPaths, sootMethodSetIntentCondition, sootMethodIntentConditionSummary, 1);
-        long endTime = System.nanoTime();
-        MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).info((((double) (endTime - startTime)) / 1E9) + "##" + "DFS融合Intent" + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit);
-        if (hasReachCallGraphBranchLimit) {
+//        Map<SootMethod, Set<Intent>> sootMethodIntentConditionSummary = new HashMap<>();//这是结果！！！
 
 
-            File callgraphLimitFile = new File(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt");
-            if (callgraphLimitFile.exists()) {
+//        Set<List<SootMethod>> sootMethodCallFinalPaths = new HashSet<>();
+//        //正向路径
+//
+//        if (!callGraphLimitEnabled) {
+//            callgraphEnterBranchLimit = Integer.MAX_VALUE;
+//        }
+//
+//        hasReachCallGraphBranchLimit = false;
+//        long startTime = System.nanoTime();
+//        getCallPathSootMethod(myCallGraph.dummyMainMethod, new ArrayList<SootMethod>(), myCallGraph, null, new HashSet<Edge>(), sootMethodCallFinalPaths, sootMethodSetIntentCondition, sootMethodIntentConditionSummary, 1);
+//        long endTime = System.nanoTime();
+//        MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).info((((double) (endTime - startTime)) / 1E9) + "##" + "DFS融合Intent" + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit);
+//        if (hasReachCallGraphBranchLimit) {
+//
+//
+//            File callgraphLimitFile = new File(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt");
+//            if (callgraphLimitFile.exists()) {
+//
+//                ReadFileOrInputStream readFileOrInputStream = new ReadFileOrInputStream(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", exceptionLogger);
+//                Set<String> contentSet = readFileOrInputStream.getAllContentLinSet();
+//                if (!contentSet.contains(appPath)) {
+//                    WriteFile writeFileCallGraphReachLimit = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", true, exceptionLogger);
+//                    writeFileCallGraphReachLimit.writeStr(appPath + "\n");
+//                    writeFileCallGraphReachLimit.close();
+//                }
+//            } else {
+//                WriteFile writeFileCallGraphReachLimit = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", true, exceptionLogger);
+//                writeFileCallGraphReachLimit.writeStr(appPath + "\n");
+//                writeFileCallGraphReachLimit.close();
+//            }
+//
+//
+//            WriteFile writeFileCallGraphReachLimitRepeat = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimitRepeat.txt", true, exceptionLogger);
+//            writeFileCallGraphReachLimitRepeat.writeStr(appPath + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit + "##" + "callgraphLimit" + "\n");
+//            writeFileCallGraphReachLimitRepeat.close();
+//            MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).warn(appPath + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit + "##" + "callgraphLimit");
+//
+//
+//            return;
+//        }
 
-                ReadFileOrInputStream readFileOrInputStream = new ReadFileOrInputStream(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", exceptionLogger);
-                Set<String> contentSet = readFileOrInputStream.getAllContentLinSet();
-                if (!contentSet.contains(appPath)) {
-                    WriteFile writeFileCallGraphReachLimit = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", true, exceptionLogger);
-                    writeFileCallGraphReachLimit.writeStr(appPath + "\n");
-                    writeFileCallGraphReachLimit.close();
-                }
-            } else {
-                WriteFile writeFileCallGraphReachLimit = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimit.txt", true, exceptionLogger);
-                writeFileCallGraphReachLimit.writeStr(appPath + "\n");
-                writeFileCallGraphReachLimit.close();
+
+//        for (Iterator<Edge> edgeIterator = myCallGraph.edgesOutOf(myCallGraph.dummyMainMethod); edgeIterator.hasNext(); ) {
+//
+//            Edge outEdge = edgeIterator.next();
+//
+//            SootMethod sootMethodTgt = outEdge.tgt();
+//
+//            Set<Intent> intentSet = sootMethodIntentConditionSummary.get(sootMethodTgt);
+//
+//            AXmlNode aXmlNode = eas.get(sootMethodTgt.getDeclaringClass().getName());
+//            if (aXmlNode == null) {
+//                continue;
+//
+//            }
+//
+//            String componentName = sootMethodTgt.getDeclaringClass().getName();
+//            String componentType = aXmlNode.getTag();
+//
+//            if (intentSet != null) {
+//                for (Intent intent : intentSet) {
+//                    intent.targetComponent = sootMethodTgt.getBytecodeSignature() + "##" + sootMethodTgt.getDeclaringClass().getName();
+//                    ultiIntentSet.add(new IntentUnit(intent, myCallGraph.targetUnit, componentType, componentName));
+//
+//                }
+//
+//
+//            }
+//
+//
+//        }
+
+
+        //----------------------------------------------------------------------------------------------------
+
+        Set<Intent> allIntentSet = new HashSet<>();
+        Set<String> actionSet = new HashSet<>();
+        Set<String> categorySet = new HashSet<>();
+        Map<IntentExtraKey, Set<IntentExtraValue>> intentExtraMap = new HashMap<>();
+        for (Map<Unit, Set<Intent>> oneMethodMap : sootMethodSetIntentCondition.values()) {
+            for (Set<Intent> oneUnitIntentSet : oneMethodMap.values()) {
+                allIntentSet.addAll(oneUnitIntentSet);
             }
-
-
-            WriteFile writeFileCallGraphReachLimitRepeat = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "callgraphLimitRepeat.txt", true, exceptionLogger);
-            writeFileCallGraphReachLimitRepeat.writeStr(appPath + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit + "##" + "callgraphLimit" + "\n");
-            writeFileCallGraphReachLimitRepeat.close();
-            MyLogger.getOverallLogger(IntentConditionTransformSymbolicExcutation.class).warn(appPath + "##" + myCallGraph.targetSootMethod + "##" + myCallGraph.targetUnit + "##" + "callgraphLimit");
-
-
-            return;
         }
+
+
+        for (Intent intent : allIntentSet) {
+            actionSet.add(intent.action);
+            categorySet.addAll(intent.categories);
+            for (IntentExtraKey intentExtraKey : intent.myExtras) {
+                Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKey);
+                if (intentExtraValueSet == null) {
+                    intentExtraValueSet = new HashSet<>();
+                }
+
+                intentExtraValueSet.add(new IntentExtraValue(intentExtraKey));
+
+                intentExtraMap.put(intentExtraKey, intentExtraValueSet);
+            }
+        }
+
+        Set<String> selectActionSet = new HashSet<>();
+        if (actionSet.size() == 0) {
+            selectActionSet.add(null);
+        }
+
+        Set<Set<IntentExtraKey>> selectExtraSet = new HashSet<>();
+
+        List<IntentExtraKey> intentExtraMapKeyList = new ArrayList(intentExtraMap.keySet());
+        getSelectExtraSet(selectExtraSet, 0, intentExtraMapKeyList, intentExtraMap, new HashSet<>());
+
+        Set<Set<String>> selectCategorySet = new HashSet<>();
+
+        getSelectCategorySet(selectCategorySet, new ArrayList<>(categorySet), 0, new HashSet<>());
+
 
         for (Iterator<Edge> edgeIterator = myCallGraph.edgesOutOf(myCallGraph.dummyMainMethod); edgeIterator.hasNext(); ) {
 
@@ -761,7 +833,6 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
             SootMethod sootMethodTgt = outEdge.tgt();
 
-            Set<Intent> intentSet = sootMethodIntentConditionSummary.get(sootMethodTgt);
 
             AXmlNode aXmlNode = eas.get(sootMethodTgt.getDeclaringClass().getName());
             if (aXmlNode == null) {
@@ -772,17 +843,71 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             String componentName = sootMethodTgt.getDeclaringClass().getName();
             String componentType = aXmlNode.getTag();
 
-            if (intentSet != null) {
-                for (Intent intent : intentSet) {
-                    intent.targetComponent = sootMethodTgt.getBytecodeSignature() + "##" + sootMethodTgt.getDeclaringClass().getName();
-                    ultiIntentSet.add(new IntentUnit(intent, myCallGraph.targetUnit, componentType, componentName));
 
+            for (String oneAction : selectActionSet) {
+                for (Set<String> oneCategorySet : selectCategorySet) {
+                    for (Set<IntentExtraKey> oneExtraSet : selectExtraSet) {
+                        Intent intent = new Intent();
+                        intent.action = oneAction;
+                        intent.categories.addAll(oneCategorySet);
+                        intent.myExtras.addAll(oneExtraSet);
+                        intent.targetComponent = sootMethodTgt.getBytecodeSignature() + "##" + sootMethodTgt.getDeclaringClass().getName();
+                        ultiIntentSet.add(new IntentUnit(intent, myCallGraph.targetUnit, componentType, componentName));
+
+                    }
                 }
-
-
             }
 
 
+        }
+
+        if (ultiIntentSet.size() > 100) {
+            WriteFile writeFile = new WriteFile("intent_exceed_count.txt", true, exceptionLogger);
+            writeFile.writeStr(ultiIntentSet.size() + "%%%%%" + appPath + "\n");
+            writeFile.close();
+        }
+
+
+        ////----------------------------------------------------------------------------------------------------
+
+
+    }
+
+    private void getSelectCategorySet(Set<Set<String>> selectCategorySet, List<String> categoryList, int i, Set<String> oneCategorySet) {
+        if (i >= categoryList.size()) {
+            selectCategorySet.add(oneCategorySet);
+            return;
+        }
+
+        String category = categoryList.get(i);
+
+        Set<String> oneCategorySetCopy = new HashSet<>(oneCategorySet);
+
+        getSelectCategorySet(selectCategorySet, categoryList, i + 1, oneCategorySetCopy);
+
+        oneCategorySetCopy = new HashSet<>(oneCategorySet);
+
+        oneCategorySetCopy.add(category);
+
+        getSelectCategorySet(selectCategorySet, categoryList, i + 1, oneCategorySetCopy);
+
+
+    }
+
+    private void getSelectExtraSet(Set<Set<IntentExtraKey>> selectExtraSet, int i, List<IntentExtraKey> intentExtraMapKeyList, Map<IntentExtraKey, Set<IntentExtraValue>> intentExtraMap, HashSet<IntentExtraKey> oneIntentExtraKeySet) {
+        if (i >= intentExtraMapKeyList.size()) {
+            selectExtraSet.add(oneIntentExtraKeySet);
+            return;
+        }
+
+        IntentExtraKey intentExtraKey = intentExtraMapKeyList.get(i);
+
+        Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKey);
+
+        for (IntentExtraValue intentExtraValue : intentExtraValueSet) {
+            HashSet<IntentExtraKey> oneIntentExtraKeySetCopy = new HashSet<>(oneIntentExtraKeySet);
+            oneIntentExtraKeySetCopy.add(new IntentExtraKey(intentExtraValue));
+            getSelectExtraSet(selectExtraSet, i + 1, intentExtraMapKeyList, intentExtraMap, oneIntentExtraKeySetCopy);
         }
 
 
