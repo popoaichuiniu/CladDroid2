@@ -451,36 +451,36 @@ def addMutatedIntentToExtra(extraSet):
             extraL.value = float(extra.value) - 0.1
             extraNew.add(extraL)
 
-        if (extra.type == "java.lang.String"):
-            if (extra.value != None):
-                extraG = Extra(extra.key, extra.type, extra.value)
-                extraG.value = None
-                extraNew.add(extraG)
-
-                if (extra.value != ""):
-                    extraG = Extra(extra.key, extra.type, extra.value)
-                    extraG.value = ""
-                    extraNew.add(extraG)
-
-
-            else:
-                extraG = Extra(extra.key, extra.type, extra.value)
-                extraG.value = "zms"
-                extraNew.add(extraG)
+        # if (extra.type == "java.lang.String"):
+        #     if (extra.value != None):
+        #         extraG = Extra(extra.key, extra.type, extra.value)
+        #         extraG.value = None
+        #         extraNew.add(extraG)
+        #
+        #         if (extra.value != ""):
+        #             extraG = Extra(extra.key, extra.type, extra.value)
+        #             extraG.value = ""
+        #             extraNew.add(extraG)
+        #
+        #
+        #     else:
+        #         extraG = Extra(extra.key, extra.type, extra.value)
+        #         extraG.value = "zms"
+        #         extraNew.add(extraG)
     for extra in extraNew:
         extraSet.add(extra)
 
 
-def getCombinationExtraSet(extraMap,extraMapKeyList,index,selectExtraSet,oneExtraSet):
-    if(index>=len(extraMapKeyList)):
+def getCombinationExtraSet(extraMap, extraMapKeyList, index, selectExtraSet, oneExtraSet):
+    if (index >= len(extraMapKeyList)):
         selectExtraSet.add(frozenset(oneExtraSet))
         return
-    extraKey=extraMapKeyList[index]
-    extraSet=extraMap.get(extraKey)
+    extraKey = extraMapKeyList[index]
+    extraSet = extraMap.get(extraKey)
     for extra in extraSet:
-        oneExtraSetCopy=set(oneExtraSet)
+        oneExtraSetCopy = set(oneExtraSet)
         oneExtraSetCopy.add(extra)
-        getCombinationExtraSet(extraMap,extraMapKeyList,index+1,selectExtraSet,oneExtraSetCopy)
+        getCombinationExtraSet(extraMap, extraMapKeyList, index + 1, selectExtraSet, oneExtraSetCopy)
 
 
 def monitorFeedBack():
@@ -504,7 +504,7 @@ def generateIntent(appPath, appPackageName, comPonentType, comPonentName, action
                                 oneCategorySet, None, oneExtraSet)
                 if (intent not in has_tested_intent):
                     all_intent_count = all_intent_count + 1
-                    if (all_intent_count > 100):
+                    if (all_intent_count > 50):
                         intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
                         intent_count_exceed.write(
                             appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
@@ -543,17 +543,18 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
         has_tested_intent = set()
 
         while (True):
-            newInfoFile.write("---------intent------------\n")
-            newInfoFile.write(appPath + "\n")
-            newInfoFile.write(comPonentType + "\n")
-            newInfoFile.write(comPonentName + "\n")
-            newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
-            newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
-            newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
-            newInfoFile.write("---------------------\n\n\n")
-            newInfoFile.flush()
+
             # thread_getFeedBack = monitorFeedBack()
             if (isFirstIn):
+                newInfoFile.write("---------intent------------\n")
+                newInfoFile.write(appPath + "\n")
+                newInfoFile.write(comPonentType + "\n")
+                newInfoFile.write(comPonentName + "\n")
+                newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
+                newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
+                newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
+                newInfoFile.write("---------------------\n\n\n")
+                newInfoFile.flush()
                 isFirstIn = False
                 flag = start_one_intent_test(test_apkPath, initial_intent_file_path, app_test_status)
                 if (flag):
@@ -565,10 +566,20 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
                 newInfoFile.flush()
 
             else:
-                addMutatedIntentToExtra(extraSet)
+
+                newInfoFile.write("---------intent------------\n")
+                newInfoFile.write(appPath + "\n")
+                newInfoFile.write(comPonentType + "\n")
+                newInfoFile.write(comPonentName + "\n")
+                newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
+                newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
+                newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
+                newInfoFile.write("---------------------\n\n\n")
+                newInfoFile.flush()
+
                 extraMap = {}
                 for extra in extraSet:
-                    if(extra!=None):
+                    if (extra != None):
                         extra_key = Extra_Key(extra.key, extra.type, extra.value)
                         extraSetHasOneKeyType = extraMap.get(extra_key.__str__())
                         if (extraSetHasOneKeyType == None):
@@ -577,8 +588,8 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
                         extraMap[extra_key.__str__()] = extraSetHasOneKeyType
 
                 selectExtraSet = set()
-                extraMapKeyList=list(extraMap.keys())
-                getCombinationExtraSet(extraMap,extraMapKeyList,0,selectExtraSet,set())
+                extraMapKeyList = list(extraMap.keys())
+                getCombinationExtraSet(extraMap, extraMapKeyList, 0, selectExtraSet, set())
 
                 selectCategorySet = set()
                 categoryList = list(categorySet)
@@ -746,6 +757,9 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
     # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
     flag_add_new = False
     # waitForGetInfoFile(logDir + '/ZMSGetInfo.log')
+    actionNew = set()
+    categoryNew = set()
+    extraNew = set()
     if (os.path.exists(logDir + '/ZMSGetInfo.log')):
 
         try:
@@ -771,7 +785,7 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
         os.remove(logDir + '/ZMSGetInfo.log')
         dict = {}  # {key=id value=list[isIf,type,value]}}
         for line in lines:
-            newInfoFile.write(line)
+
             start = line.index('ZMSGetInfo')
             end = line.index('(')
 
@@ -790,12 +804,14 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
             value = line[start_value + 2:end_value]
 
             if (info_array[1] == "action"):
-                actionSet.add(value)
-                flag_add_new = True
+                if value not in actionSet:
+                    actionNew.add(value)
+                    flag_add_new = True
                 continue
             if (info_array[1] == "category"):
-                categorySet.add(value)
-                flag_add_new = True
+                if (value not in categorySet):
+                    categoryNew.add(value)
+                    flag_add_new = True
                 continue
             list = []
             list.append(info_array[2])  # isIf
@@ -823,15 +839,22 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
             for indexValue in range(len(extraValue)):
                 for indexKey in range(len(extraKey)):
                     newExtra = Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
-                    hasExist = False
-                    for intent in has_Intented:
-                        if intent.__str__().find(newExtra.__str__()) >= 0:
-                            hasExist = True
-                            break
-                    if (not hasExist):
-                        extraSet.add(newExtra)
+                    if newExtra not in extraSet:
+                        extraNew.add(newExtra)
                         flag_add_new = True
 
+    newInfoFile.write("action:" + getStr(actionNew) + "\n")
+    newInfoFile.write("category:" + getStr(categoryNew) + "\n")
+    newInfoFile.write("extra:" + getStr(extraNew) + "\n")
+
+    addMutatedIntentToExtra(extraNew)
+
+    for action in actionNew:
+        actionSet.add(action)
+    for category in categoryNew:
+        categorySet.add(category)
+    for extra in extraNew:
+        extraSet.add(extra)
     return flag_add_new
 
 
@@ -962,7 +985,7 @@ if __name__ == '__main__':
     if (len(sys.argv) <= 2):  # 给定参数不对时，使用默认参数
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
         apkDir = '/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk'
-        apkDir = '/media/mobile/myExperiment/apps/0_9_18_27_36_45_'
+        apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app'
         logDir = '/home/zms/logger_file/DynamicSE/testLog'
     else:
         apkDir = sys.argv[1]

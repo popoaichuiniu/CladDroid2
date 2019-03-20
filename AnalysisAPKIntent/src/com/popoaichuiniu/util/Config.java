@@ -101,7 +101,7 @@ public class Config {
 
     public static boolean isDynamicSETest=false;
 
-    public static String dynamicSEAppDir =Config.experimentDataDir;
+    public static String dynamicSEAppDir =Config.wandoijiaAPP;
 
     // public  static  String testAppPath="/media/lab418/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/idea_ApkIntentAnalysis/AnalysisAPKIntent/万花筒之旅一宝宝巴士.apk";
     public static void setSootOptions(String appPath) {
