@@ -195,18 +195,19 @@ public class Controller {
                 ApkSigner.main(null);
                 progressTextArea.appendText("\tPart 3 complete!\n\n");
 
-                progressTextArea.appendText("4. Start test app\n");
-                try {
-                    int status = exeCmd(new File("testAPP"), infoLogger,exceptionLogger,"/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
-                    if (status != 0) {
-                        exceptionLogger.error(status + " exeCmd error");
-                    }
-                } catch (IOException e) {
-                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-                } catch (InterruptedException e) {
-                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-                }
-                progressTextArea.appendText("\tPart 4 complete!\n\n");
+//                progressTextArea.appendText("4. Start test app\n");
+//                try {
+//                    int status = exeCmd(new File("testAPP"), infoLogger,exceptionLogger,"/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
+//                    if (status != 0) {
+//                        exceptionLogger.error(status + " exeCmd error");
+//                    }
+//                } catch (IOException e) {
+//                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
+//                } catch (InterruptedException e) {
+//                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
+//                }
+//                progressTextArea.appendText("\tPart 4 complete!\n\n");
+
                 analysisStatus.setStart(false);
                 generateResult();
 

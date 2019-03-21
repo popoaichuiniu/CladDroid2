@@ -20,6 +20,7 @@ public class MyService extends Service {
         super.onCreate();
 
 
+
     }
 
     @Override
@@ -30,6 +31,7 @@ public class MyService extends Service {
         }
 
         transfer(intent);
+
 
         return super.onStartCommand(intent, flags, startId);
     }

@@ -514,10 +514,11 @@ def generateIntent(appPath, appPackageName, comPonentType, comPonentName, action
                     else:
                         yield intent
 
-
+app_test_count=0
 def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumented app
-    global intent_test_count
     flag_test = False
+    global app_test_count
+    app_test_count=0
     app_test_status = open(logDir + "/app_test_status", 'a+')
     print(test_apkPath + "11111111111111111111111111111111111" + "\n")
     app_test_status.write(test_apkPath + "11111111111111111111111111111111111" + "\n")
@@ -527,6 +528,7 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
     initial_intent = open(initial_intent_file_path, 'r')
     content = initial_intent.readlines()
     initial_intent.close()
+
 
     for one_line in content:
         infoList = one_line.split("#")
@@ -618,8 +620,7 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
 
             newInfoFile.write("1111111111111111111111111\n")
 
-            flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet,
-                                                                       has_tested_intent)
+            flag_add_new_content = analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet)
             newInfoFile.write("2222222222222222222222222\n\n\n")
             newInfoFile.flush()
             if (not flag_add_new_content):
@@ -669,8 +670,13 @@ def dumpLog():
 
 def start_one_intent_test(apkPath, testFile, app_test_status):
     global intent_test_count
+    global app_test_count
     flag_test = False
-
+    if app_test_count>100:
+        test_app_intent_count=open(logDir+"/"+'test_app_intent_count.txt','a+')
+        test_app_intent_count.write(apkPath+'\n')
+        test_app_intent_count.close()
+        return flag_test
     start_time = time.time()
     flag_install = installNewAPP(
         "/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
@@ -720,7 +726,8 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     end_time = time.time()
     newInfoFile.write("time:" + str(end_time - start_time) + "\n")
     intent_test_count = intent_test_count + 1
-    if (intent_test_count % 20 == 0):
+    app_test_count=app_test_count+1
+    if (intent_test_count % 15 == 0):
         if (rebootPhone()):
             while (not isADBWorkNormal()):
                 print("等待手机启动！")
@@ -752,7 +759,7 @@ def filterLogAppend(file, message, returnFile):
         return None
 
 
-def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_Intented):
+def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
     # I / ZMSGetInfo_0_false_java.lang.String(2300): ggg
     # I / ZMSGetInfo_0_true_java.lang.String(2300): 2rrr
     flag_add_new = False
@@ -767,22 +774,31 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet, has_In
             info_lines = once_getInfoFile.readlines()
             for info_line in info_lines:
                 allInfoFile.write(info_line)
+            once_getInfoFile.close()
+
         except Exception as err:
             runLogFile.write(str(err) + "\n")
-            return False
-        else:
             once_getInfoFile.close()
+            os.remove(logDir + '/ZMSGetInfo.log')
+            if (rebootPhone()):
+                while (not isADBWorkNormal()):
+                    print("等待手机启动！")
+                    time.sleep(1)
+            else:
+                raise RuntimeError
+            return False
 
         permissionLeak = filterLogAppend(logDir + '/ZMSGetInfo.log', 'ZMSInstrument',
                                          logDir + '/permissionLeakResults.log')
 
         returnFile = filterLog(logDir + '/ZMSGetInfo.log', 'ZMSGetInfo', logDir + '/once_feedback.log')
+        os.remove(logDir + '/ZMSGetInfo.log')
         if (returnFile == None):
             return False
         once_feedBackFile = open(returnFile, 'r')
         lines = once_feedBackFile.readlines()
         once_feedBackFile.close()
-        os.remove(logDir + '/ZMSGetInfo.log')
+
         dict = {}  # {key=id value=list[isIf,type,value]}}
         for line in lines:
 
@@ -900,7 +916,7 @@ def initialLogger(logDir):
 
     # setLogSize() it can’t be used under android5.0
 
-    time.sleep(10)
+    time.sleep(15)
     # thread1 = MyThread(log1)
     # thread2 = MyThread(log2)
     # thread3 = MyThread(log3)

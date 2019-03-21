@@ -16,6 +16,7 @@ public class ExampleReceiver extends BroadcastReceiver {
         int x = new Integer(2);
         String sss = String.valueOf(x);
 
+
         String ttt = sss + xxx;
 
         if (intent.getIntExtra("ggg",-1)-7>0) {
