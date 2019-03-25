@@ -1,5 +1,6 @@
 package com.popoaichuiniu.experiment;
 
+import com.popoaichuiniu.util.Config;
 import com.popoaichuiniu.util.ExcelWrite;
 import com.popoaichuiniu.util.MyLogger;
 import com.popoaichuiniu.util.ReadFileOrInputStream;
@@ -11,11 +12,11 @@ import java.util.*;
 public class ComputePlPermssions {
 
 
-    private static String appDir="/home/zms/logger_file/testlog/old_results/secondAnalysis/02APP_test_to_kill_other_nexta";
-    private static Logger logger=new MyLogger("AnalysisAPKIntent/ComputePlPermssions","exceptionLogger").getLogger();
+    private static String appDir= Config.DynamicSE_logDir+"/"+"testLog";
+    private static Logger logger=new MyLogger(appDir+"/ComputePlPermssions","exceptionLogger").getLogger();
 
     public static void main(String[] args) {
-        ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/ZMSInstrument.log",logger);
+        ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/permissionLeakResults (copy).log",logger);
         List<String> listString=readFileOrInputStream.getAllContentList();
         Map<String,Set<String>> permissionCount=new HashMap<>();
         Map<String,Set<String>> permissionAPPCount=new HashMap<>();

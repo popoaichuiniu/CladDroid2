@@ -14,9 +14,9 @@ import java.util.Set;
 
 public class EAExportUnitUsePermission {
 
-    private static String appDir = Config.defaultAppDirPath;
+    private static String appDir = Config.big_app_set;
 
-    private static Logger logger=new MyLogger("AnalysisAPKIntent/EAExportUnitUsePermission","exceptionLogger").getLogger();
+    private static Logger logger=new MyLogger(Config.unitNeedAnalysisGenerate+"/EAExportUnitUsePermission","exceptionLogger").getLogger();
 
 
     public static void main(String[] args) {
