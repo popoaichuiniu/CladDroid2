@@ -1,9 +1,6 @@
 package com.popoaichuiniu.jacy;
 
-import com.popoaichuiniu.intentGen.Intent;
-import com.popoaichuiniu.intentGen.IntentConditionTransformSymbolicExcutation;
-import com.popoaichuiniu.intentGen.IntentInfo;
-import com.popoaichuiniu.intentGen.IntentInfoFileGenerate;
+import com.popoaichuiniu.intentGen.*;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
 import com.popoaichuiniu.jacy.statistic.AndroidInfo;
@@ -11,6 +8,7 @@ import com.popoaichuiniu.util.*;
 import org.apache.log4j.Logger;
 import soot.*;
 import soot.jimple.*;
+import soot.jimple.infoflow.android.axml.AXmlAttribute;
 import soot.jimple.infoflow.android.axml.AXmlNode;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.toolkits.graph.BriefUnitGraph;
@@ -59,12 +57,144 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                 continue;
 
             }
+
+            Set<Intent> intentSet=new LinkedHashSet<>();
+
             String componentName = sootMethod.getDeclaringClass().getName();
             String componentType = aXmlNode.getTag();
+
             Intent intent = new Intent();
             intent.targetComponent = componentName;
-            IntentConditionTransformSymbolicExcutation.IntentUnit intentUnit = new IntentConditionTransformSymbolicExcutation.IntentUnit(intent, null, componentType, componentName);
-            intentInfoSet.add(IntentConditionTransformSymbolicExcutation.getIntentInfo(intentUnit, appPath, packageName));
+            intentSet.add(intent);
+
+            List<AXmlNode> aXmlNodeIntentFilterList = aXmlNode.getChildrenWithTag("intent-filter");
+
+
+
+            for (AXmlNode aXmlNodeIntentFilter : aXmlNodeIntentFilterList)//充分利用intentFilter的信息
+            {
+
+
+
+                Set<String> actionSet = new HashSet<>();
+                actionSet.add(null);
+                Set<String> categorySet = new HashSet<>();
+                Set<IntentData> dataSet = new LinkedHashSet<>();
+                dataSet.add(null);
+
+                List<AXmlNode> aXmlNodeActionList = aXmlNodeIntentFilter.getChildrenWithTag("action");
+                for (AXmlNode aXmlNodeAction : aXmlNodeActionList) {
+                    AXmlAttribute<?> actionNameAttribute = aXmlNodeAction.getAttribute("name");
+
+                    if (actionNameAttribute != null) {
+                        String action = ("" + actionNameAttribute.getValue()).trim();
+                        actionSet.add(action);
+                    }
+
+                }
+
+                List<AXmlNode> aXmlNodeCategoryList = aXmlNodeIntentFilter.getChildrenWithTag("category");
+
+                for (AXmlNode aXmlNodeCategory : aXmlNodeCategoryList) {
+                    AXmlAttribute<?> categoryNameAttribute = aXmlNodeCategory.getAttribute("name");
+
+                    if (categoryNameAttribute != null) {
+                        String category = ("" + categoryNameAttribute.getValue()).trim();
+                        categorySet.add(category);
+                    }
+
+                }
+
+                List<AXmlNode> aXmlNodeDataList = aXmlNodeIntentFilter.getChildrenWithTag("data");
+
+                for (AXmlNode aXmlNodeData : aXmlNodeDataList) {
+                    String dataString = "";
+                    AXmlAttribute<?> schemeAttribute = aXmlNodeData.getAttribute("scheme");
+
+                    String scheme = null;
+
+                    if (schemeAttribute != null) {
+                        scheme = ("" + schemeAttribute.getValue()).trim();
+                        dataString = dataString + scheme;
+                    }
+
+                    if (scheme != null && (!scheme.equals(""))) {
+                        String host = null;
+                        AXmlAttribute<?> hostAttribute = aXmlNodeData.getAttribute("host");
+
+                        if (hostAttribute != null) {
+                            host = ("" + hostAttribute.getValue()).trim();
+                            dataString = dataString + "://" + host;
+                        }
+
+                        if (host != null && (!host.equals(""))) {
+                            String port = null;
+                            AXmlAttribute<?> portAttribute = aXmlNodeData.getAttribute("port");
+                            if (portAttribute != null) {
+                                port = ("" + portAttribute.getValue()).trim();
+                                dataString = dataString + ":" + port;
+
+                            }
+
+
+                            String path = null;
+                            AXmlAttribute<?> pathAttribute = aXmlNodeData.getAttribute("path");
+                            if (pathAttribute != null) {
+                                path = ("" + pathAttribute.getValue()).trim();
+                                dataString = dataString + "/" + path;
+
+                            }
+
+
+                        }
+                    }
+
+                    String mimeType = "";
+
+                    AXmlAttribute<?> mimeTypeAttribute = aXmlNodeData.getAttribute("mimeType");
+
+
+                    if (mimeTypeAttribute != null) {
+                        mimeType = ("" + mimeTypeAttribute.getValue()).trim();
+                    }
+
+                    if ((!mimeType.equals("")) || (!dataString.equals(""))) {
+
+                        dataSet.add(new IntentData(dataString, mimeType));
+                    }
+
+
+                }
+
+
+                for(String action:actionSet)
+                {
+                    for(IntentData intentData:dataSet)
+
+                    {
+                        Intent tempIntent = new Intent();
+                        tempIntent.targetComponent = componentName;
+                        tempIntent.data=intentData;
+                        tempIntent.action=action;
+                        tempIntent.categories.addAll(categorySet);
+
+                        intentSet.add(tempIntent);
+                    }
+                }
+
+
+
+            }
+
+            for(Intent oneIntent : intentSet)//
+            {
+                IntentConditionTransformSymbolicExcutation.IntentUnit intentUnit = new IntentConditionTransformSymbolicExcutation.IntentUnit(oneIntent, null, componentType, componentName);
+                intentInfoSet.add(IntentConditionTransformSymbolicExcutation.getIntentInfo(intentUnit, appPath, packageName));
+            }
+
+
+
+
         }
 
         IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);
@@ -121,7 +251,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                 IfStmt ifStmt = (IfStmt) entry.getKey().unit;
                 ConditionExpr condition = (ConditionExpr) ifStmt.getCondition();
                 Value conditionLeft = condition.getOp1();
-                Value conditionRight=condition.getOp2();
+                Value conditionRight = condition.getOp2();
                 if (conditionLeft instanceof Local) {
                     Local local = (Local) conditionLeft;
                     BriefUnitGraph briefUnitGraph = new BriefUnitGraph(sootMethod.getActiveBody());
@@ -178,7 +308,6 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                                     }
 
 
-
                                 }
                             }
 
@@ -188,13 +317,11 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
                     }
                 }
 
-                if(conditionRight instanceof Constant)
-                {
+                if (conditionRight instanceof Constant) {
                     allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, ifStmt, conditionRight.toString(), conditionRight.getType().toString(), false, entry.getValue().id, true));
                 }
 
-                if(conditionRight instanceof  Local)
-                {
+                if (conditionRight instanceof Local) {
                     allInstrumentInfo.add(new InstrumentInfo(entry.getKey().sootMethod, ifStmt, conditionRight.toString(), conditionRight.getType().toString(), true, entry.getValue().id, true));
                 }
             }
@@ -210,12 +337,9 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
         for (InstrumentInfo instrumentInfo : allInstrumentInfo) {
 
 
-
             if (instrumentInfo.point.getTag("BytecodeOffsetTag") == null) {
-                exceptionLogger.error("instrumentInfo.point.getTag(\"BytecodeOffsetTag\")==null"+instrumentInfo.point);
-            }
-            else
-            {
+                exceptionLogger.error("instrumentInfo.point.getTag(\"BytecodeOffsetTag\")==null" + instrumentInfo.point);
+            } else {
                 writeUnitsInstrumentGetInfo.writeStr(instrumentInfo.sootMethod.getBytecodeSignature() + "#" + instrumentInfo.point.getTag("BytecodeOffsetTag") + "#" + instrumentInfo.name + "#" + instrumentInfo.type + "#" + instrumentInfo.isLocal + "#" + instrumentInfo.id + "#" + instrumentInfo.isIf + "#" + instrumentInfo.point.toString() + "\n");
             }
 

@@ -185,15 +185,15 @@ public class Controller {
 
 
 
-                progressTextArea.appendText("2. Start find paths and get intent conditions\n");
-                IntentConditionTransformSymbolicExcutation.main(null);
-                progressTextArea.appendText("\tPart 2 complete!\n\n");
-
-
-                progressTextArea.appendText("3. Start instrument and sign app\n");
-                InstrumentAPPBeforePermissionInvoke.main(null);
-                ApkSigner.main(null);
-                progressTextArea.appendText("\tPart 3 complete!\n\n");
+//                progressTextArea.appendText("2. Start find paths and get intent conditions\n");
+//                IntentConditionTransformSymbolicExcutation.main(null);
+//                progressTextArea.appendText("\tPart 2 complete!\n\n");
+//
+//
+//                progressTextArea.appendText("3. Start instrument and sign app\n");
+//                InstrumentAPPBeforePermissionInvoke.main(null);
+//                ApkSigner.main(null);
+//                progressTextArea.appendText("\tPart 3 complete!\n\n");
 
 //                progressTextArea.appendText("4. Start test app\n");
 //                try {

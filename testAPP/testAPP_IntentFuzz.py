@@ -4,6 +4,7 @@ import os
 import threading
 import sys
 import psutil
+import random
 from DataStructure import *
 
 
@@ -246,47 +247,6 @@ def rebootPhone():
         return False
 
 
-class Extra:
-    def __init__(self, key, type, value):
-        self.key = key
-        self.type = type
-        self.value = value
-
-    def __eq__(self, o: object) -> bool:
-        if (isinstance(o, Extra)):
-            if (self.key == o.key and self.type == o.type and self.value == o.value):
-                return True
-        return False
-
-    def __hash__(self) -> int:
-        return 31 * (31 * hash(self.key) + hash(self.type)) + hash(self.value)
-
-    def __str__(self) -> str:
-        return self.type + "&" + self.key + "&" + str(self.value)
-
-
-class Extra_Key:
-    def __init__(self, key, type, value):
-        self.key = key
-        self.type = type
-        self.value = value
-
-    def __eq__(self, o: object) -> bool:
-        if (isinstance(o, Extra)):
-            if (self.key == o.key and self.type == o.type):
-                return True
-        return False
-
-    def __hash__(self) -> int:
-        return 31 * (31 * hash(self.key) + hash(self.type))
-
-    def __str__(self) -> str:
-        return self.type + "&" + self.key
-
-
-
-
-
 def getCombinationCategorySet(categoryList, index, selectCategorySet, oneCategorySet):
     if (index >= len(categoryList)):
         selectCategorySet.add(frozenset(oneCategorySet))
@@ -364,30 +324,29 @@ def monitorFeedBack():
     return thread_getFeedBack
 
 
-def generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet, categorySet, extraSet,
+def generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet, dataSet, categorySet, extraSet,
                    selectExtraSet, selectCategorySet, has_tested_intent):
     all_intent_count = 0
     for action in actionSet:
-        for oneExtraSet in selectExtraSet:
-            for oneCategorySet in selectCategorySet:
-                intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
-                                oneCategorySet, None, oneExtraSet)
-                if (intent not in has_tested_intent):
-                    all_intent_count = all_intent_count + 1
-                    if (all_intent_count > 50):
-                        intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
-                        intent_count_exceed.write(
-                            appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
-                                extraSet) + "\n")
-                        intent_count_exceed.close()
-                        return
-                    else:
-                        yield intent
+        for data in dataSet:
+            for oneExtraSet in selectExtraSet:
+                for oneCategorySet in selectCategorySet:
+                    intent = Intent(appPath, appPackageName, comPonentType, comPonentName, action,
+                                    oneCategorySet, data, oneExtraSet)
+
+                    if (intent not in has_tested_intent):
+                        all_intent_count = all_intent_count + 1
+                        if (all_intent_count > 50):
+                            intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
+                            intent_count_exceed.write(
+                                appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
+                                    extraSet) + "\n")
+                            intent_count_exceed.close()
+                            return
+                        else:
+                            yield intent
 
 
-app_test_count = 0
-
-#没有考虑intent data 和type
 def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumented app
     flag_test = False
     global app_test_count
@@ -403,92 +362,94 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
     initial_intent.close()
 
     for one_line in content:
+        one_line=one_line.rstrip('\n')
+        actionSet = set()
+        actionSet.add(None)  # default
+        dataSet = set()
+        dataSet.add(None)  # default
+        categorySet = set()
+        extraSet = set()
+        has_tested_intent = set()
+
         infoList = one_line.split("#")
         appPath = infoList[0]
         appPackageName = infoList[1]
         comPonentType = infoList[2]
         comPonentName = infoList[3]
-
-        isFirstIn = True
-        actionSet = set()
-        actionSet.add(None)  # default
-        categorySet = set()
-        extraSet = set()
-        has_tested_intent = set()
+        comPonentAction = infoList[4]
+        comPonentCategory = infoList[5]
+        comPonentDataString = infoList[6]
+        comPonentExtraData = infoList[7]
+        if (not comPonentAction == "null"):
+            actionSet.add(comPonentAction)
+        if (not comPonentCategory == "null"):
+            categoryList = comPonentCategory.split(",")
+            for category in categoryList:
+                categorySet.add(category)
+        if (not comPonentDataString == "null"):
+            dataList = comPonentDataString.split(";")
+            if (len(dataList) == 2):
+                intentData = IntentData(dataList[0], dataList[1])
+                dataSet.add(intentData)
+        if (not comPonentExtraData == "null"):
+            extraList = comPonentExtraData.split(";")
+            for extraStr in extraList:
+                extraTypeKeyValueList = extraStr.split("&")
+                if (len(extraTypeKeyValueList) == 3):
+                    extra = Extra(extraTypeKeyValueList[1], extraTypeKeyValueList[0], extraTypeKeyValueList[2])
+                    extraSet.add(extra)
 
         while (True):
 
-            # thread_getFeedBack = monitorFeedBack()
-            if (isFirstIn):
-                newInfoFile.write("---------intent------------\n")
-                newInfoFile.write(appPath + "\n")
-                newInfoFile.write(comPonentType + "\n")
-                newInfoFile.write(comPonentName + "\n")
-                newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
-                newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
-                newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
-                newInfoFile.write("---------------------\n\n\n")
-                newInfoFile.flush()
-                isFirstIn = False
-                flag = start_one_intent_test(test_apkPath, initial_intent_file_path, app_test_status)
+            newInfoFile.write("---------intent------------\n")
+            newInfoFile.write(appPath + "\n")
+            newInfoFile.write(comPonentType + "\n")
+            newInfoFile.write(comPonentName + "\n")
+            newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
+            newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
+            newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
+            newInfoFile.write("---------------------\n\n\n")
+            newInfoFile.flush()
+
+            extraMap = {}
+            for extra in extraSet:
+                randomValue(extra)
+                if (extra != None):
+                    extra_key = Extra_Key(extra.key, extra.type, extra.value)
+                    extraSetHasOneKeyType = extraMap.get(extra_key.__str__())
+                    if (extraSetHasOneKeyType == None):
+                        extraSetHasOneKeyType = set()
+                    extraSetHasOneKeyType.add(extra)
+                    extraMap[extra_key.__str__()] = extraSetHasOneKeyType
+
+            selectExtraSet = set()
+            extraMapKeyList = list(extraMap.keys())
+            getCombinationExtraSet(extraMap, extraMapKeyList, 0, selectExtraSet, set())
+
+            selectCategorySet = set()
+            selectCategorySet.add(frozenset(categorySet))
+
+            newInfoFile.write("----------intent test select-----------\n")
+            newInfoFile.write("actionSetUUU:" + str(len(actionSet)) + "\n")
+            newInfoFile.write("dataSetUUU:" + str(len(dataSet)) + "\n")
+            newInfoFile.write("categorySetUUU:" + str(len(selectCategorySet)) + "\n")
+            newInfoFile.write("extraSetUUU:" + str(len(selectExtraSet)) + "\n")
+            newInfoFile.write("---------------------\n\n\n")
+            newInfoFile.flush()
+
+            for intent in generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet, dataSet,
+                                         categorySet, extraSet,
+                                         selectExtraSet, selectCategorySet, has_tested_intent):
+                one_intent_file = open(logDir + "/temp_intent", 'w')
+                one_intent_file.write(intent.__str__() + "\n")
+                one_intent_file.close()
+                flag = start_one_intent_test(test_apkPath, logDir + "/temp_intent",
+                                             app_test_status)
                 if (flag):
                     flag_test = True
-                intent = Intent(appPath, appPackageName, comPonentType, comPonentName, None,
-                                None, None, None)
-                has_tested_intent.add(intent)#
+                has_tested_intent.add(intent)
                 newInfoFile.write(intent.__str__() + "\n\n")
                 newInfoFile.flush()
-
-            else:
-
-                newInfoFile.write("---------intent------------\n")
-                newInfoFile.write(appPath + "\n")
-                newInfoFile.write(comPonentType + "\n")
-                newInfoFile.write(comPonentName + "\n")
-                newInfoFile.write("actionSet:" + getStr(actionSet) + "\n")
-                newInfoFile.write("categorySet:" + getStr(categorySet) + "\n")
-                newInfoFile.write("extraSet:" + getStr(extraSet) + "\n")
-                newInfoFile.write("---------------------\n\n\n")
-                newInfoFile.flush()
-
-                extraMap = {}
-                for extra in extraSet:
-                    if (extra != None):
-                        extra_key = Extra_Key(extra.key, extra.type, extra.value)
-                        extraSetHasOneKeyType = extraMap.get(extra_key.__str__())
-                        if (extraSetHasOneKeyType == None):
-                            extraSetHasOneKeyType = set()
-                        extraSetHasOneKeyType.add(extra)
-                        extraMap[extra_key.__str__()] = extraSetHasOneKeyType
-
-                selectExtraSet = set()
-                extraMapKeyList = list(extraMap.keys())
-                getCombinationExtraSet(extraMap, extraMapKeyList, 0, selectExtraSet, set())
-
-                selectCategorySet = set()
-                categoryList = list(categorySet)
-                getCombinationCategorySet(categoryList, 0, selectCategorySet, set())
-
-                newInfoFile.write("----------intent test select-----------\n")
-                newInfoFile.write("actionSetUUU:" + str(len(actionSet)) + "\n")
-                newInfoFile.write("categorySetUUU:" + str(len(selectCategorySet)) + "\n")
-                newInfoFile.write("extraSetUUU:" + str(len(selectExtraSet)) + "\n")
-                newInfoFile.write("---------------------\n\n\n")
-                newInfoFile.flush()
-
-                for intent in generateIntent(appPath, appPackageName, comPonentType, comPonentName, actionSet,
-                                             categorySet, extraSet,
-                                             selectExtraSet, selectCategorySet, has_tested_intent):
-                    one_intent_file = open(logDir + "/temp_intent", 'w')
-                    one_intent_file.write(intent.__str__() + "\n")
-                    one_intent_file.close()
-                    flag = start_one_intent_test(test_apkPath, logDir + "/temp_intent",
-                                                 app_test_status)
-                    if (flag):
-                        flag_test = True
-                    has_tested_intent.add(intent)
-                    newInfoFile.write(intent.__str__() + "\n\n")
-                    newInfoFile.flush()
 
             newInfoFile.write("1111111111111111111111111\n")
 
@@ -504,6 +465,25 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
 
     return flag_test
 
+def randomValue(extra):
+    abc=['A','B','C','D','E']
+    numInt=[1,0,-1]
+    numFloat = [0.1, 0, -0.1]
+    if extra.type=="java.lang.String":
+        extraValuestr=''
+        for i in range(random.randint(4,10)):
+            extraValuestr=extraValuestr+str(abc[random.randint(0,4)])
+        extra.value=extraValuestr
+        return
+    if extra.type=="int":
+        extra.value =numInt[random.randint(0,2)]
+        return
+    if extra.type == "float":
+        extra.value = numFloat[random.randint(0, 2)]
+        return
+    if extra.type == "double":
+        extra.value = numFloat[random.randint(0, 2)]
+        return
 
 def getStr(oneSet):
     line = "{"
@@ -735,12 +715,12 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
     newInfoFile.write("category:" + getStr(categoryNew) + "\n")
     newInfoFile.write("extra:" + getStr(extraNew) + "\n")
 
-    addMutatedIntentToExtra(extraNew)
+    #addMutatedIntentToExtra(extraNew)
 
     for action in actionNew:
         actionSet.add(action)
-    for category in categoryNew:
-        categorySet.add(category)
+    # for category in categoryNew:
+    #     categorySet.add(category)
     for extra in extraNew:
         extraSet.add(extra)
     return flag_add_new
@@ -846,6 +826,7 @@ def killProcessTree(pid):
 
 
 intent_test_count = 0
+app_test_count = 0
 if __name__ == '__main__':
 
     # print(isADBWorkNormal())

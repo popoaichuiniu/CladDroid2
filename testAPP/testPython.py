@@ -1,14 +1,8 @@
-def add(list,index,set1,allSet):
-    if index>=len(list):
-        allSet.add(frozenset(set1))
-    else:
-        setCopy=set(set1)
-        ele=list[index]
-        add(list,index+1,setCopy,allSet)
-        setCopy.add(ele)
-        add(list, index + 1, setCopy, allSet)
-list=[1,2]
-index=0
-allSet=set()
-add(list,index,set(),allSet)
-print(allSet)
+import random
+abc=['A','B','C','D','E']
+numInt=[1,0,-1]
+numFloat = [0.1, 0, -0.1]
+extraValuestr= ''
+for i in range(random.randint(4,10)):
+    extraValuestr= extraValuestr + str(abc[random.randint(0, 4)])
+print(extraValuestr)

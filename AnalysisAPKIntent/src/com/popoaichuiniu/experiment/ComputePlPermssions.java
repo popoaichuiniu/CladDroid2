@@ -16,7 +16,7 @@ public class ComputePlPermssions {
     private static Logger logger=new MyLogger(appDir+"/ComputePlPermssions","exceptionLogger").getLogger();
 
     public static void main(String[] args) {
-        ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/permissionLeakResults (copy).log",logger);
+        ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/permissionLeakResults.log",logger);
         List<String> listString=readFileOrInputStream.getAllContentList();
         Map<String,Set<String>> permissionCount=new HashMap<>();
         Map<String,Set<String>> permissionAPPCount=new HashMap<>();

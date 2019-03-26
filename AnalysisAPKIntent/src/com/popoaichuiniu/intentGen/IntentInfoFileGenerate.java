@@ -46,7 +46,7 @@ public class IntentInfoFileGenerate {
             }
 
             line = line + categoryStr + "#";
-            line = line + intentInfo.comPonentData + "#";
+            line = line + intentInfo.comPonentData+ "#";
 
             String extraString = "";
             if (intentInfo.comPonentExtraData == null || intentInfo.comPonentExtraData.size() == 0) {

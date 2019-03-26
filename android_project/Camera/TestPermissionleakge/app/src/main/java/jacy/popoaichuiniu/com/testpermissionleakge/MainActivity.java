@@ -97,8 +97,26 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         }
-                        if (!comPonentData.equals("null")) {
-                            intent.setData(Uri.parse(comPonentData));
+                        if ((!comPonentData.equals("null")) && comPonentData.contains(";")) {
+
+                            String dataStr[] = comPonentData.split(";");
+                            if (dataStr.length == 2) {
+                                String data = dataStr[0];
+                                String type = dataStr[1];
+                                if (!data.trim().equals("")) {
+
+                                    intent.setData(Uri.parse(data));
+
+                                }
+
+                                if(!type.trim().equals(""))
+                                {
+                                    intent.setType(type);
+                                }
+
+
+                            }
+
                         }
 
 
@@ -216,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Log.i("ZMSStart", "intentInfo.txt打开失败" + "eeeeeeeeeeee");
                 }
-
 
 
                 try {

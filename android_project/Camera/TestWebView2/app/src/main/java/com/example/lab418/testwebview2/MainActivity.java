@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent=new Intent();
+        intent.getDataString();
 //        intent.setClass(this,ExampleReceiver.class);
 //        sendBroadcast(intent);
 

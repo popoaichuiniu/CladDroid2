@@ -17,7 +17,7 @@ public class IntentInfo {
 
         String comPonentAction;
         List<String> comPonentCategory=new ArrayList<>();
-        String comPonentData;
+        IntentData comPonentData;
         List<IntentExtraKey> comPonentExtraData=new ArrayList<>();
 
         @Override

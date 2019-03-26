@@ -1,8 +1,6 @@
 package com.popoaichuiniu.intentGen;
 
 
-import org.junit.Test;
-
 import java.util.*;
 
 
@@ -12,6 +10,8 @@ public class Intent {
     public String action;
     public String targetComponent;
     public Set<String> categories = new LinkedHashSet<String>();
+    public IntentData data;
+
 
     public Intent(Intent intent) {
         if (intent.myExtras != null) {
@@ -24,6 +24,12 @@ public class Intent {
             this.action = new String(intent.action);
         } else {
             this.action = null;
+        }
+
+        if (intent.data != null) {
+            this.data = intent.data;
+        } else {
+            this.data = null;
         }
 
         if (intent.targetComponent != null) {
@@ -56,6 +62,7 @@ public class Intent {
 
         if (!equivExtraTo(myExtras, intent.myExtras)) return false;
         if (action != null ? !action.equals(intent.action) : intent.action != null) return false;
+        if (data != null ? !data.equals(intent.data) : intent.data != null) return false;
         if (targetComponent != null ? !targetComponent.equals(intent.targetComponent) : intent.targetComponent != null)
             return false;
         return equivCategoryTo(categories, intent.categories);
@@ -116,6 +123,7 @@ public class Intent {
     public int hashCode() {
         int result = myExtras != null ? myExtras.hashCode() : 0;
         result = 31 * result + (action != null ? action.hashCode() : 0);
+        result = 31 * result + (data != null ? data.hashCode() : 0);
         result = 31 * result + (targetComponent != null ? targetComponent.hashCode() : 0);
         result = 31 * result + (categories != null ? categories.hashCode() : 0);
         return result;
@@ -126,6 +134,7 @@ public class Intent {
         return "Intent{" +
                 "extras=" + myExtras +
                 ", action='" + action + '\'' +
+                ", data='" + data + '\'' +
                 ", targetComponent='" + targetComponent + '\'' +
                 ", categories=" + categories +
                 '}';
@@ -155,6 +164,11 @@ public class Intent {
         }
 
         if (intent.action != null && (!intent.action.equals(action)))//如果intent.action不为null的话，this.action必须等于其
+        {
+            return false;
+        }
+
+        if (intent.data != null && (!intent.data.equals(data)))//
         {
             return false;
         }

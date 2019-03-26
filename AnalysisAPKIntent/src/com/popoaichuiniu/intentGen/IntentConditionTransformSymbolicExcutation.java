@@ -347,6 +347,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         intentInfo.comPonentName = intentUnit.comPonentName;
 
         intentInfo.comPonentAction = intentUnit.intent.action;
+        intentInfo.comPonentData=intentUnit.intent.data;
         intentInfo.comPonentCategory.addAll(intentUnit.intent.categories);
         intentInfo.comPonentExtraData.addAll(intentUnit.intent.myExtras);
 
@@ -2300,7 +2301,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                 handleGetExtraOfIntent(sootMethod, path, currPathCond, currDecls, defs, stmt);//
 
                 //category
-                //data
+                //dataString
 
 
             }
@@ -3716,7 +3717,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                                                         ConditionExpr conditionExpr = (ConditionExpr) inUnit.getCondition();
                                                                         if (isFallThrough) { // then intent contains the key   //
                                                                             if (ifBooleanTypeConditionValue()) {
-                                                                                newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") true))";//getExtras是将intent的extra data converted into bundle ,so assert is about intent
+                                                                                newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") true))";//getExtras是将intent的extra dataString converted into bundle ,so assert is about intent
                                                                             } else {
                                                                                 newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") false))";
                                                                             }
@@ -3727,7 +3728,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                                                                                 newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") false))";
 
                                                                             } else {
-                                                                                newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") true))";//getExtras是将intent的extra data converted into bundle ,so assert is about intent
+                                                                                newAssert += "\n(assert (= (containsKey " + intentLocalSymbol + " \"" + keyString + "\") true))";//getExtras是将intent的extra dataString converted into bundle ,so assert is about intent
                                                                             }
                                                                         }
 
@@ -3988,7 +3989,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
                     }
 
 
-                    UnHandleWriter.write(appPath + "%%" + "Unhandled data source" + coiStmt.getRightOp() + "\n");
+                    UnHandleWriter.write(appPath + "%%" + "Unhandled dataString source" + coiStmt.getRightOp() + "\n");
                     seUnHandleProcessStatistic.addUnHandleCount();//并没有对来源于参数的数据处理
 
                 } else {
