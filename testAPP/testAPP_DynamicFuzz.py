@@ -385,7 +385,7 @@ def generateIntent(appPath, appPackageName, comPonentType, comPonentName, action
                         yield intent
 
 
-app_test_count = 0
+
 
 #没有考虑intent data 和type
 def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumented app
@@ -846,6 +846,7 @@ def killProcessTree(pid):
 
 
 intent_test_count = 0
+app_test_count = 0
 if __name__ == '__main__':
 
     # print(isADBWorkNormal())

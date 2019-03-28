@@ -438,10 +438,12 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
             }
 
 
+
+
             Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.DynamicSE_logDir + "/" + appDir.getName() + "_hasGeneratedAPP.txt", exceptionLogger).getAllContentLinSet();
             WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.DynamicSE_logDir + "/" + appDir.getName() + "_hasGeneratedAPP.txt", true, exceptionLogger);//分析一个目录中途断掉，可以继续重新分析
 
-
+            WriteFile writeFileGetInfoTimeUse=new WriteFile(Config.DynamicSE_logDir + "/" + appDir.getName() + "_GetInfo_timeUse.csv",false,exceptionLogger);
             for (File apkFile : appDir.listFiles()) {
                 if (apkFile.getName().endsWith(".apk") && (!apkFile.getName().contains("_signed_zipalign"))) {
                     if (hasGenerateAppSet.contains(apkFile.getAbsolutePath())) {
@@ -455,8 +457,13 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
                             try {
 
-
+                                long start_time=System.nanoTime();
                                 singleAPPAnalysis(apkFile.getAbsolutePath());//分析每一个app
+                                long end_time=System.nanoTime();
+
+                                writeFileGetInfoTimeUse.writeStr(apkFile.getAbsolutePath()+","+(end_time-start_time)+"\n");
+
+                                writeFileGetInfoTimeUse.flush();
 
                             } catch (Exception e) {
                                 exceptionLogger.error(apkFile.getAbsolutePath() + "&&" + "Exception" + "###" + e.getMessage() + "###" + ExceptionStackMessageUtil.getStackTrace(e));
@@ -487,6 +494,8 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
             writeFileHasGenerateUnitNeedAnalysis.close();
 
+            writeFileGetInfoTimeUse.close();
+
         } else {
 
             try {
@@ -515,10 +524,83 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
         List<SootMethod> ea_entryPoints = Util.getEA_EntryPoints(androidCallGraph, androidInfo);
 
+        //List<SootMethod> all_entryPoints=Util.getAll_EntryPoints(androidCallGraph, androidInfo);
+        
+        //generateAllString(all_entryPoints,cGraph, appPath);
 
         generateUnitToAnalysis(ea_entryPoints, cGraph, appPath);
 
         infoLogger.info("Part1's analysis completed! " + appPath);
+    }
+
+    private static void generateAllString(List<SootMethod> all_entryPoints, CallGraph cGraph, String appPath) {
+
+        List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(all_entryPoints, cGraph);
+
+
+        WriteFile writeFileUnitsAllString = null;
+
+        writeFileUnitsAllString = new WriteFile(appPath + "_" + "allStrMayContainAction.txt", false, exceptionLogger);
+
+        Set<String> stringSet=new HashSet<>();
+        for(SootMethod sootMethod:roMethods)
+        {
+            if(sootMethod.hasActiveBody())
+            {
+                for(Unit unit:sootMethod.getActiveBody().getUnits())
+                {
+                    for(ValueBox valueBox:unit.getUseBoxes())
+                    {
+                        if(valueBox.getValue() instanceof StringConstant)
+                        {
+                            StringConstant stringConstant= (StringConstant) valueBox.getValue();
+                            String str=stringConstant.value;
+                            if(str.startsWith("com.") || str.startsWith("android."))
+                            {
+                                stringSet.add(str);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        for(String str:stringSet)
+        {
+            writeFileUnitsAllString.writeStr(str+"\n");
+        }
+
+        writeFileUnitsAllString.close();
+
+    }
+
+
+    private static boolean strContainsTwoPoint(String str) {
+        int count = 0;
+        int index = -1;
+        while (true) {
+
+
+            index = str.indexOf(".", index + 2);
+
+
+            if (index != -1) {
+                count++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (count >= 2) {
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 
     private static boolean isExistSimilarItem(Set<String> permissionSet, Set<String> dangerousPermissions) {

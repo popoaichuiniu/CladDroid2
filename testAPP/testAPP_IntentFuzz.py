@@ -336,7 +336,7 @@ def generateIntent(appPath, appPackageName, comPonentType, comPonentName, action
 
                     if (intent not in has_tested_intent):
                         all_intent_count = all_intent_count + 1
-                        if (all_intent_count > 50):
+                        if (all_intent_count > 15):
                             intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
                             intent_count_exceed.write(
                                 appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
@@ -413,7 +413,6 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
 
             extraMap = {}
             for extra in extraSet:
-                randomValue(extra)
                 if (extra != None):
                     extra_key = Extra_Key(extra.key, extra.type, extra.value)
                     extraSetHasOneKeyType = extraMap.get(extra_key.__str__())
@@ -524,7 +523,7 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     global intent_test_count
     global app_test_count
     flag_test = False
-    if app_test_count > 100:
+    if app_test_count > 60:
         test_app_intent_count = open(logDir + "/" + 'test_app_intent_count.txt', 'a+')
         test_app_intent_count.write(apkPath + '\n')
         test_app_intent_count.close()
@@ -707,7 +706,13 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
             for indexValue in range(len(extraValue)):
                 for indexKey in range(len(extraKey)):
                     newExtra = Extra(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
-                    if newExtra not in extraSet:
+                    newExtra_key=Extra_Key(extraKey[indexKey], extraType[indexValue], extraValue[indexValue])
+                    flag_has_key=False
+                    for extra in extraSet:
+                        if extra.__str__().find(newExtra_key.__str__()) != -1:
+                            flag_has_key=True
+                            break
+                    if not flag_has_key:#不加已经有key的extra
                         extraNew.add(newExtra)
                         flag_add_new = True
 
@@ -717,11 +722,12 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
 
     #addMutatedIntentToExtra(extraNew)
 
-    for action in actionNew:
-        actionSet.add(action)
+    # for action in actionNew:
+    #     actionSet.add(action)
     # for category in categoryNew:
     #     categorySet.add(category)
     for extra in extraNew:
+        randomValue(extra)
         extraSet.add(extra)
     return flag_add_new
 

@@ -18,9 +18,10 @@ public class ComputePlPermssions {
     public static void main(String[] args) {
         ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/permissionLeakResults.log",logger);
         List<String> listString=readFileOrInputStream.getAllContentList();
-        Map<String,Set<String>> permissionCount=new HashMap<>();
-        Map<String,Set<String>> permissionAPPCount=new HashMap<>();
+
         HashSet<String> apps=new HashSet<>();
+        Map<String,Map<String,Set<String>>> permissionAppPLCountMap=new HashMap<>();
+        Map<String,Map<String,Set<String>>> appPermissionPLCountMap=new HashMap<>();
         for(String str:listString)
         {
             String [] strArray=str.split("#");
@@ -29,14 +30,11 @@ public class ComputePlPermssions {
 
             apps.add(appName);
 
-           // String appType= FindAPPCategory.findAPPType(new File(appName).getName());
-
-//            if(appType.equals("zms"))//adb log has problem
-//            {
-//                System.out.println(appName);
-//
-//
-//            }
+            Map<String,Set<String>> permissionPLCountMap= appPermissionPLCountMap.get(appName);
+            if(permissionPLCountMap ==null)
+            {
+                permissionPLCountMap=new HashMap<>();
+            }
 
             String [] permissionArray=permissionStr.split(",");
 
@@ -47,36 +45,38 @@ public class ComputePlPermssions {
                     continue;
                 }
 
-                //
-                Set<String> unitSet=permissionCount.get(permission);
-                if(unitSet==null)
-                {
-                    unitSet=new HashSet<>();
-
-
-                }
                 String unitStr=strArray[6]+strArray[8];
-                unitSet.add(unitStr);
-                permissionCount.put(permission,unitSet);
 
 
-                //
-
-                Set<String> appSet=permissionAPPCount.get(permission);
-                if(appSet==null)
+                //------------------------------
+                Set<String> PLUnitStrSet=permissionPLCountMap.get(permission);
+                if(PLUnitStrSet==null)
                 {
-                    appSet=new HashSet<>();
+                    PLUnitStrSet=new HashSet<>();
 
                 }
+                PLUnitStrSet.add(unitStr);
 
-                appSet.add(appName);
-
-
-                permissionAPPCount.put(permission,appSet);
+                permissionPLCountMap.put(permission,PLUnitStrSet);
 
 
 
+                //------------------------
+                Map<String,Set<String>>  appPLCountMap=permissionAppPLCountMap.get(permission);
+                if(appPLCountMap==null)
+                {
+                    appPLCountMap=new HashMap<>();
+                }
 
+                Set<String> unitStrSet=appPLCountMap.get(appName);
+                if(unitStrSet==null)
+                {
+                    unitStrSet=new HashSet<>();
+                }
+                unitStrSet.add(unitStr);
+                appPLCountMap.put(appName,unitStrSet);
+
+                permissionAppPLCountMap.put(permission,appPLCountMap);
 
 
 
@@ -85,35 +85,32 @@ public class ComputePlPermssions {
 
             }
 
+            appPermissionPLCountMap.put(appName,permissionPLCountMap);
+
         }
 
 
-        ExcelWrite excelWritePermissionCount=new ExcelWrite(appDir+"/permissionAllCount.xlsx");
 
-        excelWritePermissionCount.addRow(new Object[]{"permission","allCount"});
-        for(Map.Entry<String,Set<String>> entry:permissionCount.entrySet())
+        ExcelWrite appExcelWritePermissionLeakCount=new ExcelWrite(appDir+"/permissionLeakCount.xlsx");
+
+        appExcelWritePermissionLeakCount.addRow(new Object[]{"permission","appUseCount","allCount"});
+        for(Map.Entry<String,Map<String,Set<String>>> entryPermission:permissionAppPLCountMap.entrySet())
         {
-            excelWritePermissionCount.addRow(new Object[]{entry.getKey(),entry.getValue().size()});
+            int appUseCount=0;
+            int allCount=0;
+            for(Map.Entry<String,Set<String>> entryApp :entryPermission.getValue().entrySet())
+            {
+                appUseCount=appUseCount+1;
+                allCount=allCount+entryApp.getValue().size();
+
+            }
+
+            appExcelWritePermissionLeakCount.addRow(new Object[]{entryPermission.getKey(),appUseCount,allCount});
+
+
         }
 
-        excelWritePermissionCount.closeFile();
-
-
-
-
-        ExcelWrite appExcelWritePermissionCount=new ExcelWrite(appDir+"/permissionAPPUseCount.xlsx");
-
-        appExcelWritePermissionCount.addRow(new Object[]{"permission","appUseCount"});
-        for(Map.Entry<String,Set<String>> entry:permissionAPPCount.entrySet())
-        {
-            appExcelWritePermissionCount.addRow(new Object[]{entry.getKey(),entry.getValue().size()});
-        }
-
-        appExcelWritePermissionCount.closeFile();
-
-
-
-
+        appExcelWritePermissionLeakCount.closeFile();
 
 
         System.out.println("over");

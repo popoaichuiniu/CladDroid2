@@ -50,7 +50,7 @@ class IntentData:
         if(self.type==None):
             str=str+";"+""
         else:
-            str=str+";"+type
+            str=str+";"+self.type
 
         return str
 

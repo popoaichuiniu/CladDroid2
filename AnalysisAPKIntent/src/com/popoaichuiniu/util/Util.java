@@ -25,8 +25,6 @@ import soot.util.Chain;
 public class Util {
 
 
-
-
     public static void getAllUnitofCallPath(SootMethod target, SootMethod methodCall, List<Unit> callUnitList)// target中找methodCall的调用
     {
 
@@ -60,10 +58,10 @@ public class Util {
 
     public static SootMethod getCalleeSootMethodAt(Unit unit) {
 
-            Stmt stmt = (Stmt) unit;
-            if (stmt.containsInvokeExpr()) {
-                return stmt.getInvokeExpr().getMethod();
-            }
+        Stmt stmt = (Stmt) unit;
+        if (stmt.containsInvokeExpr()) {
+            return stmt.getInvokeExpr().getMethod();
+        }
         return null;
     }
 
@@ -129,7 +127,8 @@ public class Util {
         }
         return false;
     }
-    public static int exeCmd(File workdir,Logger infoLogger,Logger exceptionLogger, String... command) throws InterruptedException, IOException {
+
+    public static int exeCmd(File workdir, Logger infoLogger, Logger exceptionLogger, String... command) throws InterruptedException, IOException {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         processBuilder.directory(workdir);
         processBuilder.redirectErrorStream(true);
@@ -271,6 +270,30 @@ public class Util {
         return ea_entryPoints;
     }
 
+    public static List<SootMethod> getAll_EntryPoints(AndroidCallGraph androidCallGraph, AndroidInfo androidInfo) {
+
+
+        CallGraph cGraph = androidCallGraph.getCg();
+
+        SootMethod entryPoint = androidCallGraph.getEntryPoint();
+
+
+        List<SootMethod> entryPointSet = new ArrayList<>();
+
+        for (Iterator<Edge> iterator = cGraph.edgesOutOf(entryPoint); iterator.hasNext(); )// DummyMain方法调用的所有方法（各个组件的回调方法和生命周期）
+        {
+            Edge edge = iterator.next();
+            SootMethod method = edge.getTgt().method();
+
+
+            entryPointSet.add(method);
+
+
+        }
+
+        return entryPointSet;
+    }
+
     public static BytecodeOffsetTag extractByteCodeOffset(Unit unit) {
         for (Tag tag : unit.getTags()) {
             //System.out.println(tag.getName()+"zzz"+tag.getValue());
@@ -305,9 +328,7 @@ public class Util {
     private static void findUnRelativeNode(Unit targetUnit, SootMethod sootMethod, Set<Unit> allUnitUnRelativeIntentAndTargetUnit, SingleSootMethodIntentFlowAnalysis intentFlowAnalysis, UnitGraph ug, SimpleLocalDefs defs) {
 
         HashSet<Unit> relativeUnitSet = new HashSet<>();
-        for (Unit oneUnit : sootMethod.getActiveBody().getUnits())
-
-        {
+        for (Unit oneUnit : sootMethod.getActiveBody().getUnits()) {
             if ((!MyUnitGraph.isAboutIntentOrTargetAPI(oneUnit, intentFlowAnalysis, targetUnit)) && ug.getPredsOf(oneUnit).size() != 0 && ug.getSuccsOf(oneUnit).size() != 0) {
 
                 allUnitUnRelativeIntentAndTargetUnit.add(oneUnit);
@@ -335,9 +356,6 @@ public class Util {
 
 
     }
-
-
-
 
 
 //    private static Pair<Boolean, Unit> analyseIFBlock(Unit unit, int branchLayer, UnitGraph ug, Map<Unit, Set<String>> unitHasInfo, Stack<Pair<Unit, List<String>>> ifStack, IntentFlowAnalysis intentFlowAnalysis, Unit targetUnit, Set<Unit> path, Set<Unit> allUnitOfTargetUnit) {
@@ -557,38 +575,32 @@ public class Util {
 
     }
 
-    public static List<SootMethod> cgOutOfSootMethods(SootMethod sootMethod)
-    {
-        CallGraph callGraph=Scene.v().getCallGraph();
-        List<SootMethod> outOfMethods=new ArrayList<>();
-        for(Iterator<Edge> iterator=callGraph.edgesOutOf(sootMethod);iterator.hasNext();)
-        {
-            Edge edge=iterator.next();
+    public static List<SootMethod> cgOutOfSootMethods(SootMethod sootMethod) {
+        CallGraph callGraph = Scene.v().getCallGraph();
+        List<SootMethod> outOfMethods = new ArrayList<>();
+        for (Iterator<Edge> iterator = callGraph.edgesOutOf(sootMethod); iterator.hasNext(); ) {
+            Edge edge = iterator.next();
             outOfMethods.add(edge.tgt());
         }
         return outOfMethods;
     }
 
-    public static List<SootMethod> cgInSootMethods(SootMethod sootMethod)
-    {
-        CallGraph callGraph=Scene.v().getCallGraph();
-        List<SootMethod> inMethods=new ArrayList<>();
-        for(Iterator<Edge> iterator=callGraph.edgesInto(sootMethod);iterator.hasNext();)
-        {
-            Edge edge=iterator.next();
+    public static List<SootMethod> cgInSootMethods(SootMethod sootMethod) {
+        CallGraph callGraph = Scene.v().getCallGraph();
+        List<SootMethod> inMethods = new ArrayList<>();
+        for (Iterator<Edge> iterator = callGraph.edgesInto(sootMethod); iterator.hasNext(); ) {
+            Edge edge = iterator.next();
             inMethods.add(edge.src());
         }
         return inMethods;
     }
 
-    public static String getPrintCollectionStr(Collection collection)
-    {
-        String str="{\n";
-        for(Object object:collection)
-        {
-            str=str+object+"\n";
+    public static String getPrintCollectionStr(Collection collection) {
+        String str = "{\n";
+        for (Object object : collection) {
+            str = str + object + "\n";
         }
-        str=str+"}\n";
+        str = str + "}\n";
         return str;
     }
 
@@ -625,8 +637,8 @@ public class Util {
 
     }
 
-    public static void testInitial(List<SootMethod> ea_entryPoints, List<SootMethod> roMethods, Chain<SootClass> applicationClasses, String appPath,Logger logger) {
-        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults+"/testInitial/" + new File(appPath).getName() + ".txt", false, logger);
+    public static void testInitial(List<SootMethod> ea_entryPoints, List<SootMethod> roMethods, Chain<SootClass> applicationClasses, String appPath, Logger logger) {
+        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/testInitial/" + new File(appPath).getName() + ".txt", false, logger);
 
         writeFile.writeStr("all application class:" + "\n\n\n\n");
         for (SootClass sootClass : applicationClasses) {
@@ -656,20 +668,17 @@ public class Util {
     }
 
 
-    public static Map<String,Set<String>> getPermissionAPIMap(Map<String,Set<String>> sootMethodPermissionMap) {
+    public static Map<String, Set<String>> getPermissionAPIMap(Map<String, Set<String>> sootMethodPermissionMap) {
 
-        Map<String,Set<String>> permissionAPIMap=new HashMap<>();
-        for(Map.Entry<String,Set<String>> entry:sootMethodPermissionMap.entrySet())
-        {
-            for(String permission:entry.getValue())
-            {
-                Set<String> apiSet=permissionAPIMap.get(permission);
-                if(apiSet==null)
-                {
-                    apiSet=new HashSet<>();
+        Map<String, Set<String>> permissionAPIMap = new HashMap<>();
+        for (Map.Entry<String, Set<String>> entry : sootMethodPermissionMap.entrySet()) {
+            for (String permission : entry.getValue()) {
+                Set<String> apiSet = permissionAPIMap.get(permission);
+                if (apiSet == null) {
+                    apiSet = new HashSet<>();
                 }
                 apiSet.add(entry.getKey());
-                permissionAPIMap.put(permission,apiSet);
+                permissionAPIMap.put(permission, apiSet);
             }
         }
         return permissionAPIMap;
