@@ -230,7 +230,7 @@ def waitForTestStop():
             count = count + 1
             if (count > 10):
                 killTestAPP()
-        time.sleep(5)
+        time.sleep(2)
         flagADB = isADBWorkNormal()
         flagTestAPPLive = isTestAPPAlive()
 
