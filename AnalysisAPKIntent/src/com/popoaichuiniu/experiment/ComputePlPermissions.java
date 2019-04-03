@@ -9,19 +9,32 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.*;
 
-public class ComputePlPermssions {
+public class ComputePlPermissions {
 
 
-    private static String appDir= Config.DynamicSE_logDir+"/"+"testLog";
-    private static Logger logger=new MyLogger(appDir+"/ComputePlPermssions","exceptionLogger").getLogger();
+    private   String appDir= Config.DynamicSE_logDir+"/"+"testLog_2019_3_30_test_intentFuzzer";
+    private  Logger logger=null;
+    public HashSet<String> apps=new HashSet<>();
+    public Map<String,Map<String,Set<String>>> permissionAppPLCountMap=new HashMap<>();
+    public Map<String,Map<String,Set<String>>> appPermissionPLCountMap=new HashMap<>();
 
-    public static void main(String[] args) {
+
+    public ComputePlPermissions(String appDir) {
+        this.appDir = appDir;
+        logger= new MyLogger(appDir+"/ComputePlPermissions","exceptionLogger").getLogger();
+
+    }
+
+    public ComputePlPermissions() {
+
+        logger= new MyLogger(appDir+"/ComputePlPermissions","exceptionLogger").getLogger();
+    }
+
+    public  void computePl() {
         ReadFileOrInputStream readFileOrInputStream=new ReadFileOrInputStream(appDir+"/permissionLeakResults.log",logger);
         List<String> listString=readFileOrInputStream.getAllContentList();
 
-        HashSet<String> apps=new HashSet<>();
-        Map<String,Map<String,Set<String>>> permissionAppPLCountMap=new HashMap<>();
-        Map<String,Map<String,Set<String>>> appPermissionPLCountMap=new HashMap<>();
+
         for(String str:listString)
         {
             String [] strArray=str.split("#");
@@ -117,4 +130,11 @@ public class ComputePlPermssions {
 
         System.out.println(apps.size());
     }
+
+    public static void main(String[] args) {
+        ComputePlPermissions computePlPermissions=new ComputePlPermissions();
+        computePlPermissions.computePl();
+    }
+
+
 }

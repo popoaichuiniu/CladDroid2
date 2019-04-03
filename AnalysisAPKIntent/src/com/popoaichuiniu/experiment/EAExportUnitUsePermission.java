@@ -56,6 +56,8 @@ public class EAExportUnitUsePermission {
                 for (String str : readFileOrInputStream.getAllContentLinSet()) {
                     String[] contentArray = str.split("#");
                     String sootMethodSignature = contentArray[3];
+                    System.out.println(sootMethodSignature);
+                    System.out.println(sootMethodPermissionMap);
                     for (String permission : sootMethodPermissionMap.get(sootMethodSignature)) {
 
                         appPermissionSet.add(permission);

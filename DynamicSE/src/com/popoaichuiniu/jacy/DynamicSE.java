@@ -408,7 +408,7 @@ public class DynamicSE extends BodyTransformer {
 
             writeFile_app_has_Instrumented = new WriteFile(hasInstrumentedFile.getAbsolutePath(), true, exceptionLogger);
 
-
+            WriteFile writeFileDynamicSE=new WriteFile(Config.DynamicSE_logDir + "/" + appDirFile.getName() + "_dynamicSEInstrument_timeUse.csv",false,exceptionLogger);
             for (File file : appDirFile.listFiles()) {
                 if (file.getName().endsWith(".apk")) {
                     if (hasInstrumentAPP.contains(file.getAbsolutePath())) {
@@ -432,7 +432,13 @@ public class DynamicSE extends BodyTransformer {
 
                                 soot.G.reset();
                                 //try {
+                                long start_time=System.nanoTime();
                                 singleAPPAnalysis(instrumentArgs);
+                                long end_time=System.nanoTime();
+                                writeFileDynamicSE.writeStr(file.getAbsolutePath()+","+((double)(end_time-start_time)/1E9)+"\n");
+                                writeFileDynamicSE.flush();
+
+
 //                                } catch (RuntimeException e) {
 //                                    writeFileAppInstrumentException.writeStr(e.getMessage() + " " + instrumentArgs[0] + "\n");
 //                                    writeFileAppInstrumentException.flush();
@@ -464,6 +470,7 @@ public class DynamicSE extends BodyTransformer {
             }
 
             writeFileAppInstrumentException.close();
+            writeFileDynamicSE.close();
 
 
             writeFile_app_has_Instrumented.close();

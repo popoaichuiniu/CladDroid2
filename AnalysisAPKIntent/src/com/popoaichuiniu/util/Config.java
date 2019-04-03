@@ -51,7 +51,7 @@ public class Config {
 
     public static String videoDemo="/home/lab418/videoDemo.apk";
     public static String videoDemoDir="/home/lab418";
-    public static String defaultAppDirPath=Config.repeatExperiment;
+    public static String defaultAppDirPath=Config.wandoijiaAPP;
 
 
     //log path
