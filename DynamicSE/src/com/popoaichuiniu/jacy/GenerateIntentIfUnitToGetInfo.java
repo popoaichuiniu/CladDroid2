@@ -197,7 +197,7 @@ public class GenerateIntentIfUnitToGetInfo {//日志设置合理
 
         }
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet),"intentInfoDynamicSE.txt" ,exceptionLogger);
 
         //******************************生成initialIntent
 

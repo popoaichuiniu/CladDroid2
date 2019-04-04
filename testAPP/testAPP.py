@@ -189,7 +189,7 @@ def analysisAPKDir(apkDir):  #
         for file in os.listdir(apkDir):
             apk_path = apkDir + "/" + file
             if (str(apk_path).endswith("_signed_zipalign.apk")):
-                intent_file = apkDir + "/../" + file.replace("_signed_zipalign", "") + "_" + "intentInfo.txt"
+                intent_file = apkDir + "/../" + file.replace("_signed_zipalign", "") + "_" + "intentInfoSE.txt"
                 if (os.path.exists(intent_file) and os.path.exists(apk_path)):
                     yield apk_path, intent_file
                 else:
@@ -436,7 +436,7 @@ if __name__ == '__main__':
     if (not os.path.isdir(apkDir)):  # is apk
         parent_path = os.path.dirname(apkDir)
         apk_name = os.path.basename(apkDir)
-        intent_file = parent_path + "/" + apk_name + "_" + "intentInfo.txt"
+        intent_file = parent_path + "/" + apk_name + "_" + "intentInfoSE.txt"
         apkDir = parent_path + "/" + "instrumented" + "/" + apk_name.replace(".apk", "_signed_zipalign.apk")
         if (os.path.exists(intent_file) and os.path.exists(apkDir)):
             start_time = time.time()

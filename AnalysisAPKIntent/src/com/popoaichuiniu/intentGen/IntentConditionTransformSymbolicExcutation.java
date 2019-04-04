@@ -2,6 +2,10 @@ package com.popoaichuiniu.intentGen;
 
 import com.microsoft.z3.Z3Exception;
 import com.popoaichuiniu.experiment.SEUnHandleProcessStatistic;
+import com.popoaichuiniu.jacy.IntentDataFlowAnalysisForDynamicSE;
+import com.popoaichuiniu.jacy.IntentDataTransfer;
+import com.popoaichuiniu.jacy.MethodSummary;
+import com.popoaichuiniu.jacy.MethodUnit;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
@@ -120,6 +124,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
     private SEUnHandleProcessStatistic seUnHandleProcessStatistic = null;
 
 
+    private IntentDataFlowAnalysisForDynamicSE intentDataFlowAnalysisForDynamicSE = null;
+
+    public Set<SootMethod> hasExternIntentDataSootMethod = new HashSet<>();
+
+
     public IntentConditionTransformSymbolicExcutation(String apkFilePath) {
 
 
@@ -175,21 +184,50 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         List<SootMethod> ea_entryPoints = Util.getEA_EntryPoints(androidCallGraph, androidInfo);
         List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(ea_entryPoints, androidCallGraph.getCg());
         roMethods.add(androidCallGraph.getEntryPoint());
-//        for(SootMethod sootMethod:roMethods)
-//        {
-////            if(sootMethod.getBytecodeSignature().contains("iccMain"))
-////            {
-////                System.out.println(sootMethod);//ok
-////            }
-//
-//              if(sootMethod.getBytecodeSignature().contains("zms1250"))
-//              {
-//                  System.out.println(sootMethod);//ok
-//              }
-//        }
+
+        ///////////////////////////*************过程间数据流分析********************************
+
+        IntentDataFlowAnalysisForDynamicSE.clearIntentDataFlowAnalysisForDynamicSE();//
+
+        for (SootMethod sootMethod : ea_entryPoints) {
 
 
-        //testInitial(ea_entryPoints, roMethods, Scene.v().getApplicationClasses(), appPath,exceptionLogger);//ok
+            IntentDataTransfer initialIntentDataTransfer = new IntentDataTransfer();
+            initialIntentDataTransfer.targetSootMethod = sootMethod;
+
+
+            for (int index = 0; index < sootMethod.getParameterTypes().size(); index++) {
+                if (sootMethod.getParameterTypes().get(index).toString().equals("android.content.Intent")) {
+                    initialIntentDataTransfer.type = IntentDataTransfer.TYPE_INTENT;
+                    initialIntentDataTransfer.targetParameter = index;
+                }
+
+
+            }
+
+
+            if (Util.isApplicationMethod(initialIntentDataTransfer.targetSootMethod) && initialIntentDataTransfer.targetSootMethod.hasActiveBody()) {
+
+                MethodSummary methodSummary = new MethodSummary(initialIntentDataTransfer.targetSootMethod, initialIntentDataTransfer.targetParameter);
+                IntentDataFlowAnalysisForDynamicSE.methodSummarySet.add(methodSummary);
+
+                BriefUnitGraph briefUnitGraph = new BriefUnitGraph(initialIntentDataTransfer.targetSootMethod.getActiveBody());
+                intentDataFlowAnalysisForDynamicSE = new IntentDataFlowAnalysisForDynamicSE(briefUnitGraph, initialIntentDataTransfer, exceptionLogger);
+
+                IntentDataFlowAnalysisForDynamicSE.allInstrumentUnitIntentDataFlowIn.putAll(intentDataFlowAnalysisForDynamicSE.instrumentUnitIntentDataFlowIn);
+
+
+            }
+
+
+        }
+
+        for (MethodUnit methodUnit : IntentDataFlowAnalysisForDynamicSE.allInstrumentUnitIntentDataFlowIn.keySet()) {
+            hasExternIntentDataSootMethod.add(methodUnit.sootMethod);
+        }
+
+
+        ////////////////////////////*************过程间数据流分析*******************************
 
 
         try {
@@ -212,10 +250,17 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         saveIntent(allIntentConditionOfOneApp, appPath);//所有intent结果（startPoint到tgtAPI）
 
+
+        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "all_intent_exceed_count.txt", true, exceptionLogger);
+        writeFile.writeStr(ultiIntentSet.size() + "%%%%%" + appPath + "\n");
+        writeFile.close();
+
+
         //最终intent结果
         WriteFile writeFile_intent_ulti = new WriteFile(Config.intent_ulti_path + "/" + new File(appPath).getName() + ".txt", false, exceptionLogger);
 
         Set<IntentInfo> intentInfoSet = new HashSet<>();
+
         for (IntentUnit intentUnit : ultiIntentSet) {
             Stmt stmt = (Stmt) intentUnit.unit;
             InvokeExpr invokeExpr = stmt.getInvokeExpr();
@@ -231,7 +276,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), exceptionLogger);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet),"intentInfoSE.txt" ,exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
 
@@ -347,7 +392,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         intentInfo.comPonentName = intentUnit.comPonentName;
 
         intentInfo.comPonentAction = intentUnit.intent.action;
-        intentInfo.comPonentData=intentUnit.intent.data;
+        intentInfo.comPonentData = intentUnit.intent.data;
         intentInfo.comPonentCategory.addAll(intentUnit.intent.categories);
         intentInfo.comPonentExtraData.addAll(intentUnit.intent.myExtras);
 
@@ -802,39 +847,55 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             actionSet.add(intent.action);
             categorySet.addAll(intent.categories);
             for (IntentExtraKey intentExtraKey : intent.myExtras) {
-                Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKey);
-                if (intentExtraValueSet == null) {
-                    intentExtraValueSet = new HashSet<>();
+                if (isNumberType(intentExtraKey) || intentExtraKey.type.equals("java.lang.String")) {
+                    Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKey);
+                    if (intentExtraValueSet == null) {
+                        intentExtraValueSet = new HashSet<>();
+                    }
+
+                    intentExtraValueSet.add(new IntentExtraValue(intentExtraKey));
+
+                    intentExtraMap.put(intentExtraKey, intentExtraValueSet);
                 }
 
-                intentExtraValueSet.add(new IntentExtraValue(intentExtraKey));
-
-                intentExtraMap.put(intentExtraKey, intentExtraValueSet);
             }
         }
+
+        for (Map.Entry<IntentExtraKey, Set<IntentExtraValue>> entryIntentExtraMap : intentExtraMap.entrySet()) {
+            List intentExtraValueList = new ArrayList(entryIntentExtraMap.getValue());
+            if (intentExtraValueList.size() > 10) {
+                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+                writeFile.writeStr("intentExtraMap:" + intentExtraValueList.size() + "%%%%%" + appPath + "\n");
+                writeFile.close();
+            }
+
+//            while (entryIntentExtraMap.getValue().size() > 3) {
+//                entryIntentExtraMap.getValue().remove(intentExtraValueList.get(new Random().nextInt(intentExtraValueList.size())));
+//            }
+
+        }
+
 
         Set<String> selectActionSet = new HashSet<>();
         if (actionSet.size() == 0) {
             selectActionSet.add(null);
+        } else {
+            selectActionSet.addAll(actionSet);
         }
 
-        Set<Set<IntentExtraKey>> selectExtraSet = new HashSet<>();
+        Set<Set<IntentExtraValue>> selectExtraSet = new HashSet<>();
 
         List<IntentExtraKey> intentExtraMapKeyList = new ArrayList(intentExtraMap.keySet());
         getSelectExtraSet(selectExtraSet, 0, intentExtraMapKeyList, intentExtraMap, new HashSet<>());
 
         Set<Set<String>> selectCategorySet = new HashSet<>();
 
-        getSelectCategorySet(selectCategorySet, new ArrayList<>(categorySet), 0, new HashSet<>());
+        selectCategorySet.add(categorySet);
 
-
+        Map<String, String> componentNameAndType = new HashMap<>();//key:componentName  value:componentType
         for (Iterator<Edge> edgeIterator = myCallGraph.edgesOutOf(myCallGraph.dummyMainMethod); edgeIterator.hasNext(); ) {
-
             Edge outEdge = edgeIterator.next();
-
             SootMethod sootMethodTgt = outEdge.tgt();
-
-
             AXmlNode aXmlNode = eas.get(sootMethodTgt.getDeclaringClass().getName());
             if (aXmlNode == null) {
                 continue;
@@ -844,29 +905,43 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             String componentName = sootMethodTgt.getDeclaringClass().getName();
             String componentType = aXmlNode.getTag();
 
+            componentNameAndType.put(componentName, componentType);
+
+
+        }
+
+        Set<IntentUnit> oneUltiIntentSet = new HashSet<>();
+        for (Map.Entry<String, String> entryNameAndType : componentNameAndType.entrySet()) {
+
 
             for (String oneAction : selectActionSet) {
                 for (Set<String> oneCategorySet : selectCategorySet) {
-                    for (Set<IntentExtraKey> oneExtraSet : selectExtraSet) {
+                    for (Set<IntentExtraValue> oneExtraValueSet : selectExtraSet) {
                         Intent intent = new Intent();
                         intent.action = oneAction;
                         intent.categories.addAll(oneCategorySet);
-                        intent.myExtras.addAll(oneExtraSet);
-                        intent.targetComponent = sootMethodTgt.getBytecodeSignature() + "##" + sootMethodTgt.getDeclaringClass().getName();
-                        ultiIntentSet.add(new IntentUnit(intent, myCallGraph.targetUnit, componentType, componentName));
+                        Set<IntentExtraKey> intentExtraKeySet = new HashSet<>();
+                        for (IntentExtraValue intentExtraValue : oneExtraValueSet) {
+                            intentExtraKeySet.add(new IntentExtraKey(intentExtraValue));
+                        }
+
+                        intent.myExtras.addAll(intentExtraKeySet);
+                        intent.targetComponent = entryNameAndType.getKey();
+                        oneUltiIntentSet.add(new IntentUnit(intent, myCallGraph.targetUnit, entryNameAndType.getValue(), entryNameAndType.getKey()));
 
                     }
                 }
             }
-
-
         }
 
-        if (ultiIntentSet.size() > 100) {
-            WriteFile writeFile = new WriteFile("intent_exceed_count.txt", true, exceptionLogger);
-            writeFile.writeStr(ultiIntentSet.size() + "%%%%%" + appPath + "\n");
+
+        if (oneUltiIntentSet.size() > 100) {
+            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+            writeFile.writeStr(oneUltiIntentSet.size() + "%%%%%" + appPath + "\n");
             writeFile.close();
         }
+
+        ultiIntentSet.addAll(oneUltiIntentSet);
 
 
         ////----------------------------------------------------------------------------------------------------
@@ -895,9 +970,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
     }
 
-    private void getSelectExtraSet(Set<Set<IntentExtraKey>> selectExtraSet, int i, List<IntentExtraKey> intentExtraMapKeyList, Map<IntentExtraKey, Set<IntentExtraValue>> intentExtraMap, HashSet<IntentExtraKey> oneIntentExtraKeySet) {
+    private void getSelectExtraSet(Set<Set<IntentExtraValue>> selectExtraSet, int i, List<IntentExtraKey> intentExtraMapKeyList, Map<IntentExtraKey, Set<IntentExtraValue>> intentExtraMap, HashSet<IntentExtraValue> oneIntentExtraValueSet) {
         if (i >= intentExtraMapKeyList.size()) {
-            selectExtraSet.add(oneIntentExtraKeySet);
+            selectExtraSet.add(oneIntentExtraValueSet);
             return;
         }
 
@@ -906,9 +981,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKey);
 
         for (IntentExtraValue intentExtraValue : intentExtraValueSet) {
-            HashSet<IntentExtraKey> oneIntentExtraKeySetCopy = new HashSet<>(oneIntentExtraKeySet);
-            oneIntentExtraKeySetCopy.add(new IntentExtraKey(intentExtraValue));
-            getSelectExtraSet(selectExtraSet, i + 1, intentExtraMapKeyList, intentExtraMap, oneIntentExtraKeySetCopy);
+            HashSet<IntentExtraValue> oneIntentExtraValueSetCopy = new HashSet<>(oneIntentExtraValueSet);
+            oneIntentExtraValueSetCopy.add(intentExtraValue);
+            getSelectExtraSet(selectExtraSet, i + 1, intentExtraMapKeyList, intentExtraMap, oneIntentExtraValueSetCopy);
         }
 
 

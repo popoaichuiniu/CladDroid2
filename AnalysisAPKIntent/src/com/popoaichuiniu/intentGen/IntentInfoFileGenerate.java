@@ -10,10 +10,10 @@ import java.util.List;
 
 public class IntentInfoFileGenerate {
 
-    public static boolean generateIntentInfoFile(String appPath, List<IntentInfo> intentInfoList, Logger exceptionLogger) {
+    public static boolean generateIntentInfoFile(String appPath, List<IntentInfo> intentInfoList,String name, Logger exceptionLogger) {
 
 
-        WriteFile writeFileIntentInfo = new WriteFile(appPath + "_" + "intentInfoSE.txt", false, exceptionLogger);
+        WriteFile writeFileIntentInfo = new WriteFile(appPath + "_" + name, false, exceptionLogger);
         for (IntentInfo intentInfo : intentInfoList) {
             //            String testAppPath;
 //            String appPackageName;

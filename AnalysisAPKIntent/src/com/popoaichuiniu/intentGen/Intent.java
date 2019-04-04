@@ -84,20 +84,24 @@ public class Intent {
             return false;
         }
 
-        Set<IntentExtraValue> sum = new HashSet<>();
+        Set<IntentExtraValue> sum1 = new HashSet<>();
+        Set<IntentExtraValue> sum2 = new HashSet<>();
 
         for (IntentExtraKey intentExtraKey1 : set1) {
-            sum.add(new IntentExtraValue(intentExtraKey1));
+            sum1.add(new IntentExtraValue(intentExtraKey1));
         }
         for (IntentExtraKey intentExtraKey2 : set2) {
-            sum.add(new IntentExtraValue(intentExtraKey2));
+            sum2.add(new IntentExtraValue(intentExtraKey2));
         }
 
-        if (sum.size() != set1.size()) {
-            return false;
-        } else {
-            return true;
-        }
+       if(sum1.equals(sum2))
+       {
+           return  true;
+       }
+       else
+       {
+           return  false;
+       }
 
 
     }
@@ -115,7 +119,7 @@ public class Intent {
             return false;
         }
 
-        return cateSet1.containsAll(cateSet2);
+        return cateSet1.equals(cateSet2);
 
     }
 

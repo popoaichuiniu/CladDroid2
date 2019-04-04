@@ -14,64 +14,9 @@ import soot.toolkits.scalar.ForwardFlowAnalysis;
 import java.util.*;
 import java.util.regex.Pattern;
 
-class MethodSummary {
-    SootMethod sootMethod;
-    int paraIndex;
 
-    boolean isParaFlowToReturn;
-    IntentDataTransfer returnIntentDataTransfer = null;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MethodSummary that = (MethodSummary) o;
-        return paraIndex == that.paraIndex &&
-                Objects.equals(sootMethod, that.sootMethod);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(sootMethod, paraIndex);
-    }
-
-    public MethodSummary(SootMethod sootMethod, int paraIndex) {
-        this.sootMethod = sootMethod;
-        this.paraIndex = paraIndex;
-    }
-}
-
-class MethodUnit {
-    SootMethod sootMethod;
-    Unit unit;
-
-    public MethodUnit(SootMethod sootMethod, Unit unit) {
-        this.sootMethod = sootMethod;
-        this.unit = unit;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MethodUnit that = (MethodUnit) o;
-        return Objects.equals(sootMethod, that.sootMethod) &&
-                Objects.equals(unit, that.unit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sootMethod, unit);
-    }
-
-    @Override
-    public String toString() {
-        return "MethodUnit{" +
-                "sootMethod=" + sootMethod +
-                ", unit=" + unit +
-                '}';
-    }
-}
 
 public class IntentDataFlowAnalysisForDynamicSE extends ForwardFlowAnalysis<Unit, FlowSet<Value>> {//终极ok
     public static int ID = 0;

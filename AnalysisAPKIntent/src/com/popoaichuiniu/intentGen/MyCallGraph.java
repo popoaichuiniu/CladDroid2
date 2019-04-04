@@ -47,6 +47,8 @@ public class MyCallGraph extends CallGraph {
 
     Edge dummyMainMethodUnitOfEdge =null;
 
+    CallGraph cg=null;
+
 
     static {
 
@@ -67,6 +69,7 @@ public class MyCallGraph extends CallGraph {
         this.targetSootMethod = targetSootMethod;
         this.targetUnit = targetUnit;
         this.intentConditionTransformSymbolicExcutation = intentConditionTransformSymbolicExcutation;
+        this.cg=cg;
 
 
         for (SootMethod sootMethod : allMethodsInPathOfTarget) {
@@ -197,6 +200,14 @@ public class MyCallGraph extends CallGraph {
 
             if (allMethodsInPathOfTarget.contains(sootMethodSrc)) {
 
+//                if(sootMethodSrc.getBytecodeSignature().equals("<dummyMainClass: dummyMainMethod([Ljava/lang/String;)V>"))
+//                {
+//                    if(!intentConditionTransformSymbolicExcutation.eas.keySet().contains(targetSootMethod.getDeclaringClass().getName()))
+//                    {
+//                        System.out.println("zzzz");
+//                    }
+//                }
+
                 addEdge(edge);//允许环
                 Set<MyPairUnitToEdge> targetMyPairUnitToEdges = targetUnitInSootMethod.get(sootMethodSrc);
 
@@ -230,6 +241,11 @@ public class MyCallGraph extends CallGraph {
 
 
             SootMethod oneSootMethod = oneEntry.getKey();//
+
+            if(!intentConditionTransformSymbolicExcutation.hasExternIntentDataSootMethod.contains(oneSootMethod))
+            {
+                continue;
+            }
 
 
             Set<MyPairUnitToEdge> oneMyPairUnitToEdgeSet = oneEntry.getValue();

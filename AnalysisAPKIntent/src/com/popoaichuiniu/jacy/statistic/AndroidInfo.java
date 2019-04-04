@@ -48,6 +48,10 @@ public class AndroidInfo {//日志ok
 
 
     public static Map<String, Set<String>> getPermissionAndroguardMethods() {
+        if(permissionAndroguardMethods==null)
+        {
+            processJsonPermissionMapping();
+        }
         return permissionAndroguardMethods;
     }
 
