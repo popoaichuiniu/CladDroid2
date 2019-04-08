@@ -5,6 +5,8 @@ import com.popoaichuiniu.util.MyLogger;
 import com.popoaichuiniu.util.WriteFile;
 import org.apache.log4j.Logger;
 
+import java.io.File;
+
 
 public class SEUnHandleProcessStatistic {
 
@@ -17,11 +19,23 @@ public class SEUnHandleProcessStatistic {
 
 
     public static Logger exceptionLogger=new MyLogger(Config.statisticDir,"exceptionLogger").getLogger();
-    private static WriteFile writeFileResult=new WriteFile(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv",false,exceptionLogger);
+    private static WriteFile writeFileResult=null;
 
 
     static {
-        writeFileResult.writeStr("appPath,handledCount,allCount,handledCount/allCount\n");
+
+        File file=new File(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv");
+        if(file.exists())
+        {
+            writeFileResult=new WriteFile(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv",true,exceptionLogger);
+        }
+        else
+        {
+            writeFileResult=new WriteFile(Config.statisticDir+"/SEUnHandleProcessStatistic_result.csv",false,exceptionLogger);
+            writeFileResult.writeStr("appPath,handledCount,allCount,handledCount/allCount\n");
+        }
+
+
     }
 
 
@@ -50,11 +64,13 @@ public class SEUnHandleProcessStatistic {
     public void saveData()
     {
 
-        if(handledCount !=0&& unHandleCount!=0)
+        long allCount=handledCount+unHandleCount;
+        if(allCount!=0)
         {
-            writeFileResult.writeStr(appPath+","+ handledCount +","+(unHandleCount+handledCount)+","+((double)handledCount)/ (handledCount+unHandleCount) +"\n");
+            writeFileResult.writeStr(appPath+","+ handledCount +","+allCount+","+((double)handledCount)/ allCount +"\n");
 
         }
+
 
         writeFileResult.flush();
 

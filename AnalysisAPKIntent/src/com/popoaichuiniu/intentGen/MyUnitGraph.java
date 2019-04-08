@@ -138,8 +138,8 @@ public class MyUnitGraph extends BriefUnitGraph {
 
 
         //allUnitInPathGraphReduced.exportGexf(sootMethod.getName() + "_reduced");
-        WriteFile writeFileJimpleBodyReduced=new WriteFile(Config.intentConditionSymbolicExcutationResults+"/cfgReduced.txt",true,logger);
-        writeFileJimpleBodyReduced.writeStr("\n\n"+bodyMapping.jimpleBodyP.toString()+"\n\n");
+//        WriteFile writeFileJimpleBodyReduced=new WriteFile(Config.intentConditionSymbolicExcutationResults+"/cfgReduced.txt",true,logger);
+//        writeFileJimpleBodyReduced.writeStr("\n\n"+bodyMapping.jimpleBodyP.toString()+"\n\n");
 
 
     }

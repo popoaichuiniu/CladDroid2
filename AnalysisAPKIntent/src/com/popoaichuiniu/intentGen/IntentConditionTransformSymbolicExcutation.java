@@ -276,7 +276,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet),"intentInfoSE.txt" ,exceptionLogger);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), "intentInfoSE1.txt", exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
 
@@ -861,17 +861,53 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             }
         }
 
-        for (Map.Entry<IntentExtraKey, Set<IntentExtraValue>> entryIntentExtraMap : intentExtraMap.entrySet()) {
-            List intentExtraValueList = new ArrayList(entryIntentExtraMap.getValue());
-            if (intentExtraValueList.size() > 10) {
-                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
-                writeFile.writeStr("intentExtraMap:" + intentExtraValueList.size() + "%%%%%" + appPath + "\n");
-                writeFile.close();
+        while (true) {
+            long kind = 1;
+            int max = -1;
+            IntentExtraKey intentExtraKeyMax = null;
+            for (Map.Entry<IntentExtraKey, Set<IntentExtraValue>> entryIntentExtraMap : intentExtraMap.entrySet()) {
+
+
+                if (entryIntentExtraMap.getValue().size() > max) {
+                    max = entryIntentExtraMap.getValue().size();
+                    intentExtraKeyMax = entryIntentExtraMap.getKey();
+
+
+                }
+
+                kind = kind * entryIntentExtraMap.getValue().size();
+
+
             }
 
-//            while (entryIntentExtraMap.getValue().size() > 3) {
-//                entryIntentExtraMap.getValue().remove(intentExtraValueList.get(new Random().nextInt(intentExtraValueList.size())));
-//            }
+            if (kind < 100) {
+                break;
+
+            } else {
+
+                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+
+                Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKeyMax);
+
+
+                for (Iterator<IntentExtraValue> intentExtraValueIterator = intentExtraValueSet.iterator(); intentExtraValueIterator.hasNext(); ) {
+
+                    IntentExtraValue intentExtraValue = intentExtraValueIterator.next();
+
+                    intentExtraValueIterator.remove(); //每次选取元素最多的extra delete one
+
+
+                    writeFile.writeStr("delete:" + intentExtraValue + "%%%%%" + appPath + "\n");
+
+
+                    break;
+                }
+
+                writeFile.close();
+
+
+            }
+
 
         }
 
@@ -937,11 +973,21 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         if (oneUltiIntentSet.size() > 100) {
             WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
-            writeFile.writeStr(oneUltiIntentSet.size() + "%%%%%" + appPath + "\n");
+            writeFile.writeStr(oneUltiIntentSet.size() +"&"+"selectActionSetSize:"+selectActionSet.size() +" selectCategorySetSize:"+selectCategorySet.size()+" selectExtraSetSize:"+selectExtraSet.size()+" ComponentSize:"+componentNameAndType.size()+"%%%%%" + appPath + "\n");
             writeFile.close();
         }
+        else
+        {
 
-        ultiIntentSet.addAll(oneUltiIntentSet);
+            ultiIntentSet.addAll(oneUltiIntentSet);
+
+
+
+        }
+
+
+
+
 
 
         ////----------------------------------------------------------------------------------------------------
@@ -1238,8 +1284,11 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
             UnitPath oneUnitPath = pathMapPathCondEntry.getValue();
 
-            Pair<Intent, Boolean> soln = runSolvingPhase(sootMethod, onePath, oneUnitPath.getPathCond(), oneUnitPath.getDecl());
-
+            //----------------test--------------------
+            //Pair<Intent, Boolean> soln = runSolvingPhase(sootMethod, onePath, oneUnitPath.getPathCond(), oneUnitPath.getDecl());
+            Intent emptyIntent=new Intent();
+            Pair<Intent, Boolean> soln=new Pair<>(emptyIntent,true);
+            //-------------------------------------
             oneUnitPath.intentSoln = new IntentSoln(soln.getValue1(), soln.getValue0());
 
             unitPaths.add(oneUnitPath);

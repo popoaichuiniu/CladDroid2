@@ -35,5 +35,12 @@ public class IntentExtraValue {
         return Objects.hash(key, type, value);
     }
 
-
+    @Override
+    public String toString() {
+        return "IntentExtraValue{" +
+                "key='" + key + '\'' +
+                ", type='" + type + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

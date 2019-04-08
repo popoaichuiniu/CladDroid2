@@ -13,7 +13,7 @@ public class ComparePIPermissionSetWithTwoTool {
 
     public static Logger logger= new MyLogger(Config.DynamicSE_logDir+"/ComparePIPermissionSetWithTwoTool","exceptionLogger").getLogger();
     public static void main(String[] args) {
-        String toolDynamicSEResultDir= Config.DynamicSE_logDir+"/"+"testLog_2019_3_26_wandoujia_all_app_dynamicSE";
+        String toolDynamicSEResultDir= Config.DynamicSE_logDir+"/"+"testLog_2019_4_7_wandoujia_dynamicSE";
 
         String toolIntentFuzzer=Config.DynamicSE_logDir+"/"+"testLog_2019_3_30_test_intentFuzzer";
 
@@ -62,7 +62,7 @@ public class ComparePIPermissionSetWithTwoTool {
 
 
                 int den =plPointSetDYSE.size()+plPointSetIntentFuzzer.size()-intersection.size();
-                int num= 0-(plPointSetDYSEOnly.size()-plPointSetIntentFuzzerOnly.size());
+                int num= (plPointSetDYSEOnly.size()-plPointSetIntentFuzzerOnly.size());
                 if(den>0)
                 {   allAPPPermission=allAPPPermission+1;
                     float oneGrade=((float)num)/den;

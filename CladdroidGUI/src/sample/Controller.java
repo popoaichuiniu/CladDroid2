@@ -185,11 +185,11 @@ public class Controller {
 
 
 
-//                progressTextArea.appendText("2. Start find paths and get intent conditions\n");
-//                IntentConditionTransformSymbolicExcutation.main(null);
-//                progressTextArea.appendText("\tPart 2 complete!\n\n");
-//
-//
+                progressTextArea.appendText("2. Start find paths and get intent conditions\n");
+                IntentConditionTransformSymbolicExcutation.main(null);
+                progressTextArea.appendText("\tPart 2 complete!\n\n");
+
+
 //                progressTextArea.appendText("3. Start instrument and sign app\n");
 //                InstrumentAPPBeforePermissionInvoke.main(null);
 //                ApkSigner.main(null);
@@ -208,14 +208,14 @@ public class Controller {
 //                }
 //                progressTextArea.appendText("\tPart 4 complete!\n\n");
 
-                analysisStatus.setStart(false);
-                generateResult();
-
-                long endTime=System.nanoTime();
-                long useTime=endTime-startTime;
-                double time=((double)useTime/1E9)/60;
-                progressTextArea.appendText("Use Time: "+time+" minutes");
-                JOptionPane.showMessageDialog(null, "Analyse completely!");
+//                analysisStatus.setStart(false);
+//                generateResult();
+//
+//                long endTime=System.nanoTime();
+//                long useTime=endTime-startTime;
+//                double time=((double)useTime/1E9)/60;
+//                progressTextArea.appendText("Use Time: "+time+" minutes");
+//                JOptionPane.showMessageDialog(null, "Analyse completely!");
 
 
             }
