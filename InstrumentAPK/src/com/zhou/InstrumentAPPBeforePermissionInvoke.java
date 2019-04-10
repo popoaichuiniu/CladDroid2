@@ -181,6 +181,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
             writeFile_app_has_Instrumented=new WriteFile(hasInstrumentedFile.getAbsolutePath(), true,exceptionLogger);
 
+            WriteFile writeFileInstrumentTimeUse=new WriteFile(Config.instrument_logDir + "/" + appDirFile.getName() + "_instrument_timeUse.csv",false,exceptionLogger);
 
             for (File file : appDirFile.listFiles()) {
                 if (file.getName().endsWith(".apk")) {
@@ -202,12 +203,12 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
                                 instrumentArgs[2] = unitedAnalysis.getAbsolutePath();
 
                                 soot.G.reset();
-                                //try {
-                                    singleAPPAnalysis(instrumentArgs);
-//                                } catch (RuntimeException e) {
-//                                    writeFileAppInstrumentException.writeStr(e.getMessage() + " " + instrumentArgs[0] + "\n");
-//                                    writeFileAppInstrumentException.flush();
-//                                }
+
+                                long start_time=System.nanoTime();
+                                singleAPPAnalysis(instrumentArgs);
+                                long end_time=System.nanoTime();
+                                writeFileInstrumentTimeUse.writeStr(file.getAbsolutePath()+","+((double)(end_time-start_time)/1E9)+"\n");
+                                writeFileInstrumentTimeUse.flush();
 
 
                                 writeFile_app_has_Instrumented.writeStr(instrumentArgs[0] + "\n");
@@ -234,10 +235,14 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
                 }
             }
 
+            writeFileInstrumentTimeUse.close();
+
             writeFileAppInstrumentException.close();
 
 
             writeFile_app_has_Instrumented.close();
+
+
         } else {
             File unitedAnalysis = new File(appDirFile.getAbsolutePath() + "_UnitsNeedAnalysis.txt");
             instrumentArgs[0] = appDirFile.getAbsolutePath();
@@ -254,7 +259,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
     private static void singleAPPAnalysis(String[] args) {
 
         infoLogger.info(args[0]+" startInstrument");
-        String outputDir = new File(args[0]).getParentFile().getAbsolutePath() + "/" + "instrumented";
+        String outputDir = new File(args[0]).getParentFile().getAbsolutePath() + "/" + "instrumented_SE";
         File outputDirFile = new File(outputDir);
 
         if (!outputDirFile.exists()) {
