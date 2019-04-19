@@ -6,19 +6,21 @@ import org.apache.log4j.Logger;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import soot.SootMethod;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class EAExportUnitUsePermission {
 
-    private static String appDir = Config.big_app_set;
+    private static String appDir = Config.wandoijiaAPP;
 
-    private static Logger logger=new MyLogger(Config.unitNeedAnalysisGenerate+"/EAExportUnitUsePermission","exceptionLogger").getLogger();
+    private static Logger logger = new MyLogger(Config.unitNeedAnalysisGenerate + "/EAExportUnitUsePermission", "exceptionLogger").getLogger();
 
-
+    public static Map<String, Map<String, Set<String>>> export = new HashMap<>();
     public static void main(String[] args) {
 
         Map<String, Set<String>> sootMethodPermissionMap = AndroidInfo.getPermissionAndroguardMethods();
@@ -26,7 +28,7 @@ public class EAExportUnitUsePermission {
         Map<String, Set<String>> permissionAPIMap = Util.getPermissionAPIMap(sootMethodPermissionMap);
         Set<String> allPermissionsSet = new HashSet<>();
 
-        File xmlFile = new File(Config.unitNeedAnalysisGenerate+"/"+ new File(appDir).getName() + "_DIR_permissionUse.xml");
+        File xmlFile = new File(Config.unitNeedAnalysisGenerate + "/" + new File(appDir).getName() + "_DIR_permissionUse.xml");
 
         Document document = null;
         Element rootElement = null;
@@ -46,53 +48,78 @@ public class EAExportUnitUsePermission {
         }
 
 
+        ReadFileOrInputStream readFileOrInputStreamDangerous = new ReadFileOrInputStream("dangerousPermission", logger);
+        Set<String> dangerousPermissionSet = readFileOrInputStreamDangerous.getAllContentLinSet();
+
+        WriteFile writeFileDangerousApp = new WriteFile(Config.unitNeedAnalysisGenerate + "/" + "dangerousApp", false, logger);
+
+
         for (File file : new File(appDir).listFiles()) {
             if (file.getName().endsWith("apk_UnitsNeedAnalysis.txt"))//"1元乐购.apk_UnitsNeedAnalysis.txt"
             {
-                ReadFileOrInputStream readFileOrInputStream = new ReadFileOrInputStream(file.getAbsolutePath(),logger);
-                String apkName = appDir+"/"+file.getName().substring(0, file.getName().length() - 22);
+                ReadFileOrInputStream readFileOrInputStream = new ReadFileOrInputStream(file.getAbsolutePath(), logger);
+                String apkName = appDir + "/" + file.getName().substring(0, file.getName().length() - 22);
                 System.out.println(apkName);
+
+                Map<String, Set<String>> permissionUnitStrSetMap = export.get(apkName);
+                if (permissionUnitStrSetMap == null) {
+                    permissionUnitStrSetMap = new HashMap<>();
+                }
                 Set<String> appPermissionSet = new HashSet<>();
                 for (String str : readFileOrInputStream.getAllContentLinSet()) {
                     String[] contentArray = str.split("#");
                     String sootMethodSignature = contentArray[3];
-//                    System.out.println(sootMethodSignature);
-//                    System.out.println(sootMethodPermissionMap);
-                    if(sootMethodPermissionMap!=null)
-                    {
-                        if(sootMethodSignature!=null)
-                        {
-                            for (String permission : sootMethodPermissionMap.get(sootMethodSignature)) {
+                    String method = contentArray[0];
+                    String unit = contentArray[2];
 
-                                appPermissionSet.add(permission);
-                                allPermissionsSet.add(permission);
+
+                    Set<String> permissionSet = sootMethodPermissionMap.get(sootMethodSignature);
+
+                    if (permissionSet != null) {
+                        for (String permission : permissionSet) {
+
+                            appPermissionSet.add(permission);
+                            allPermissionsSet.add(permission);
+
+                            Set<String> unitStrSet = permissionUnitStrSetMap.get(permission);
+
+                            if (unitStrSet == null) {
+                                unitStrSet = new HashSet<>();
                             }
-                        }
-                        else
-                        {
-                            System.out.println(sootMethodSignature);
-                        }
 
-                    }
-                    else
-                    {
-                        System.out.println(sootMethodPermissionMap);
+                            //unitStrSet.add(method+"#"+unit);
+                            unitStrSet.add(unit);
+                            permissionUnitStrSetMap.put(permission, unitStrSet);
+
+
+                        }
                     }
 
 
+                }
 
+                export.put(apkName,permissionUnitStrSetMap);
+
+
+
+                for (String dangerousPermission : dangerousPermissionSet) {
+                    if (appPermissionSet.contains(dangerousPermission)) {
+                        writeFileDangerousApp.writeStr(apkName + "\n");
+                    }
                 }
 
                 addElementNode(document, rootElement, apkName, appPermissionSet);
 
 
             }
+
         }
 
+        writeFileDangerousApp.close();
 
         try {
 
-            XMLWriter xmlWriter = new XMLWriter(new FileWriter(Config.unitNeedAnalysisGenerate+"/"+ new File(appDir).getName() + "_DIR_permissionUse.xml"));
+            XMLWriter xmlWriter = new XMLWriter(new FileWriter(Config.unitNeedAnalysisGenerate + "/" + new File(appDir).getName() + "_DIR_permissionUse.xml"));
             xmlWriter.write(document);
             xmlWriter.close();
 
@@ -101,7 +128,7 @@ public class EAExportUnitUsePermission {
         }
 
 
-        WriteFile writeFileAllPermission = new WriteFile(Config.unitNeedAnalysisGenerate+"/"+ new File(appDir).getName() + "_DIR_AllPermission.txt", false,logger);
+        WriteFile writeFileAllPermission = new WriteFile(Config.unitNeedAnalysisGenerate + "/" + new File(appDir).getName() + "_DIR_AllPermission.txt", false, logger);
         for (String permissionString : allPermissionsSet) {
 
             writeFileAllPermission.writeStr(permissionString + "\n");//all permission

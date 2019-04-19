@@ -335,7 +335,7 @@ def generateIntent(appPath, appPackageName, comPonentType, comPonentName, action
                     oneCategorySet, data, oneExtraSet)
                     if (intent not in has_tested_intent):
                         all_intent_count = all_intent_count + 1
-                        if (all_intent_count > 30):
+                        if (all_intent_count > 15):
                             intent_count_exceed = open(logDir + "/" + "intent_count_exceed.txt", "a+")
                             intent_count_exceed.write(
                             appPath + "\n" + getStr(actionSet) + "\n" + getStr(categorySet) + "\n" + getStr(
@@ -839,6 +839,7 @@ if __name__ == '__main__':
         # apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app/instrumented'
         apkDir = '/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestWebView2/app/build/outputs/apk/debug/app-debug.apk'
         apkDir = '/media/mobile/myExperiment/apps/apks_wandoujia/apks/all_app'
+        #apkDir='/zhoumingsong/code'
         logDir = '/home/zms/logger_file/DynamicSE/testLog'
     else:
         apkDir = sys.argv[1]

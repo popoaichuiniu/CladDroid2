@@ -1,9 +1,6 @@
 package com.popoaichuiniu.experiment;
 
-import com.popoaichuiniu.util.Config;
-import com.popoaichuiniu.util.ExcelWrite;
-import com.popoaichuiniu.util.MyLogger;
-import com.popoaichuiniu.util.ReadFileOrInputStream;
+import com.popoaichuiniu.util.*;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -12,7 +9,7 @@ import java.util.*;
 public class ComputePlPermissions {
 
 
-    private   String appDir= Config.DynamicSE_logDir+"/"+"testLog_2019_3_30_test_intentFuzzer";
+    private   String appDir= "/home/zms/logger_file/DynamicSE/testLog_select_code_2019_4_12";
     private  Logger logger=null;
     public HashSet<String> apps=new HashSet<>();
     public Map<String,Map<String,Set<String>>> permissionAppPLCountMap=new HashMap<>();
@@ -58,8 +55,8 @@ public class ComputePlPermissions {
                     continue;
                 }
 
-                String unitStr=strArray[6]+strArray[8];
-
+                //String unitStr=strArray[4]+"#"+strArray[6];//method+unit
+                String unitStr=strArray[6];//unit
 
                 //------------------------------
                 Set<String> PLUnitStrSet=permissionPLCountMap.get(permission);
@@ -129,6 +126,57 @@ public class ComputePlPermissions {
         System.out.println("over");
 
         System.out.println(apps.size());
+
+        WriteFile writeFilePermissionResultsPermission=new WriteFile(appDir+"/"+"permissionLeakConclusion.txt",false,logger);
+        for(Map.Entry<String,Map<String,Set<String>>> entryPermissionAppPLCount: permissionAppPLCountMap.entrySet())
+        {
+            String permission=entryPermissionAppPLCount.getKey();
+
+            writeFilePermissionResultsPermission.writeStr(permission+":\n");
+
+            Set<String> points=new HashSet<>();
+            for(Map.Entry<String,Set<String>>  entryAppPLCount: entryPermissionAppPLCount.getValue().entrySet())
+            {
+                points.addAll(entryAppPLCount.getValue());
+            }
+
+
+            for(String point:points)
+            {
+                writeFilePermissionResultsPermission.writeStr(point+"\n");
+            }
+
+            writeFilePermissionResultsPermission.writeStr("\n\n");
+        }
+
+        writeFilePermissionResultsPermission.writeStr("permission leak type count: "+permissionAppPLCountMap.keySet().size()+"\n");
+        writeFilePermissionResultsPermission.writeStr("--------------------------------------------------------\n");
+
+
+        for(Map.Entry<String,Map<String,Set<String>>> entryAppPermissionPLCount: appPermissionPLCountMap.entrySet())
+        {
+            String app=entryAppPermissionPLCount.getKey();
+
+            writeFilePermissionResultsPermission.writeStr(app+":\n");
+
+            Set<String> points=new HashSet<>();
+            for(Map.Entry<String,Set<String>>  entryPermissionPLCount: entryAppPermissionPLCount.getValue().entrySet())
+            {
+                points.addAll(entryPermissionPLCount.getValue());
+            }
+
+
+            for(String point:points)
+            {
+                writeFilePermissionResultsPermission.writeStr(point+"\n");
+            }
+
+            writeFilePermissionResultsPermission.writeStr("\n\n");
+        }
+
+        writeFilePermissionResultsPermission.writeStr("permission leak app count: "+appPermissionPLCountMap.keySet().size()+"\n");
+
+        writeFilePermissionResultsPermission.close();
     }
 
     public static void main(String[] args) {
