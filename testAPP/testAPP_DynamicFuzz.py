@@ -1,203 +1,10 @@
-import subprocess
-import time
 import os
-import threading
 import sys
-import psutil
+
 from DataStructure import *
+from APPTestFunction import *
 
 
-def execuateCmd(cmd):
-    # status,output=subprocess.getstatusoutput(cmd);
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    outs, errs = proc.communicate()
-    return proc.returncode, str(outs, encoding="utf-8") + "##" + str(errs, encoding="utf-8"), proc
-
-
-def execuateCmdPreventBlock(cmd):
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    try:
-        outs, errs = proc.communicate(timeout=100)
-        return proc.returncode, str(outs, encoding="utf-8") + "##" + str(errs, encoding="utf-8"), proc
-    except subprocess.TimeoutExpired:
-        proc.kill()
-        try:
-            outs, errs = proc.communicate(timeout=300)
-            return proc.returncode, str(outs, encoding="utf-8") + "##" + str(errs, encoding="utf-8"), proc
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            return -1, '', None
-
-
-def isADBWorkNormal():  # ok
-    adb_status = "adb devices"
-    status, output, proc = execuateCmdPreventBlock(adb_status)
-    print("*" + output + "*")
-    if (status == 0):
-        index1 = output.find("emulator")
-        index2 = output.find("offline")
-        if (index1 != -1 and index2 == -1):
-            return True
-        else:
-            return False
-    else:
-        return False
-
-
-def isTestAPPAlive():  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False;
-    else:
-        app_status = "adb shell ps |grep jacy.popoaichuiniu.com.testpermissionleakge"
-        # app_status = "adb shell ps |grep com.android.settings"
-        status, output, proc = execuateCmdPreventBlock(app_status)
-        if (output.find("jacy.popoaichuiniu.com.testpermissionleakge") != -1):
-            print(output)
-            return True
-        else:
-            return False
-
-
-# def isGuakeAlive():#guake has not started completely ,but this method return true
-#         app_status = "ps -a |grep guake"
-#         status, output,proc = execuateCmd(app_status)
-#         index=-1
-#         count=0
-#         isFirstIn=True
-#
-#         while (isFirstIn or index!=-1):
-#             isFirstIn=False
-#             index=output.find("guake",index+1)
-#             if(index!=-1):
-#                 count=count+1
-#
-#         if count ==3:
-#             print("guake ok")
-#             return True
-#         else:
-#             return False
-
-def installNewAPP(appPath):  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False;
-    else:
-        install_app = "adb install -r" + " " + appPath
-        status, output, proc = execuateCmdPreventBlock(install_app)
-        if (status == 0):
-            index = output.find("Failure")
-            if (index != -1):
-                info = appPath + "安装失败" + "eeeeeeeeeeee"
-                print(info)
-                return False, info
-            else:
-                info = appPath + "安装成功"
-                print(info)
-                return True, info
-        else:
-            info = "安装失败" + "error:" + str(status) + "," + output + "eeeeeeeeeeee"
-            print(info)
-            return False, info
-
-
-def getPackageName(appPath):  #
-    get_package_cmd = "aapt dump badging " + appPath
-    status, output, proc = execuateCmdPreventBlock(get_package_cmd)
-    if (status == 0):
-        # print("*"+output+"*")
-        tempStr = output.split("\n")[0]
-        # print(tempStr)
-        index1 = tempStr.find("'")
-        index2 = tempStr.find("'", index1 + 1)
-        packageName = tempStr[index1 + 1:index2]
-
-        return packageName
-    else:
-        print("error:" + str(status) + "," + output)
-        return None
-
-
-def uninstall_app_by_packageName(packageName):
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False
-    else:
-        install_app = "adb uninstall " + " " + packageName
-        status, output, proc = execuateCmdPreventBlock(install_app)
-        if (status == 0):  # Success
-            index = output.find("Success")
-            if (index != -1):
-                print(packageName + "卸载成功\n")
-                return True
-            else:
-                print(packageName + "卸载失败\n")
-                return False
-
-        else:
-            print("error:" + str(status) + "," + output)
-            return False
-
-
-def uninstall_app_by_path(appPath):  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False
-    else:
-        killTestAPP()  # 虽然testapp已经进程没了但是还是要杀一下，不知道为啥
-        packageName = getPackageName(appPath)
-        if (packageName == None):
-            return False
-        return uninstall_app_by_packageName(packageName)
-
-
-def pushTestFile(appPath_testFile):  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False
-    else:
-        push_testFile = "adb push " + appPath_testFile + " " + "/data/data/jacy.popoaichuiniu.com.testpermissionleakge/files/intentInfo.txt"
-        status, output, proc = execuateCmdPreventBlock(push_testFile)
-        if (status == 0):
-            info = appPath_testFile + "推送测试文件成功"
-            print(info)
-            return True, info
-        else:
-            info = "推送测试文件失败" + "error:" + status + "," + output + +"eeeeeeeeeeee"
-            print(info)
-            return False, info
-
-
-def startTestAPP():  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False
-    start_app_cmd = "adb shell am start -n jacy.popoaichuiniu.com.testpermissionleakge/jacy.popoaichuiniu.com.testpermissionleakge.MainActivity"
-    status, output, proc = execuateCmdPreventBlock(start_app_cmd)
-    if (status == 0):
-        index = output.find("Error")
-        if (index != -1):
-            print(output)
-            return False, "启动APP失败" + output + "eeeeeeeeeeee"
-        else:
-            return True, "启动APP成功" + output
-
-    else:
-        print("启动测试APP失败")
-        return False, "启动APP失败" + output + "eeeeeeeeeeee"
-
-
-def killTestAPP():  # ok
-    if (not isADBWorkNormal()):
-        print("adb work abnormal!")
-        return False;
-    kill_app_cmd = "adb shell am force-stop jacy.popoaichuiniu.com.testpermissionleakge"
-    status, output, proc = execuateCmdPreventBlock(kill_app_cmd)
-    if (status == 0):
-        return True
-    else:
-        print("杀死app失败," + output)
-        return False
 
 
 def analysisAPKDir(apkDir):  #
@@ -217,33 +24,8 @@ def analysisAPKDir(apkDir):  #
         failure_log.close()
 
 
-def waitForTestStop():
-    count = 0
-    flagADB = isADBWorkNormal()
-    flagTestAPPLive = isTestAPPAlive()
-    while ((not flagADB) or flagTestAPPLive):
-        if (not flagADB):
-            print("adb工作不正常")
-        else:
-            print("等待当前APP测试结束！" + str(count))
-            count = count + 1
-            if (count > 10):
-                killTestAPP()
-        time.sleep(2)
-        flagADB = isADBWorkNormal()
-        flagTestAPPLive = isTestAPPAlive()
 
 
-def rebootPhone():
-    cmd = "adb shell reboot -p"
-    status, output, proc = execuateCmdPreventBlock(cmd)
-    if (status == 0):
-        print("emulator has closed")
-        threadList = initialLogger(logDir)
-        return True
-    else:
-        print("关闭手机失败," + output)
-        return False
 
 
 
@@ -314,7 +96,7 @@ def getCombinationExtraSet(extraMap, extraMapKeyList, index, selectExtraSet, one
 
 
 def monitorFeedBack():
-    while (not isADBWorkNormal()):
+    while (not Test.isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
     log_getFeedBack = 'guake -e  "adb logcat | grep ZMSGetInfo | tee   ' + logDir + '/ZMSGetInfo.log "'
@@ -356,7 +138,7 @@ def test(test_apkPath, initial_intent_file_path):  # intent_file and instrumente
     app_test_status = open(logDir + "/app_test_status", 'a+')
     print(test_apkPath + "11111111111111111111111111111111111" + "\n")
     app_test_status.write(test_apkPath + "11111111111111111111111111111111111" + "\n")
-    waitForTestStop()
+    Test.waitForTestStop()
     print("开始测试新app")
 
     initial_intent = open(initial_intent_file_path, 'r')
@@ -475,11 +257,11 @@ def getStr(oneSet):
 
 
 def clearLog():
-    while (not isADBWorkNormal()):
+    while (not Test.isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
     log_clear = 'adb logcat -c'
-    status, output, proc = execuateCmdPreventBlock(log_clear)
+    status, output, proc = Test.execuateCmdPreventBlock(log_clear)
     if (status == 0):
         return True
     else:
@@ -487,11 +269,11 @@ def clearLog():
 
 
 def dumpLog():
-    while (not isADBWorkNormal()):
+    while (not Test.isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
     log_dump = 'adb logcat -d >>' + logDir + '/ZMSGetInfo.log'
-    status, output, proc = execuateCmdPreventBlock(log_dump)
+    status, output, proc = Test.execuateCmdPreventBlock(log_dump)
     if (status == 0):
         return True
     else:
@@ -508,14 +290,14 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         test_app_intent_count.close()
         return flag_test
     start_time = time.time()
-    flag_install = installNewAPP(
+    flag_install = Test.installNewAPP(
         "/media/mobile/myExperiment/idea_ApkIntentAnalysis/android_project/Camera/TestPermissionleakge/app/build/outputs/apk/debug/app-debug.apk")
     if (not flag_install):
         print("install error")
         raise RuntimeError
-    flag_install, install_info = installNewAPP(apkPath)
+    flag_install, install_info = Test.installNewAPP(apkPath)
     if (flag_install):
-        flag_pushTestFile, push_info = pushTestFile(testFile)
+        flag_pushTestFile, push_info = Test.pushTestFile(testFile)
         if (flag_pushTestFile):
 
             flag_clear = clearLog()
@@ -524,7 +306,7 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
                 runLogFile.write("clearLog failure\n")
                 return False
 
-            flag_test_APP, test_info = startTestAPP()
+            flag_test_APP, test_info = Test.startTestAPP()
             if (flag_test_APP):
                 flag_test = True
                 print("oneIntent启动成功!" + "\n")
@@ -543,9 +325,9 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
         print("待测apk安装失败")
         app_test_status.write(install_info + "\n")
 
-    waitForTestStop()
-    uninstall_app_by_path(apkPath)
-    uninstall_app_by_packageName("jacy.popoaichuiniu.com.testpermissionleakge")
+    Test.waitForTestStop()
+    Test.uninstall_app_by_path(apkPath)
+    Test.uninstall_app_by_packageName("jacy.popoaichuiniu.com.testpermissionleakge")
     flag_dump = dumpLog()
     if (not flag_dump):
         flag_test = False
@@ -558,8 +340,8 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
     intent_test_count = intent_test_count + 1
     app_test_count = app_test_count + 1
     if (intent_test_count % 15 == 0):
-        if (rebootPhone()):
-            while (not isADBWorkNormal()):
+        if (Test.rebootPhone()):
+            while (not Test.isADBWorkNormal()):
                 print("等待手机启动！")
                 time.sleep(1)
         else:
@@ -573,7 +355,7 @@ def start_one_intent_test(apkPath, testFile, app_test_status):
 
 def filterLog(file, message, returnFile):
     filter = 'cat ' + file + " | grep " + message + " > " + returnFile
-    status, output, proc = execuateCmdPreventBlock(filter)
+    status, output, proc = Test.execuateCmdPreventBlock(filter)
     if (status == 0):
         return returnFile
     else:
@@ -582,7 +364,7 @@ def filterLog(file, message, returnFile):
 
 def filterLogAppend(file, message, returnFile):
     filter = 'cat ' + file + " | grep " + message + " >>" + returnFile
-    status, output, proc = execuateCmdPreventBlock(filter)
+    status, output, proc = Test.execuateCmdPreventBlock(filter)
     if (status == 0):
         return returnFile
     else:
@@ -610,8 +392,8 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
             runLogFile.write(str(err) + "\n")
             once_getInfoFile.close()
             os.remove(logDir + '/ZMSGetInfo.log')
-            if (rebootPhone()):
-                while (not isADBWorkNormal()):
+            if (Test.rebootPhone()):
+                while (not Test.isADBWorkNormal()):
                     print("等待手机启动！")
                     time.sleep(1)
             else:
@@ -704,24 +486,11 @@ def analysisNewIntentFileToGetNewIntent(actionSet, categorySet, extraSet):
     return flag_add_new
 
 
-class MyThread(threading.Thread):
-    def __init__(self, cmd):
-        threading.Thread.__init__(self)
-
-        self.cmd = cmd
-
-    def run(self):
-        print(self.cmd + "start...")
-        proc = subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self.proc = proc
-        outs, errs = proc.communicate()
-        print(self.cmd + " cmd over@@@@@@@@@@@@@@@@@@@@")
-        print("output info: " + str(outs, encoding="utf-8") + "##" + str(errs, encoding="utf-8"))
 
 
 def setLogSize():
     cmd = 'adb logcat -G 16M'
-    status, output, p = execuateCmdPreventBlock(cmd)
+    status, output, p = Test.execuateCmdPreventBlock(cmd)
     if (status == 0):
         return True
     else:
@@ -740,7 +509,7 @@ def initialLogger(logDir):
     threadStart.start()
     threadList.append(threadStart)
     while (
-            not isADBWorkNormal()):  # adb devices work  normal and install app inmmediately and install successfully and app is not installed
+            not Test.isADBWorkNormal()):  # adb devices work  normal and install app inmmediately and install successfully and app is not installed
         print("等待adb...")
         time.sleep(1)
 
@@ -769,38 +538,7 @@ def getFileContent(path):
     return content
 
 
-def killProcessTree(pid):
-    try:
-        rootProc = psutil.Process(pid)
-        print("childProcess:" + str(rootProc.pid) + "  " + str(rootProc.gids()))
-        procs = rootProc.children()
-        for proc in procs:
-            try:
-                if proc.is_running():  # one process died may cause other processes died
 
-                    if (len(proc.children()) == 0):
-                        cmd = "kill -9 " + str(proc.pid)
-                        status, output, p = execuateCmdPreventBlock(cmd)
-                        if (status == 0):
-                            print("exe over  " + cmd)
-                        else:
-                            print("exe fail  " + cmd)
-
-                    else:
-                        killProcessTree(proc.pid)
-            except psutil.NoSuchProcess:  # one Proc
-                runLogFile.write("NoSuchProcess" + "\n")
-
-        if (rootProc.is_running()):
-            cmd = "kill -9 " + str(rootProc.pid)
-            status, output, p = execuateCmdPreventBlock(cmd)
-            if (status == 0):
-                print("exe over  " + cmd)
-            else:
-                print("exe fail  " + cmd)
-
-    except psutil.NoSuchProcess:  # rootProc
-        runLogFile.write("NoSuchProcess" + "\n")
 
 
 intent_test_count = 0
@@ -852,7 +590,7 @@ if __name__ == '__main__':
     allInfoFile = open(logDir + "/" + baseName + "_allInfo.log", 'a+')
     threadList = []
     threadList = initialLogger(logDir)
-    while (not isADBWorkNormal()):
+    while (not Test.isADBWorkNormal()):
         print("等待adb工作正常")
         time.sleep(1)
     if (not os.path.isdir(apkDir)):  # is apk
@@ -899,7 +637,7 @@ if __name__ == '__main__':
         has_process_app_list.close()
     print("curProcess:" + str(os.getpid()) + " " + str(os.getgid()))
     for oneThread in threadList:
-        killProcessTree(oneThread.proc.pid)
+        Test.killProcessTree(oneThread.proc.pid)
     print("over")
     runLogFile.close()
     newInfoFile.close()

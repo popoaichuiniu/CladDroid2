@@ -14,3 +14,10 @@ testAPP/venv*/
 experiment_data_paper/
 platforms/
 Z3_RUNTIME_SPECS_DIR/
+anaconda3/
+android-sdk/
+android-studio/
+idea-IC-191.6707.61/
+jdk1.8.0_161/
+pycharm-community-2019.1.1/
+.android/

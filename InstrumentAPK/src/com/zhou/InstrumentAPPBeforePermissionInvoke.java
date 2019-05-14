@@ -16,8 +16,10 @@ import soot.tagkit.BytecodeOffsetTag;
 
 public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
+    public static  String instrumented_dir_name=Config.default_instrumented_name;
 
     private static boolean isTest = Config.isTest;
+
 
     private static Map<String, Set<String>> apiPermissionMap = AndroidInfo.getPermissionAndroguardMethods();
 
@@ -29,9 +31,9 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
     protected void internalTransform(Body b, String phaseName, Map<String, String> options) {
 
         //System.out.println("xxxxxx");
-        if (Util.isLibraryClass(b.getMethod().getBytecodeSignature())) {
-            return;
-        }
+//        if (Util.isLibraryClass(b.getMethod().getBytecodeSignature())) {
+//            return;
+//        }
 
         // TODO Auto-generated method stub
 //		System.out.println("************************************************");
@@ -188,7 +190,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
                     if (hasInstrumentAPP.contains(file.getAbsolutePath())) {
                         continue;
                     }
-                    File unitedAnalysis = new File(file.getAbsolutePath() + "_UnitsNeedAnalysis.txt");
+                    File unitedAnalysis = new File(file.getAbsolutePath() + "_UnitsNeedInstrument.txt");
                     if (unitedAnalysis.exists()) {
 
                         Thread childThread = new Thread(new Runnable() {
@@ -244,9 +246,9 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
 
         } else {
-            File unitedAnalysis = new File(appDirFile.getAbsolutePath() + "_UnitsNeedAnalysis.txt");
+            File unitedAnalysis = new File(appDirFile.getAbsolutePath() + "_UnitsNeedInstrument.txt");
             instrumentArgs[0] = appDirFile.getAbsolutePath();
-            instrumentArgs[1] = "/home/zms/platforms";
+            instrumentArgs[1] = "platforms";
             instrumentArgs[2] = unitedAnalysis.getAbsolutePath();
 
             soot.G.reset();
@@ -259,7 +261,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
     private static void singleAPPAnalysis(String[] args) {
 
         infoLogger.info(args[0]+" startInstrument");
-        String outputDir = new File(args[0]).getParentFile().getAbsolutePath() + "/" + "instrumented_SE";
+        String outputDir = new File(args[0]).getParentFile().getAbsolutePath() + "/" + instrumented_dir_name;
         File outputDirFile = new File(outputDir);
 
         if (!outputDirFile.exists()) {

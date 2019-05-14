@@ -78,7 +78,7 @@ public class Scene  //extends AbstractHost
 	private final int defaultSdkVersion = 15;
 	private final Map<String, Integer> maxAPIs = new HashMap<String, Integer>();
 
-	public Scene ( Singletons.Global g )
+	public Scene ( soot.Singletons.Global g )
     {
     	setReservedNames();
     	

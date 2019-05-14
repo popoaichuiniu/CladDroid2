@@ -10,8 +10,9 @@ import java.util.Set;
 public class ApkSigner {
 
     public static boolean isTest = Config.isTest;
-    
-    public static  String defaultAppDirPath=Config.defaultAppDirPath;
+
+
+    public static  String instrumented_dir_name=Config.default_instrumented_name;
 
     private static Logger exceptionLogger = new MyLogger(Config.apkSignerLog, "exception").getLogger();
     private static Logger infoLogger = new MyLogger(Config.apkSignerLog, "info").getLogger();
@@ -22,13 +23,13 @@ public class ApkSigner {
 
         String appDir = null;
         if (isTest) {
-            appDir = new File(Config.testAppPath).getParentFile().getAbsolutePath() + "/" + "instrumented/" + new File(Config.testAppPath).getName();
+            appDir = new File(Config.testAppPath).getParentFile().getAbsolutePath() + "/" + instrumented_dir_name+"/" + new File(Config.testAppPath).getName();
         } else {
-            File dirFile = new File(defaultAppDirPath);
+            File dirFile = new File(Config.defaultAppDirPath);
             if (dirFile.isDirectory()) {
-                appDir = defaultAppDirPath + "/" + "instrumented";
+                appDir = Config.defaultAppDirPath + "/" + instrumented_dir_name;
             } else {
-                appDir = dirFile.getParentFile().getAbsolutePath() + "/" + "instrumented/" + dirFile.getName();
+                appDir = dirFile.getParentFile().getAbsolutePath() + "/" + instrumented_dir_name+"/" + dirFile.getName();
             }
 
         }

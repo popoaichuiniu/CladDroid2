@@ -1,6 +1,5 @@
 package com.popoaichuiniu.intentGen;
 
-
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraph;
 import com.popoaichuiniu.jacy.statistic.AndroidCallGraphProxy;
 import com.popoaichuiniu.jacy.statistic.AndroidInfo;
@@ -10,50 +9,50 @@ import soot.*;
 import soot.jimple.InvokeExpr;
 import soot.jimple.Stmt;
 import soot.jimple.toolkits.callgraph.CallGraph;
+import soot.jimple.toolkits.callgraph.Edge;
 
 import java.io.*;
 import java.util.*;
 
-public class GenerateUnitNeedInstrumentLog {
+public class GenerateUnitNeedInstrumentLog {//日志设置合理
 
 
     private static boolean isTest = Config.isTest;
 
     private static boolean isJustThinkDangerous = false;//是否只考虑危险API
 
-    private static Logger exceptionLogger = new MyLogger(Config.unitNeedInstrument, "generateUnitNeedInstrumentAppException").getLogger();
+    private static Logger exceptionLogger = new MyLogger(Config.unitNeedAnalysisGenerate, "GenerateUnitNeedInstrumentLogAppException").getLogger();
 
+    private static Logger infoLogger = new MyLogger(Config.unitNeedAnalysisGenerate, "GenerateUnitNeedInstrumentLogInfo").getLogger();
 
     static Set<String> dangerousPermissions = null;
     static Map<String, Set<String>> apiPermissionMap = AndroidInfo.getPermissionAndroguardMethods();
 
-    private static void generateUnitInstrument(List<SootMethod> entryPoints, CallGraph cg, String appPath) throws IOException {
+    private static void generateUnitToAnalysis(CallGraph cg, String appPath) throws IOException {
 
 
-        Hierarchy h = Scene.v().getActiveHierarchy();
+        Set<SootMethod> roMethods=new HashSet<>();
+
+        for(Iterator<Edge> edgeIterator=cg.iterator();edgeIterator.hasNext();)
+        {
+            Edge edge=edgeIterator.next();
+            roMethods.add(edge.src());
+            roMethods.add(edge.tgt());
+        }
 
 
-        List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(entryPoints, cg);
+        WriteFile writeFileUnitsNeedAnalysis=null;
 
-        System.out.println(appPath);
-        //System.out.println(Util.getPrintCollectionStr(Util.cgOutOfSootMethods(entryPoints.get(0))));
-        System.out.println(Util.getPrintCollectionStr(roMethods));
-
-
-
-
-        WriteFile writeFileUnitsNeedInstrument=null;
-
-
-        writeFileUnitsNeedInstrument=new WriteFile(appPath + "_" + "UnitsNeedInstrument.txt",false,exceptionLogger);
+        writeFileUnitsNeedAnalysis=new WriteFile(appPath + "_" + "UnitsNeedInstrument.txt",false,exceptionLogger);
 
 
         for (SootMethod sootMethod : roMethods) {
 
-            List<Unit> unitsNeedInstrument = new ArrayList<>();
+            List<Unit> unitsNeedToAnalysis = new ArrayList<>();
 
-            Body body = sootMethod.getActiveBody();
-            if (body != null) {
+
+            if (sootMethod.hasActiveBody()) {
+                Body body = sootMethod.getActiveBody();
                 PatchingChain<Unit> units = body.getUnits();
                 for (Unit unit : units) {
 
@@ -63,21 +62,22 @@ public class GenerateUnitNeedInstrumentLog {
                     }
                     Set<String> permissionSet = apiPermissionMap.get(calleeSootMethod.getBytecodeSignature());
                     if (permissionSet != null && isExistSimilarItem(permissionSet, dangerousPermissions)) {
-                        unitsNeedInstrument.add(unit);
+                        unitsNeedToAnalysis.add(unit);
+                        infoLogger.info(appPath + " ##" + unit + " need analysis!");
 
                     }
 
 
                 }
 
-                for (Unit unit : unitsNeedInstrument) {
+                for (Unit unit : unitsNeedToAnalysis) {
 
                     Stmt stmt = (Stmt) unit;
                     InvokeExpr invokeExpr = stmt.getInvokeExpr();
                     if (invokeExpr == null) {
-                        throw new RuntimeException("illegal unitNeedInstrument" + unit.toString());
+                        throw new RuntimeException("illegal unitNeedAnalysis" + unit.toString());
                     } else {
-                        writeFileUnitsNeedInstrument.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
+                        writeFileUnitsNeedAnalysis.writeStr(sootMethod.getBytecodeSignature() + "#" + unit.getTag("BytecodeOffsetTag") + "#" + unit.toString() + "#" + invokeExpr.getMethod().getBytecodeSignature() + "\n");
                     }
 
 
@@ -86,7 +86,7 @@ public class GenerateUnitNeedInstrumentLog {
             }
         }
 
-        writeFileUnitsNeedInstrument.close();
+        writeFileUnitsNeedAnalysis.close();
 
 
     }
@@ -134,7 +134,7 @@ public class GenerateUnitNeedInstrumentLog {
         if (appDir.isDirectory()) {
 
 
-            File hasGeneratedAPPFile = new File(Config.unitNeedInstrument + "/" + appDir.getName() + "_hasGeneratedAPP.txt");
+            File hasGeneratedAPPFile = new File(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt");
             if (!hasGeneratedAPPFile.exists()) {
                 try {
                     hasGeneratedAPPFile.createNewFile();
@@ -144,12 +144,12 @@ public class GenerateUnitNeedInstrumentLog {
             }
 
 
-            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedInstrument + "/" + appDir.getName() + "_hasGeneratedAPP.txt", exceptionLogger).getAllContentLinSet();
-            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedInstrument + "/" + appDir.getName() + "_hasGeneratedAPP.txt", true, exceptionLogger);//分析一个目录中途断掉，可以继续重新分析
+            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt", exceptionLogger).getAllContentLinSet();
+            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt", true, exceptionLogger);//分析一个目录中途断掉，可以继续重新分析
 
 
             for (File apkFile : appDir.listFiles()) {
-                if ((apkFile.getName().endsWith(".apk") && (!apkFile.getName().contains("_signed_zipalign")))||apkFile.getName().endsWith("1_signed_zipalign.apk")) {
+                if (apkFile.getName().endsWith(".apk") && (!apkFile.getName().contains("_signed_zipalign"))) {
                     if (hasGenerateAppSet.contains(apkFile.getAbsolutePath())) {
                         continue;
                     }
@@ -160,6 +160,7 @@ public class GenerateUnitNeedInstrumentLog {
                         public void run() {
 
                             try {
+
 
                                 singleAPPAnalysis(apkFile.getAbsolutePath());//分析每一个app
 
@@ -207,15 +208,19 @@ public class GenerateUnitNeedInstrumentLog {
 
     public static void singleAPPAnalysis(String appPath) throws IOException {
 
+        infoLogger.info("start Part1's analysis " + appPath);
+        AndroidInfo androidInfo = new AndroidInfo(appPath, exceptionLogger);
+
 
         AndroidCallGraph androidCallGraph = new AndroidCallGraphProxy(appPath, Config.androidJar, exceptionLogger).androidCallGraph;
 
         CallGraph cGraph = androidCallGraph.getCg();
 
-        List<SootMethod> entryPoints = Collections.singletonList(androidCallGraph.getEntryPoint());
+        infoLogger.info("CG and CFG has constructed!");
 
-        generateUnitInstrument(entryPoints, cGraph, appPath);
+
+        generateUnitToAnalysis(cGraph, appPath);
+
+        infoLogger.info("Part1's analysis completed! " + appPath);
     }
 }
-
-

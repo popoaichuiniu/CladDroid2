@@ -45,7 +45,7 @@ import com.google.common.base.Joiner;
 
 /** Main class for Soot; provides Soot's command-line user interface. */
 public class Main {
-	public Main(Singletons.Global g) {
+	public Main(soot.Singletons.Global g) {
 	}
 	public static Main v() {
 		return G.v().soot_Main();

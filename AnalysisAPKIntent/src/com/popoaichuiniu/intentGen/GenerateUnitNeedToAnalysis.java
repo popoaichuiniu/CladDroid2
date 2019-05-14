@@ -33,19 +33,18 @@ public class GenerateUnitNeedToAnalysis {//日志设置合理
         List<SootMethod> roMethods = Util.getMethodsInReverseTopologicalOrder(ea_entryPoints, cg);
 
 
+        WriteFile writeFileUnitsNeedAnalysis = null;
 
-
-        WriteFile writeFileUnitsNeedAnalysis=null;
-
-        writeFileUnitsNeedAnalysis=new WriteFile(appPath + "_" + "UnitsNeedAnalysis.txt",false,exceptionLogger);
+        writeFileUnitsNeedAnalysis = new WriteFile(appPath + "_" + "UnitsNeedAnalysis.txt", false, exceptionLogger);
 
 
         for (SootMethod sootMethod : roMethods) {
 
             List<Unit> unitsNeedToAnalysis = new ArrayList<>();
 
-            Body body = sootMethod.getActiveBody();
-            if (body != null) {
+
+            if (sootMethod.hasActiveBody()) {
+                Body body = sootMethod.getActiveBody();
                 PatchingChain<Unit> units = body.getUnits();
                 for (Unit unit : units) {
 

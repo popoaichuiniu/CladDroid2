@@ -276,7 +276,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         writeFile_intent_ulti.close();
 
-        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), "intentInfoSE1.txt", exceptionLogger);//产生test-app读取的测试用例文件
+        IntentInfoFileGenerate.generateIntentInfoFile(appPath, new ArrayList<>(intentInfoSet), "intentInfoSE.txt", exceptionLogger);//产生test-app读取的测试用例文件
 
         seUnHandleProcessStatistic.saveData();
 
@@ -861,7 +861,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             }
         }
 
-        while (true) {
+        while (true) {//刪除過多的元素
             long kind = 1;
             int max = -1;
             IntentExtraKey intentExtraKeyMax = null;

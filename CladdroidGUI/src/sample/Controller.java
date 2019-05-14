@@ -1,5 +1,6 @@
 package sample;
 
+import com.popoaichuiniu.intentGen.GenerateUnitNeedInstrumentLog;
 import com.popoaichuiniu.intentGen.GenerateUnitNeedToAnalysis;
 import com.popoaichuiniu.intentGen.IntentConditionTransformSymbolicExcutation;
 import com.popoaichuiniu.util.*;
@@ -151,6 +152,7 @@ public class Controller {
 
     private void doAnalysis() {
 
+        Config.isTest=false;
         Config.defaultAppDirPath = chooseFilePath;
 
         Thread childThreadAnalysis = new Thread(new Runnable() {
@@ -158,6 +160,7 @@ public class Controller {
             public void run() {
 
                 long startTime=System.nanoTime();
+
                 String logPaths []={Config.unitNeedAnalysisGenerate+"/"+"GenerateUnitNeedToAnalysisInfo.log",
                         Config.logDir+"/"+"com.popoaichuiniu.intentGen.IntentConditionTransformSymbolicExcutation.log",
                         Config.instrument_logDir+"/"+"InstrumentInfo.log",
@@ -180,6 +183,7 @@ public class Controller {
                 progressTextArea.appendText("1. Start construct CG and CFG,\n");
                 progressTextArea.appendText("\tfind potential privilege leak units\n");
                 GenerateUnitNeedToAnalysis.main(null);
+                GenerateUnitNeedInstrumentLog.main(null);
                 progressTextArea.appendText("\tPart 1 complete!\n\n");
 
 
@@ -190,32 +194,33 @@ public class Controller {
                 progressTextArea.appendText("\tPart 2 complete!\n\n");
 
 
-//                progressTextArea.appendText("3. Start instrument and sign app\n");
-//                InstrumentAPPBeforePermissionInvoke.main(null);
-//                ApkSigner.main(null);
-//                progressTextArea.appendText("\tPart 3 complete!\n\n");
+                progressTextArea.appendText("3. Start instrument and sign app\n");
+                InstrumentAPPBeforePermissionInvoke.main(null);
+                ApkSigner.main(null);
+                progressTextArea.appendText("\tPart 3 complete!\n\n");
 
-//                progressTextArea.appendText("4. Start test app\n");
-//                try {
-//                    int status = exeCmd(new File("testAPP"), infoLogger,exceptionLogger,"/home/lab418/anaconda3/bin/python", "testAPP.py", chooseFilePath,Config.dynamicTestLogDir);
-//                    if (status != 0) {
-//                        exceptionLogger.error(status + " exeCmd error");
-//                    }
-//                } catch (IOException e) {
-//                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-//                } catch (InterruptedException e) {
-//                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
-//                }
-//                progressTextArea.appendText("\tPart 4 complete!\n\n");
 
-//                analysisStatus.setStart(false);
-//                generateResult();
-//
-//                long endTime=System.nanoTime();
-//                long useTime=endTime-startTime;
-//                double time=((double)useTime/1E9)/60;
-//                progressTextArea.appendText("Use Time: "+time+" minutes");
-//                JOptionPane.showMessageDialog(null, "Analyse completely!");
+                progressTextArea.appendText("4. Start test app\n");
+                try {
+                    int status = exeCmd(new File("testAPP"), infoLogger,exceptionLogger,"../anaconda3/bin/python3", "testAPP.py", chooseFilePath,"../"+Config.dynamicTestLogDir,Config.instrumented_name_SE);
+                    if (status != 0) {
+                        exceptionLogger.error(status + " exeCmd error");
+                    }
+                } catch (IOException e) {
+                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
+                } catch (InterruptedException e) {
+                    exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e));
+                }
+                progressTextArea.appendText("\tPart 4 complete!\n\n");
+
+                analysisStatus.setStart(false);
+                generateResult();
+
+                long endTime=System.nanoTime();
+                long useTime=endTime-startTime;
+                double time=((double)useTime/1E9)/60;
+                progressTextArea.appendText("Use Time: "+time+" minutes");
+                JOptionPane.showMessageDialog(null, "Analyse completely!");
 
 
             }
