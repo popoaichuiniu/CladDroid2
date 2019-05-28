@@ -129,7 +129,7 @@ public class GenerateDataFlowInUnitNeedToAnalysis {//未实现
         if (appDir.isDirectory()) {
 
 
-            File hasGeneratedAPPFile = new File(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP.txt");
+            File hasGeneratedAPPFile = new File(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP_GenerateDataFlowInUnitNeedToAnalysis.txt");
             if (!hasGeneratedAPPFile.exists()) {
                 try {
                     hasGeneratedAPPFile.createNewFile();
@@ -139,8 +139,8 @@ public class GenerateDataFlowInUnitNeedToAnalysis {//未实现
             }
 
 
-            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP.txt",logger).getAllContentLinSet();
-            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP.txt", true,logger);//分析一个目录中途断掉，可以继续重新分析
+            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP_GenerateDataFlowInUnitNeedToAnalysis.txt",logger).getAllContentLinSet();
+            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedAnalysisGenerate+"/"+appDir.getName() + "_hasGeneratedAPP_GenerateDataFlowInUnitNeedToAnalysis.txt", true,logger);//分析一个目录中途断掉，可以继续重新分析
 
 
 

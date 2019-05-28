@@ -192,8 +192,18 @@ public class MainActivity extends AppCompatActivity {
 
             if (!comPonentType.equals("null")) {
 
+//              String appPackageName = str[1];
+//              String comPonentType = str[2];
+//              String comPonentName = str[3];
+//
+//              String comPonentAction = str[4];
+//              String comPonentCategory = str[5];
+//              String comPonentData = str[6];
+//              String comPonentExtraData = str[7];
 
+              Log.i("ZMSInstrument", "intent:"+appPath+"#"+appPackageName+"#"+comPonentType+"#"+comPonentName+"#"+comPonentAction+"#"+comPonentCategory+"#"+comPonentData+"#"+comPonentExtraData);
               if (sendIntentByType(intent, comPonentType, comPonentName)) {
+
                 Message message = new Message();
                 message.what = 1;
                 Bundle bundle = new Bundle();
@@ -202,6 +212,13 @@ public class MainActivity extends AppCompatActivity {
                 mHandler.sendMessage(message);
 
                 Log.i("ZMSStart", comPonentType + ":" + comPonentName + "启动成功！");
+
+                try {
+                  Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                  e.printStackTrace();
+
+                }
 
 
               }
@@ -220,12 +237,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-          Thread.sleep(5000);
+          Thread.sleep(3000);
         } catch (InterruptedException e) {
           e.printStackTrace();
 
         }
+
         Log.i("ZMSStart", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& app is died now!");
+
         android.os.Process.killProcess(android.os.Process.myPid());
 
       }

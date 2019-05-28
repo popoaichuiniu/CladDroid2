@@ -1,0 +1,6 @@
+myCallGraph_P:方法数：2 边数：1 app-debug.apk
+开始求callgraph所有路径 app-debug.apk
+callgraph所有路径求解完毕！ app-debug.apk
+myCallGraph_P:方法数：556 边数：1627 app-debug.apk
+开始求callgraph所有路径 app-debug.apk
+callgraph所有路径求解完毕！ app-debug.apk

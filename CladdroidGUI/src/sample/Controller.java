@@ -220,6 +220,7 @@ public class Controller {
                 long useTime=endTime-startTime;
                 double time=((double)useTime/1E9)/60;
                 progressTextArea.appendText("Use Time: "+time+" minutes");
+
                 JOptionPane.showMessageDialog(null, "Analyse completely!");
 
 
@@ -232,7 +233,7 @@ public class Controller {
 
     private void generateResult() {
 
-        WriteFile writeFile = new WriteFile(Config.dynamicTestLogDir + "/" + "AnalysisResult.txt", false, exceptionLogger);
+        WriteFile writeFile = new WriteFile(Config.dynamicTestLogDir + "/" + "exploits.txt", false, exceptionLogger);
         String result = getResult();
         writeFile.writeStr(result);
         writeFile.close();
@@ -246,17 +247,24 @@ public class Controller {
         List<String> listString = readFileOrInputStream.getAllContentList();
 
         String result = "";
+        String lastLine=null;
         for (String str : listString) {
-            try {
-                String[] strArray = str.split("#");
-                String permissionStr = strArray[strArray.length - 1].substring(1, strArray[strArray.length - 1].length());
-                String appName = strArray[2];
-                String unit=strArray[6];
 
-                result = result + appName +"\n"+unit +"\n" + permissionStr + "\n\n\n";
+            try {
+
+                if(lastLine!=null&&lastLine.contains("intent:")&&str.contains("#Instrument#"))
+                {
+
+                     int start=lastLine.indexOf("intent:");
+                    result=result+lastLine.substring(start+7)+"\n";
+                }
+
+
             } catch (Exception e) {
                 exceptionLogger.error(e.getMessage() + "##" + ExceptionStackMessageUtil.getStackTrace(e) + "##" + "analyse ZMSInstrument.log error!");
             }
+
+            lastLine=str;
 
 
         }
@@ -269,13 +277,46 @@ public class Controller {
     @FXML
     private void viewResult() {
 
-        try {
 
-            String analysisResultFile = Config.dynamicTestLogDir + "/" + "AnalysisResult.txt";
-            exeCmd(new File("."), infoLogger,exceptionLogger,"gedit", analysisResultFile);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+                    String analysisResultFile = Config.dynamicTestLogDir + "/" + "ZMSInstrument.log";
+                    exeCmd(new File("."), infoLogger,exceptionLogger,"gedit", analysisResultFile);
+
+
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        }).start();
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+
+
+
+                    String exploitsFile = Config.dynamicTestLogDir + "/" + "exploits.txt";
+                    exeCmd(new File("."), infoLogger,exceptionLogger,"gedit", exploitsFile);
+
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        }).start();
+
+
 
 
     }

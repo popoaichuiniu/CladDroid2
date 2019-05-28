@@ -134,7 +134,7 @@ public class GenerateUnitNeedInstrumentLog {//日志设置合理
         if (appDir.isDirectory()) {
 
 
-            File hasGeneratedAPPFile = new File(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt");
+            File hasGeneratedAPPFile = new File(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP_GenerateUnitNeedInstrumentLog.txt");
             if (!hasGeneratedAPPFile.exists()) {
                 try {
                     hasGeneratedAPPFile.createNewFile();
@@ -144,8 +144,8 @@ public class GenerateUnitNeedInstrumentLog {//日志设置合理
             }
 
 
-            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt", exceptionLogger).getAllContentLinSet();
-            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP.txt", true, exceptionLogger);//分析一个目录中途断掉，可以继续重新分析
+            Set<String> hasGenerateAppSet = new ReadFileOrInputStream(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP_GenerateUnitNeedInstrumentLog.txt", exceptionLogger).getAllContentLinSet();
+            WriteFile writeFileHasGenerateUnitNeedAnalysis = new WriteFile(Config.unitNeedAnalysisGenerate + "/" + appDir.getName() + "_hasGeneratedAPP_GenerateUnitNeedInstrumentLog.txt", true, exceptionLogger);//分析一个目录中途断掉，可以继续重新分析
 
 
             for (File apkFile : appDir.listFiles()) {

@@ -13,7 +13,7 @@ public class VulnerableActivity extends AppCompatActivity {
         int choice = new Integer(5);
         if (choice == 5)//
         {
-            if (getIntent().getBundleExtra("bundle").getString("bundleKey").equals("bundleData"))
+            if (getIntent().getStringExtra("ttt").equals("777"))
             {
                 SmsManager.getDefault().sendTextMessage("123456789", null, getIntent().getStringExtra("content"), null, null);
             }

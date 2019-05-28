@@ -149,6 +149,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
         String appDir = null;
         if (isTest) {
             appDir = Config.testAppPath;
+            appDir="/media/jacy/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/apps/test_dir";
         } else {
             appDir = Config.defaultAppDirPath;
         }
@@ -201,7 +202,7 @@ public class InstrumentAPPBeforePermissionInvoke extends BodyTransformer {
 
                                 Long startTime = System.nanoTime();
                                 instrumentArgs[0] = file.getAbsolutePath();
-                                instrumentArgs[1] = "/home/zms/platforms";
+                                instrumentArgs[1] = "platforms";
                                 instrumentArgs[2] = unitedAnalysis.getAbsolutePath();
 
                                 soot.G.reset();

@@ -251,7 +251,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         saveIntent(allIntentConditionOfOneApp, appPath);//所有intent结果（startPoint到tgtAPI）
 
 
-        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "all_intent_exceed_count.txt", true, exceptionLogger);
+        WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "all_intent_count.txt", true, exceptionLogger);
         writeFile.writeStr(ultiIntentSet.size() + "%%%%%" + appPath + "\n");
         writeFile.close();
 
@@ -861,55 +861,55 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             }
         }
 
-        while (true) {//刪除過多的元素
-            long kind = 1;
-            int max = -1;
-            IntentExtraKey intentExtraKeyMax = null;
-            for (Map.Entry<IntentExtraKey, Set<IntentExtraValue>> entryIntentExtraMap : intentExtraMap.entrySet()) {
-
-
-                if (entryIntentExtraMap.getValue().size() > max) {
-                    max = entryIntentExtraMap.getValue().size();
-                    intentExtraKeyMax = entryIntentExtraMap.getKey();
-
-
-                }
-
-                kind = kind * entryIntentExtraMap.getValue().size();
-
-
-            }
-
-            if (kind < 100) {
-                break;
-
-            } else {
-
-                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
-
-                Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKeyMax);
-
-
-                for (Iterator<IntentExtraValue> intentExtraValueIterator = intentExtraValueSet.iterator(); intentExtraValueIterator.hasNext(); ) {
-
-                    IntentExtraValue intentExtraValue = intentExtraValueIterator.next();
-
-                    intentExtraValueIterator.remove(); //每次选取元素最多的extra delete one
-
-
-                    writeFile.writeStr("delete:" + intentExtraValue + "%%%%%" + appPath + "\n");
-
-
-                    break;
-                }
-
-                writeFile.close();
-
-
-            }
-
-
-        }
+//        while (true) {//刪除過多的元素
+//            long kind = 1;
+//            int max = -1;
+//            IntentExtraKey intentExtraKeyMax = null;
+//            for (Map.Entry<IntentExtraKey, Set<IntentExtraValue>> entryIntentExtraMap : intentExtraMap.entrySet()) {
+//
+//
+//                if (entryIntentExtraMap.getValue().size() > max) {
+//                    max = entryIntentExtraMap.getValue().size();
+//                    intentExtraKeyMax = entryIntentExtraMap.getKey();
+//
+//
+//                }
+//
+//                kind = kind * entryIntentExtraMap.getValue().size();
+//
+//
+//            }
+//
+//            if (kind < 100) {
+//                break;
+//
+//            } else {
+//
+//                WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+//
+//                Set<IntentExtraValue> intentExtraValueSet = intentExtraMap.get(intentExtraKeyMax);
+//
+//
+//                for (Iterator<IntentExtraValue> intentExtraValueIterator = intentExtraValueSet.iterator(); intentExtraValueIterator.hasNext(); ) {
+//
+//                    IntentExtraValue intentExtraValue = intentExtraValueIterator.next();
+//
+//                    intentExtraValueIterator.remove(); //每次选取元素最多的extra delete one
+//
+//
+//                    writeFile.writeStr("delete:" + intentExtraValue + "%%%%%" + appPath + "\n");
+//
+//
+//                    break;
+//                }
+//
+//                writeFile.close();
+//
+//
+//            }
+//
+//
+//        }
 
 
         Set<String> selectActionSet = new HashSet<>();
@@ -946,6 +946,18 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         }
 
+        long allIntentSizeInOnePath=0;
+        allIntentSizeInOnePath=componentNameAndType.size()*selectActionSet.size()*selectCategorySet.size()*selectExtraSet.size();
+
+        if(allIntentSizeInOnePath>1000)
+        {
+            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+            writeFile.writeStr(allIntentSizeInOnePath +"&"+"selectActionSetSize:"+selectActionSet.size() +" selectCategorySetSize:"+selectCategorySet.size()+" selectExtraSetSize:"+selectExtraSet.size()+" ComponentSize:"+componentNameAndType.size()+"%%%%%" + appPath+"&&&&&"+myCallGraph.targetSootMethod+"#"+myCallGraph.targetUnit+"\n");
+            writeFile.close();
+
+            return;
+        }
+
         Set<IntentUnit> oneUltiIntentSet = new HashSet<>();
         for (Map.Entry<String, String> entryNameAndType : componentNameAndType.entrySet()) {
 
@@ -971,19 +983,22 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
         }
 
 
-        if (oneUltiIntentSet.size() > 100) {
-            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
-            writeFile.writeStr(oneUltiIntentSet.size() +"&"+"selectActionSetSize:"+selectActionSet.size() +" selectCategorySetSize:"+selectCategorySet.size()+" selectExtraSetSize:"+selectExtraSet.size()+" ComponentSize:"+componentNameAndType.size()+"%%%%%" + appPath + "\n");
-            writeFile.close();
-        }
-        else
-        {
+//        if (oneUltiIntentSet.size() > 100) {
+//            WriteFile writeFile = new WriteFile(Config.intentConditionSymbolicExcutationResults + "/" + "intent_exceed_count.txt", true, exceptionLogger);
+//            writeFile.writeStr(oneUltiIntentSet.size() +"&"+"selectActionSetSize:"+selectActionSet.size() +" selectCategorySetSize:"+selectCategorySet.size()+" selectExtraSetSize:"+selectExtraSet.size()+" ComponentSize:"+componentNameAndType.size()+"%%%%%" + appPath + "\n");
+//            writeFile.close();
+//        }
+//        else
+//        {
+//
+//            ultiIntentSet.addAll(oneUltiIntentSet);
+//
+//
+//
+//        }
 
-            ultiIntentSet.addAll(oneUltiIntentSet);
 
-
-
-        }
+        ultiIntentSet.addAll(oneUltiIntentSet);
 
 
 
@@ -1285,9 +1300,9 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
             UnitPath oneUnitPath = pathMapPathCondEntry.getValue();
 
             //----------------test--------------------
-            //Pair<Intent, Boolean> soln = runSolvingPhase(sootMethod, onePath, oneUnitPath.getPathCond(), oneUnitPath.getDecl());
-            Intent emptyIntent=new Intent();
-            Pair<Intent, Boolean> soln=new Pair<>(emptyIntent,true);
+            Pair<Intent, Boolean> soln = runSolvingPhase(sootMethod, onePath, oneUnitPath.getPathCond(), oneUnitPath.getDecl());
+//            Intent emptyIntent=new Intent();
+//            Pair<Intent, Boolean> soln=new Pair<>(emptyIntent,true);
             //-------------------------------------
             oneUnitPath.intentSoln = new IntentSoln(soln.getValue1(), soln.getValue0());
 
@@ -4586,6 +4601,7 @@ public class IntentConditionTransformSymbolicExcutation extends SceneTransformer
 
         if (exeModelTest) {
             appDir = Config.testAppPath;
+            //appDir="/media/jacy/4579cb84-2b61-4be5-a222-bdee682af51b/myExperiment/apps/video_demo/app-debug.apk";
         } else {
 
             appDir = Config.defaultAppDirPath;

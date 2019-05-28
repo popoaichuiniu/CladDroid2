@@ -49,7 +49,7 @@ public class Config {
 
     public static String droidBench="/media/mobile/myExperiment/apps/DroidBench/apk/InterComponentCommunication";
 
-    public static String experimentDataDir="/media/mobile/myExperiment/apps/0_9_18_27_36_45_";
+    public static String experimentDataDir="../apps/0_9_18_27_36_45_";
 
     public static String videoDemo="/home/lab418/videoDemo.apk";
     public static String videoDemoDir="/home/lab418";

@@ -1,0 +1,2 @@
+Intent{extras=[], action='null', data='null', targetComponent='null', categories=[]}
+Intent{extras=[{key='content', type='java.lang.String', value='!0!'}, {key='ttt', type='java.lang.String', value='"777"'}], action='null', data='null', targetComponent='null', categories=[]}

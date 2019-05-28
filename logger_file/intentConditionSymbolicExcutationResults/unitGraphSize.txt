@@ -1,0 +1,3 @@
+17 9#app-debug.apk#<jacy.popoaichuiniu.com.videodemoapp.VulnerableActivity: onCreate(Landroid/os/Bundle;)V>#virtualinvoke $r5.<android.telephony.SmsManager: void sendTextMessage(java.lang.String,java.lang.String,java.lang.String,android.app.PendingIntent,android.app.PendingIntent)>("123456789", null, $r4, null, null)
+17 10#app-debug.apk#<jacy.popoaichuiniu.com.videodemoapp.VulnerableActivity: onCreate(Landroid/os/Bundle;)V>#virtualinvoke $r0.<jacy.popoaichuiniu.com.videodemoapp.VulnerableActivity: void setContentView(int)>(2131296285)
+17 10#app-debug.apk#<jacy.popoaichuiniu.com.videodemoapp.VulnerableActivity: onCreate(Landroid/os/Bundle;)V>#specialinvoke $r0.<android.support.v7.app.AppCompatActivity: void onCreate(android.os.Bundle)>($r1)
