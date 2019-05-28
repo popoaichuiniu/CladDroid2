@@ -219,10 +219,19 @@ if __name__ == '__main__':
         time.sleep(1)
     if(os.path.exists(apkDir)):
         if (not os.path.isdir(apkDir)):  # is apk
+            print("apk:" + apkDir)
             parent_path = os.path.dirname(apkDir)
+            print("parent_dir:"+parent_path)
+            intent_file=''
             apk_name = os.path.basename(apkDir)
-            intent_file = parent_path + "/" + apk_name + "_" + "intentInfoSE.txt"
-            apkDir = parent_path + "/" + instrumented_dir_name + "/" + apk_name.replace(".apk", "_signed_zipalign.apk")
+            if(parent_path==""):
+                intent_file = apk_name + "_" + "intentInfoSE.txt"
+                apkDir = instrumented_dir_name + "/" + apk_name.replace(".apk","_signed_zipalign.apk")
+            else:
+                intent_file = parent_path + "/" + apk_name + "_" + "intentInfoSE.txt"
+                apkDir = parent_path + "/" + instrumented_dir_name + "/" + apk_name.replace(".apk","_signed_zipalign.apk")
+            print("intent_file:"+intent_file)
+            print("signed_zipalign:" + apkDir)
             if (os.path.exists(intent_file) and os.path.exists(apkDir)):
                 start_time = time.time()
                 flag_test = test(apkDir, intent_file)
